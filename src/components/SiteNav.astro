@@ -24,6 +24,12 @@ const current = activePath.replace(/\/$/, "") || "/";
       <a href="/python" class:list={["nav-link", { "nav-link--active": current === "/python" }]} id="nav-python" aria-current={current === "/python" ? "page" : undefined}>Python</a>
       <a href="/java" class:list={["nav-link", { "nav-link--active": current === "/java" }]} id="nav-java" aria-current={current === "/java" ? "page" : undefined}>Java</a>
       <a href="/examples" class:list={["nav-link", { "nav-link--active": current === "/examples" }]} id="nav-examples" aria-current={current === "/examples" ? "page" : undefined}>Examples</a>
+      <a href="/tester" class:list={["nav-link", "nav-link--tester", { "nav-link--active": current === "/tester" }]} id="nav-tester" aria-current={current === "/tester" ? "page" : undefined}>
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true" style="flex-shrink:0">
+          <path d="M2 6.5h9M7 2.5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Tester
+      </a>
       <a href="/pdf" class="nav-link nav-link--cta" id="nav-pdf">PDF ↓</a>
     </div>
   </div>
@@ -114,6 +120,18 @@ const current = activePath.replace(/\/$/, "") || "/";
   .nav-link--cta:hover {
     background: var(--color-accent);
     color: #fff;
+  }
+
+  .nav-link--tester {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--color-accent);
+  }
+
+  .nav-link--tester:hover {
+    background: var(--color-accent-subtle);
+    color: var(--color-accent);
   }
 
   @media (max-width: 600px) {

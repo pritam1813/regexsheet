@@ -1,0 +1,501 @@
+---
+// LiveRegexTester.astro — zero-dependency live regex tester
+// Props are used as fallback defaults; URL params (?p= &t=) take priority at runtime.
+interface Props {
+  initialPattern?: string;
+  initialTest?: string;
+}
+
+const { initialPattern = "", initialTest = "" } = Astro.props;
+---
+
+<div class="tester-card" id="live-tester">
+  <!-- Pattern row -->
+  <div class="field-row">
+    <label class="field-label" for="regex-pattern">
+      <span class="field-label-icon" aria-hidden="true">/</span>
+      Pattern
+    </label>
+    <div class="pattern-wrap">
+      <span class="delim" aria-hidden="true">/</span>
+      <input
+        id="regex-pattern"
+        class="pattern-input"
+        type="text"
+        value={initialPattern}
+        placeholder="e.g. \b\w+@\w+\.\w+\b"
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="off"
+        spellcheck="false"
+        aria-label="Regex pattern"
+      />
+      <span class="delim" aria-hidden="true">/</span>
+
+      <!-- Flags -->
+      <div class="flags-group" role="group" aria-label="Regex flags">
+        {["g", "i", "m", "s"].map((f) => (
+          <label class="flag-label" title={`Flag: ${f}`}>
+            <input
+              type="checkbox"
+              class="flag-checkbox"
+              data-flag={f}
+              aria-label={`Flag ${f}`}
+            />
+            <span class="flag-chip">{f}</span>
+          </label>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- Test string row -->
+  <div class="field-row">
+    <label class="field-label" for="test-string">
+      <span class="field-label-icon" aria-hidden="true">#</span>
+      Test String
+    </label>
+    <div class="test-wrap">
+      <div class="test-mirror" aria-hidden="true" id="test-mirror"></div>
+      <textarea
+        id="test-string"
+        class="test-textarea"
+        placeholder="Paste or type your test string here…"
+        rows="6"
+        spellcheck="false"
+        autocorrect="off"
+        autocapitalize="off"
+      >{initialTest}</textarea>
+    </div>
+  </div>
+
+  <!-- Status bar -->
+  <div class="status-bar" id="regex-status" aria-live="polite" aria-atomic="true">
+    <span class="status-idle">Enter a pattern above to see matches.</span>
+  </div>
+
+  <!-- Match pills -->
+  <ul class="match-list" id="match-list" aria-label="Match results" hidden></ul>
+</div>
+
+<style>
+  /* ── Card ───────────────────────────────────────────────── */
+  .tester-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+  }
+
+  /* ── Field rows ─────────────────────────────────────────── */
+  .field-row {
+    padding: var(--space-md) var(--space-lg);
+    border-bottom: 1px solid var(--color-border-soft);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .field-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-muted);
+    user-select: none;
+  }
+
+  .field-label-icon {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    opacity: 0.7;
+  }
+
+  /* ── Pattern input ──────────────────────────────────────── */
+  .pattern-wrap {
+    display: flex;
+    align-items: center;
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .pattern-wrap:focus-within {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgb(91 33 182 / 0.1);
+  }
+
+  .delim {
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    opacity: 0.45;
+    padding: 0 6px;
+    pointer-events: none;
+    user-select: none;
+    flex-shrink: 0;
+  }
+
+  .pattern-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: var(--font-mono);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--color-ink);
+    padding: 10px 4px;
+    min-width: 0;
+  }
+
+  .pattern-input::placeholder {
+    color: var(--color-muted-soft);
+    font-weight: 400;
+  }
+
+  /* ── Flags ──────────────────────────────────────────────── */
+  .flags-group {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0 10px;
+    border-left: 1px solid var(--color-border);
+    flex-shrink: 0;
+    height: 100%;
+  }
+
+  .flag-label {
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .flag-checkbox {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .flag-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: var(--radius-xs);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--color-muted);
+    background: transparent;
+    border: 1px solid transparent;
+    transition: all 0.12s ease;
+  }
+
+  .flag-label:hover .flag-chip {
+    background: var(--color-accent-subtle);
+    color: var(--color-accent);
+  }
+
+  .flag-checkbox:checked + .flag-chip {
+    background: var(--color-accent);
+    color: #fff;
+    border-color: var(--color-accent);
+  }
+
+  /* ── Test textarea ──────────────────────────────────────── */
+  .test-wrap {
+    position: relative;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background: var(--color-surface-raised);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .test-wrap:focus-within {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgb(91 33 182 / 0.1);
+  }
+
+  /* Mirror — absorbs highlight colours, sits behind the textarea */
+  .test-mirror {
+    position: absolute;
+    inset: 0;
+    padding: 10px 14px;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    line-height: 1.65;
+    color: transparent;
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .test-textarea {
+    position: relative;
+    z-index: 2;
+    display: block;
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    line-height: 1.65;
+    color: var(--color-ink);
+    padding: 10px 14px;
+    resize: vertical;
+    min-height: 120px;
+    caret-color: var(--color-accent);
+  }
+
+  .test-textarea::placeholder {
+    color: var(--color-muted-soft);
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+  }
+
+  /* ── Highlight marks (global so they survive innerHTML injection) ── */
+  :global(.rx-match) {
+    background: rgb(245 158 11 / 0.25);
+    border-radius: 2px;
+    outline: 1px solid rgb(245 158 11 / 0.55);
+    color: transparent;
+  }
+
+  :global(.rx-match-first) {
+    background: rgb(139 92 246 / 0.25);
+    outline: 1px solid rgb(139 92 246 / 0.55);
+  }
+
+  /* ── Status bar ─────────────────────────────────────────── */
+  .status-bar {
+    padding: var(--space-sm) var(--space-lg);
+    background: var(--color-surface-raised);
+    border-top: 1px solid var(--color-border-soft);
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+  }
+
+  .status-idle {
+    font-size: 0.8125rem;
+    color: var(--color-muted);
+  }
+
+  :global(.status-ok) {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: #16a34a;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  :global(.status-ok .badge) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #16a34a;
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    border-radius: var(--radius-full);
+    padding: 2px 8px;
+    min-width: 24px;
+    font-family: var(--font-mono);
+  }
+
+  :global(.status-none) {
+    font-size: 0.8125rem;
+    color: #dc2626;
+    font-weight: 500;
+  }
+
+  :global(.status-error) {
+    font-size: 0.8125rem;
+    color: #dc2626;
+    font-weight: 500;
+    font-family: var(--font-mono);
+  }
+
+  /* ── Match pills ────────────────────────────────────────── */
+  .match-list {
+    list-style: none;
+    margin: 0;
+    padding: var(--space-sm) var(--space-lg);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    border-top: 1px solid var(--color-border-soft);
+    max-height: 128px;
+    overflow-y: auto;
+  }
+
+  .match-list[hidden] {
+    display: none;
+  }
+
+  :global(.match-item) {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: var(--color-accent-subtle);
+    color: var(--color-accent);
+    border-radius: var(--radius-xs);
+    padding: 3px 9px;
+    max-width: 240px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: default;
+  }
+
+  :global(.match-item .match-idx) {
+    font-size: 0.65rem;
+    font-weight: 700;
+    opacity: 0.5;
+  }
+
+  /* ── Responsive ─────────────────────────────────────────── */
+  @media (max-width: 640px) {
+    .field-row {
+      padding: var(--space-md);
+    }
+    .status-bar,
+    .match-list {
+      padding-inline: var(--space-md);
+    }
+  }
+</style>
+
+<script>
+  function initTester(card: HTMLElement) {
+    const patternInput   = card.querySelector<HTMLInputElement>("#regex-pattern")!;
+    const testTextarea   = card.querySelector<HTMLTextAreaElement>("#test-string")!;
+    const mirror         = card.querySelector<HTMLDivElement>("#test-mirror")!;
+    const statusBar      = card.querySelector<HTMLElement>("#regex-status")!;
+    const matchList      = card.querySelector<HTMLUListElement>("#match-list")!;
+    const flagCheckboxes = card.querySelectorAll<HTMLInputElement>(".flag-checkbox");
+
+    // ── Pre-fill from URL search params (?p=pattern&t=teststring) ──
+    const params = new URLSearchParams(window.location.search);
+    if (params.has("p") && !patternInput.value) patternInput.value = params.get("p")!;
+    if (params.has("t") && !testTextarea.value) testTextarea.value = params.get("t")!;
+
+    function escHtml(s: string) {
+      return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    function buildRegex(): RegExp | null {
+      const pattern = patternInput.value;
+      if (!pattern) return null;
+      let flags = "";
+      flagCheckboxes.forEach((cb) => { if (cb.checked) flags += cb.dataset.flag; });
+      if (!flags.includes("g")) flags += "g";
+      return new RegExp(pattern, flags);
+    }
+
+    function update() {
+      const raw = testTextarea.value;
+      mirror.innerHTML = "";
+      matchList.hidden = true;
+      matchList.innerHTML = "";
+
+      if (!patternInput.value.trim()) {
+        statusBar.innerHTML = `<span class="status-idle">Enter a pattern above to see matches.</span>`;
+        return;
+      }
+
+      let regex: RegExp;
+      try {
+        regex = buildRegex()!;
+      } catch (e: any) {
+        statusBar.innerHTML = `<span class="status-error">&#9888; ${escHtml(e.message)}</span>`;
+        mirror.textContent = raw;
+        return;
+      }
+
+      if (!raw) {
+        statusBar.innerHTML = `<span class="status-idle">Enter a test string to see matches.</span>`;
+        return;
+      }
+
+      // Collect matches
+      const matches: RegExpExecArray[] = [];
+      let m: RegExpExecArray | null;
+      regex.lastIndex = 0;
+      while ((m = regex.exec(raw)) !== null) {
+        matches.push(m);
+        if (m[0].length === 0) regex.lastIndex++;
+        if (matches.length > 500) break;
+      }
+
+      // Build highlighted mirror
+      let html = "";
+      let cursor = 0;
+      matches.forEach((match, i) => {
+        html += escHtml(raw.slice(cursor, match.index));
+        const cls = `rx-match${i === 0 ? " rx-match-first" : ""}`;
+        html += `<mark class="${cls}">${escHtml(match[0] || " ")}</mark>`;
+        cursor = match.index + match[0].length;
+      });
+      html += escHtml(raw.slice(cursor));
+      mirror.innerHTML = html;
+
+      // Status
+      if (matches.length === 0) {
+        statusBar.innerHTML = `<span class="status-none">&#10005; No matches found.</span>`;
+      } else {
+        const label = matches.length === 1 ? "match" : "matches";
+        statusBar.innerHTML = `<span class="status-ok"><span class="badge">${matches.length}</span>${matches.length} ${label}</span>`;
+
+        matchList.hidden = false;
+        matches.forEach((match, i) => {
+          const li = document.createElement("li");
+          li.className = "match-item";
+          const display = match[0] === "" ? "(empty)" : match[0];
+          li.innerHTML = `<span class="match-idx">#${i + 1}</span>${escHtml(display)}`;
+          li.title = `Match ${i + 1}: "${match[0]}" at index ${match.index}`;
+          matchList.appendChild(li);
+        });
+      }
+    }
+
+    function syncScroll() {
+      mirror.scrollTop  = testTextarea.scrollTop;
+      mirror.scrollLeft = testTextarea.scrollLeft;
+    }
+
+    patternInput.addEventListener("input", update);
+    testTextarea.addEventListener("input", update);
+    testTextarea.addEventListener("scroll", syncScroll);
+    flagCheckboxes.forEach((cb) => cb.addEventListener("change", update));
+
+    update();
+  }
+
+  // Init on load and on Astro view transitions
+  const card = document.getElementById("live-tester");
+  if (card) initTester(card);
+  document.addEventListener("astro:page-load", () => {
+    const c = document.getElementById("live-tester");
+    if (c) initTester(c);
+  });
+</script>

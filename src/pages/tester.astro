@@ -1,0 +1,238 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SiteNav from "../components/SiteNav.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import LiveRegexTester from "../components/LiveRegexTester.astro";
+---
+
+<Layout
+  title="Live Regex Tester — regexsheet"
+  description="Test regular expressions in real-time. Paste a pattern and a test string to see all matches highlighted instantly — no dependencies, no page reloads."
+>
+  <SiteNav />
+
+  <header class="tester-hero">
+    <div class="container-content hero-inner">
+      <div class="back-link-wrap">
+        <a href="/" class="back-link" aria-label="Back to cheat sheet">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Cheat Sheet
+        </a>
+      </div>
+      <h1 class="hero-title">Live Regex Tester</h1>
+      <p class="hero-subtitle">
+        Enter a pattern and test string — matches highlight as you type.
+        <span class="hero-tip">Tip: click <strong>Try →</strong> on any cheat-sheet row to pre-fill.</span>
+      </p>
+    </div>
+  </header>
+
+  <main class="container-content tester-main" id="main-content">
+    <LiveRegexTester />
+
+    <!-- Quick-reference strips -->
+    <section class="quick-ref" aria-labelledby="quick-ref-heading">
+      <h2 class="quick-ref-heading" id="quick-ref-heading">Quick reference</h2>
+      <div class="qr-grid">
+        {[
+          { label: "Any digit",        pattern: "\\d+",              test: "Order 42 costs $9.99" },
+          { label: "Email address",    pattern: "[\\w.+-]+@[\\w-]+\\.[\\w.]+", test: "Contact us at hello@example.com or support@site.io" },
+          { label: "Word boundary",    pattern: "\\bcat\\b",         test: "The cat concatenate catch a catfish" },
+          { label: "Capturing group",  pattern: "(\\d{4})-(\\d{2})-(\\d{2})", test: "Date: 2024-03-15" },
+          { label: "Non-greedy",       pattern: "<.+?>",             test: "<b>bold</b> and <i>italic</i>" },
+          { label: "Lookahead",        pattern: "\\d+(?= dollars)",  test: "I have 42 dollars and 7 euros" },
+        ].map((ex) => (
+          <a
+            class="qr-chip"
+            href={`/tester?p=${encodeURIComponent(ex.pattern)}&t=${encodeURIComponent(ex.test)}`}
+            aria-label={`Try example: ${ex.label}`}
+          >
+            <span class="qr-label">{ex.label}</span>
+            <code class="qr-pattern">{ex.pattern}</code>
+          </a>
+        ))}
+      </div>
+    </section>
+  </main>
+
+  <SiteFooter />
+</Layout>
+
+<style>
+  /* ── Hero ───────────────────────────────────────────────── */
+  .tester-hero {
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    padding-top: var(--space-xxl);
+    padding-bottom: var(--space-xl);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .tester-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgb(91 33 182 / 0.05) 1px, transparent 1px);
+    background-size: 24px 24px;
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .back-link-wrap {
+    display: flex;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-muted);
+    text-decoration: none;
+    padding: 4px 10px 4px 8px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    transition: color 0.12s ease, border-color 0.12s ease, background 0.12s ease;
+  }
+
+  .back-link:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+    background: var(--color-accent-subtle);
+  }
+
+  .hero-title {
+    font-family: var(--font-sans);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--color-ink);
+    margin: 0;
+    line-height: 1.15;
+  }
+
+  .hero-subtitle {
+    font-size: 0.9375rem;
+    color: var(--color-muted);
+    margin: 0;
+    line-height: 1.6;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .hero-tip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.8125rem;
+    color: var(--color-accent);
+    background: var(--color-accent-subtle);
+    border-radius: var(--radius-full);
+    padding: 2px 10px;
+  }
+
+  .hero-tip strong {
+    font-weight: 700;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+  }
+
+  /* ── Main ───────────────────────────────────────────────── */
+  .tester-main {
+    padding-top: var(--space-xl);
+    padding-bottom: var(--space-section);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xxl);
+  }
+
+  /* ── Quick reference ────────────────────────────────────── */
+  .quick-ref {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .quick-ref-heading {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-muted);
+    margin: 0;
+  }
+
+  .qr-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-sm);
+  }
+
+  .qr-chip {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: var(--space-md);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    transition: border-color 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+    cursor: pointer;
+  }
+
+  .qr-chip:hover {
+    border-color: var(--color-accent);
+    background: var(--color-accent-subtle);
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  .qr-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--color-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .qr-chip:hover .qr-label {
+    color: var(--color-accent);
+  }
+
+  .qr-pattern {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  @media (max-width: 640px) {
+    .qr-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 400px) {
+    .qr-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
