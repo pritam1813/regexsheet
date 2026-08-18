@@ -1,22 +1,30 @@
 ---
-// Hero section — no props needed, purely presentational
+interface Props {
+  badge?: string;
+  title?: string;
+  subtitle?: string;
+}
+
+const {
+  badge = "Universal Reference",
+  title = "Regex Cheat Sheet",
+  subtitle = "The baseline syntax shared across all major regex engines — JavaScript, Python, Java, Ruby, Go, and more. Bookmark it, search it, reference it.",
+} = Astro.props;
 ---
 
 <header class="hero">
   <div class="container-content hero-inner">
     <div class="hero-badge">
       <span class="hero-badge-dot" aria-hidden="true"></span>
-      Universal Reference
+      {badge}
     </div>
 
     <h1 class="hero-title">
-      Regex Cheat Sheet
+      {title}
     </h1>
 
     <p class="hero-subtitle">
-      The baseline syntax shared across all major regex engines —
-      JavaScript, Python, Java, Ruby, Go, and more.
-      Bookmark it, search it, reference it.
+      {subtitle}
     </p>
   </div>
 </header>

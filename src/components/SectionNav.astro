@@ -1,13 +1,24 @@
 ---
 import { universalRegex } from "../data/regex";
 
-const items = [
+interface NavItem {
+  id: string;
+  label: string;
+}
+
+interface Props {
+  items?: NavItem[];
+}
+
+const defaultItems: NavItem[] = [
   ...universalRegex.map((cat) => ({
     id: cat.id,
     label: cat.title === "Flags / Modifiers" ? "Flags" : cat.title,
   })),
   { id: "explore-heading", label: "Language Guides" },
 ];
+
+const { items = defaultItems } = Astro.props;
 ---
 
 <nav class="sticky-nav" aria-label="Section navigation">

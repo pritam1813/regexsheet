@@ -1,5 +1,11 @@
 ---
 // Site-wide top navigation bar
+interface Props {
+  activePath?: string;
+}
+
+const { activePath = Astro.url.pathname } = Astro.props;
+const current = activePath.replace(/\/$/, "") || "/";
 ---
 
 <nav class="site-nav" aria-label="Site navigation">
@@ -14,10 +20,10 @@
     </a>
 
     <div class="nav-links">
-      <a href="/" class="nav-link" id="nav-home">Home</a>
-      <a href="/python" class="nav-link" id="nav-python">Python</a>
-      <a href="/java" class="nav-link" id="nav-java">Java</a>
-      <a href="/examples" class="nav-link" id="nav-examples">Examples</a>
+      <a href="/" class:list={["nav-link", { "nav-link--active": current === "/" }]} id="nav-home" aria-current={current === "/" ? "page" : undefined}>Home</a>
+      <a href="/python" class:list={["nav-link", { "nav-link--active": current === "/python" }]} id="nav-python" aria-current={current === "/python" ? "page" : undefined}>Python</a>
+      <a href="/java" class:list={["nav-link", { "nav-link--active": current === "/java" }]} id="nav-java" aria-current={current === "/java" ? "page" : undefined}>Java</a>
+      <a href="/examples" class:list={["nav-link", { "nav-link--active": current === "/examples" }]} id="nav-examples" aria-current={current === "/examples" ? "page" : undefined}>Examples</a>
       <a href="/pdf" class="nav-link nav-link--cta" id="nav-pdf">PDF ↓</a>
     </div>
   </div>
@@ -91,6 +97,12 @@
   .nav-link:hover {
     color: var(--color-ink);
     background: var(--color-hover);
+  }
+
+  .nav-link--active {
+    color: var(--color-accent);
+    background: var(--color-accent-subtle);
+    font-weight: 600;
   }
 
   .nav-link--cta {
