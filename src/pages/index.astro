@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import SiteNav from "../components/SiteNav.astro";
 import Hero from "../components/Hero.astro";
+import SectionNav from "../components/SectionNav.astro";
 import RegexTable from "../components/RegexTable.astro";
 import NavCard from "../components/NavCard.astro";
 import SiteFooter from "../components/SiteFooter.astro";
@@ -14,6 +15,7 @@ import { universalRegex, navCards } from "../data/regex";
 >
   <SiteNav />
   <Hero />
+  <SectionNav />
 
   <main id="main-content" class="container-content main">
     <!-- Universal regex tables, one per category -->
@@ -24,9 +26,9 @@ import { universalRegex, navCards } from "../data/regex";
     </section>
 
     <!-- Nav cards to sub-pages -->
-    <section class="cards-section" aria-labelledby="explore-heading">
+    <section class="cards-section" id="explore-heading" aria-labelledby="explore-heading-title">
       <div class="cards-header">
-        <h2 class="cards-heading" id="explore-heading">Explore Language-Specific Guides</h2>
+        <h2 class="cards-heading" id="explore-heading-title">Explore Language-Specific Guides</h2>
         <p class="cards-subtext">Each engine has quirks. Dive into the details.</p>
       </div>
       <div class="cards-grid">
@@ -55,6 +57,7 @@ import { universalRegex, navCards } from "../data/regex";
     margin-top: var(--space-section);
     padding-top: var(--space-xxl);
     border-top: 1px solid var(--color-border);
+    scroll-margin-top: 116px;
   }
 
   .cards-header {

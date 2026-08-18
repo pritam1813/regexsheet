@@ -18,14 +18,6 @@
       JavaScript, Python, Java, Ruby, Go, and more.
       Bookmark it, search it, reference it.
     </p>
-
-    <nav class="hero-toc" aria-label="Jump to section">
-      <a href="#character-classes" class="toc-link">Character Classes</a>
-      <a href="#anchors" class="toc-link">Anchors</a>
-      <a href="#quantifiers" class="toc-link">Quantifiers</a>
-      <a href="#groups-lookarounds" class="toc-link">Groups &amp; Lookarounds</a>
-      <a href="#flags" class="toc-link">Flags</a>
-    </nav>
   </div>
 </header>
 
@@ -34,7 +26,7 @@
     background: var(--color-surface);
     border-bottom: 1px solid var(--color-border);
     padding-top: var(--space-section);
-    padding-bottom: var(--space-xxl);
+    padding-bottom: var(--space-xl);
     position: relative;
     overflow: hidden;
   }
@@ -123,37 +115,6 @@
     color: var(--color-muted);
     margin: 0;
     max-width: 55ch;
-  }
-
-  .hero-toc {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-sm);
-    margin-top: var(--space-xs);
-  }
-
-  .toc-link {
-    font-size: 0.8125rem;
-    font-weight: 500;
-    color: var(--color-ink-soft);
-    background: var(--color-surface-raised);
-    border: 1px solid var(--color-border);
-    padding: 5px 12px;
-    border-radius: var(--radius-full);
-    text-decoration: none;
-    transition: background 0.12s ease, border-color 0.12s ease, color 0.12s ease;
-    white-space: nowrap;
-  }
-
-  .toc-link:hover {
-    background: var(--color-accent-subtle);
-    border-color: var(--color-accent);
-    color: var(--color-accent);
-  }
-
-  .toc-link:focus-visible {
-    outline: 2px solid var(--color-accent);
-    outline-offset: 2px;
   }
 
   @media (max-width: 640px) {
