@@ -1,11 +1,90 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from "../layouts/Layout.astro";
+import SiteNav from "../components/SiteNav.astro";
+import Hero from "../components/Hero.astro";
+import RegexTable from "../components/RegexTable.astro";
+import NavCard from "../components/NavCard.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import { universalRegex, navCards } from "../data/regex";
 ---
 
-<Layout>
-	<Welcome />
+<Layout
+  title="Regex Cheat Sheet — Universal Reference for Regular Expressions"
+  description="A free, fast cheat sheet for regular expressions. Character classes, anchors, quantifiers, groups, lookarounds, and flags — with examples for every syntax."
+>
+  <SiteNav />
+  <Hero />
+
+  <main id="main-content" class="container-content main">
+    <!-- Universal regex tables, one per category -->
+    <section class="tables-section" aria-label="Regex syntax reference">
+      {universalRegex.map((category) => (
+        <RegexTable category={category} />
+      ))}
+    </section>
+
+    <!-- Nav cards to sub-pages -->
+    <section class="cards-section" aria-labelledby="explore-heading">
+      <div class="cards-header">
+        <h2 class="cards-heading" id="explore-heading">Explore Language-Specific Guides</h2>
+        <p class="cards-subtext">Each engine has quirks. Dive into the details.</p>
+      </div>
+      <div class="cards-grid">
+        {navCards.map((card) => (
+          <NavCard card={card} />
+        ))}
+      </div>
+    </section>
+  </main>
+
+  <SiteFooter />
 </Layout>
+
+<style>
+  .main {
+    padding-top: var(--space-section);
+    padding-bottom: var(--space-xl);
+  }
+
+  .tables-section {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cards-section {
+    margin-top: var(--space-section);
+    padding-top: var(--space-xxl);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .cards-header {
+    margin-bottom: var(--space-xl);
+  }
+
+  .cards-heading {
+    font-family: var(--font-sans);
+    font-size: 1.375rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+    margin: 0 0 var(--space-xs) 0;
+  }
+
+  .cards-subtext {
+    font-size: 0.9375rem;
+    color: var(--color-muted);
+    margin: 0;
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+  }
+
+  @media (max-width: 640px) {
+    .cards-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

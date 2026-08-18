@@ -1,0 +1,112 @@
+---
+// Site-wide top navigation bar
+---
+
+<nav class="site-nav" aria-label="Site navigation">
+  <div class="container-wide nav-inner">
+    <a href="/" class="nav-brand" aria-label="Regex Cheat Sheet home">
+      <svg class="nav-logo" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="24" height="24" rx="6" fill="currentColor" opacity="0.12"/>
+        <text x="4" y="17" font-family="monospace" font-weight="bold" font-size="14" fill="currentColor">.*</text>
+      </svg>
+      <span class="nav-brand-name">regexsheet</span>
+      <span class="nav-brand-tld">.com</span>
+    </a>
+
+    <div class="nav-links">
+      <a href="/" class="nav-link" id="nav-home">Home</a>
+      <a href="/python" class="nav-link" id="nav-python">Python</a>
+      <a href="/java" class="nav-link" id="nav-java">Java</a>
+      <a href="/examples" class="nav-link" id="nav-examples">Examples</a>
+      <a href="/pdf" class="nav-link nav-link--cta" id="nav-pdf">PDF ↓</a>
+    </div>
+  </div>
+</nav>
+
+<style>
+  .site-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgb(255 255 255 / 0.9);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--color-border);
+    height: 56px;
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-lg);
+  }
+
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    color: var(--color-ink);
+    flex-shrink: 0;
+  }
+
+  .nav-logo {
+    color: var(--color-accent);
+  }
+
+  .nav-brand-name {
+    font-family: var(--font-mono);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+  }
+
+  .nav-brand-tld {
+    font-family: var(--font-mono);
+    font-size: 0.9375rem;
+    font-weight: 400;
+    color: var(--color-muted);
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  .nav-link {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-muted);
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: var(--radius-sm);
+    transition: color 0.12s ease, background 0.12s ease;
+  }
+
+  .nav-link:hover {
+    color: var(--color-ink);
+    background: var(--color-hover);
+  }
+
+  .nav-link--cta {
+    color: var(--color-accent);
+    background: var(--color-accent-subtle);
+    font-weight: 600;
+  }
+
+  .nav-link--cta:hover {
+    background: var(--color-accent);
+    color: #fff;
+  }
+
+  @media (max-width: 600px) {
+    .nav-links {
+      display: none;
+    }
+  }
+</style>

@@ -1,5 +1,7 @@
 ## Development
 
+Use **npm** as the package manager and runtime for this project.
+
 When starting the dev server, use background mode:
 
 ```

@@ -1,0 +1,171 @@
+---
+import type { RegexCategory } from "../data/regex";
+
+interface Props {
+  category: RegexCategory;
+}
+
+const { category } = Astro.props;
+---
+
+<section class="category-section" id={category.id} aria-labelledby={`heading-${category.id}`}>
+  <h2 class="category-heading" id={`heading-${category.id}`}>
+    {category.title}
+  </h2>
+  <div class="table-wrapper">
+    <table class="regex-table" role="table">
+      <thead>
+        <tr>
+          <th scope="col">Syntax</th>
+          <th scope="col">Description</th>
+          <th scope="col">Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          category.entries.map((entry) => (
+            <tr>
+              <td>
+                <code class="syntax-code">{entry.syntax}</code>
+              </td>
+              <td class="description-cell">{entry.description}</td>
+              <td>
+                {entry.example ? (
+                  <code class="example-code">{entry.example}</code>
+                ) : (
+                  <span class="no-example">—</span>
+                )}
+              </td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<style>
+  .category-section {
+    margin-bottom: var(--space-xxl);
+  }
+
+  .category-heading {
+    font-family: var(--font-sans);
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--color-ink);
+    margin: 0 0 var(--space-md) 0;
+    padding-bottom: var(--space-sm);
+    border-bottom: 2px solid var(--color-accent);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-card);
+  }
+
+  .regex-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+  }
+
+  .regex-table thead tr {
+    background: var(--color-surface-raised);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .regex-table th {
+    padding: var(--space-sm) var(--space-md);
+    text-align: left;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-muted);
+    white-space: nowrap;
+  }
+
+  .regex-table th:first-child {
+    width: 14%;
+  }
+
+  .regex-table th:last-child {
+    width: 38%;
+  }
+
+  .regex-table tbody tr {
+    border-bottom: 1px solid var(--color-border-soft);
+    transition: background 0.12s ease;
+  }
+
+  .regex-table tbody tr:last-child {
+    border-bottom: none;
+  }
+
+  .regex-table tbody tr:hover {
+    background: var(--color-hover);
+  }
+
+  .regex-table td {
+    padding: var(--space-sm) var(--space-md);
+    vertical-align: middle;
+    line-height: 1.5;
+  }
+
+  .syntax-code {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    background: var(--color-accent-subtle);
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .description-cell {
+    color: var(--color-ink);
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  .example-code {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--color-muted);
+    background: var(--color-surface-raised);
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .no-example {
+    color: var(--color-muted);
+    opacity: 0.4;
+  }
+
+  @media (max-width: 640px) {
+    .regex-table th:last-child,
+    .regex-table td:last-child {
+      display: none;
+    }
+
+    .regex-table th:first-child {
+      width: 30%;
+    }
+  }
+</style>

@@ -1,0 +1,96 @@
+---
+import type { NavCard } from "../data/regex";
+
+interface Props {
+  card: NavCard;
+}
+
+const { card } = Astro.props;
+---
+
+<a href={card.href} class="nav-card" id={`nav-card-${card.href.replace("/", "")}`}>
+  <span class="nav-card-icon" aria-hidden="true">{card.icon}</span>
+  <div class="nav-card-body">
+    <span class="nav-card-title">{card.title}</span>
+    <p class="nav-card-desc">{card.description}</p>
+  </div>
+  <svg class="nav-card-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M5 12h14M12 5l7 7-7 7"/>
+  </svg>
+</a>
+
+<style>
+  .nav-card {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md) var(--space-lg);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    color: inherit;
+    box-shadow: var(--shadow-card);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease, background 0.15s ease;
+    cursor: pointer;
+  }
+
+  .nav-card:hover {
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-2px);
+    background: var(--color-surface-raised);
+  }
+
+  .nav-card:hover .nav-card-arrow {
+    transform: translateX(3px);
+    color: var(--color-accent);
+  }
+
+  .nav-card:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  .nav-card-icon {
+    font-size: 1.75rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: var(--color-accent-subtle);
+    border-radius: var(--radius-md);
+    flex-shrink: 0;
+  }
+
+  .nav-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .nav-card-title {
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-ink);
+    line-height: 1.3;
+  }
+
+  .nav-card-desc {
+    font-size: 0.8125rem;
+    color: var(--color-muted);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .nav-card-arrow {
+    flex-shrink: 0;
+    color: var(--color-muted);
+    transition: transform 0.15s ease, color 0.15s ease;
+  }
+</style>

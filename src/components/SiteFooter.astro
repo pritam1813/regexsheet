@@ -1,0 +1,95 @@
+---
+// Site footer
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container-wide footer-inner">
+    <div class="footer-brand">
+      <span class="footer-brand-name">regexsheet.com</span>
+      <p class="footer-tagline">A free, fast reference for regular expressions.</p>
+    </div>
+
+    <nav class="footer-nav" aria-label="Footer navigation">
+      <a href="/python" class="footer-link">Python</a>
+      <a href="/java" class="footer-link">Java</a>
+      <a href="/examples" class="footer-link">Examples</a>
+      <a href="/pdf" class="footer-link">Download PDF</a>
+    </nav>
+
+    <p class="footer-legal">
+      &copy; {year} regexsheet.com &mdash; Built with
+      <a href="https://astro.build" class="footer-astro-link" target="_blank" rel="noopener noreferrer">Astro</a>
+    </p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--color-border);
+    background: var(--color-surface);
+    padding: var(--space-xxl) 0;
+    margin-top: var(--space-section);
+  }
+
+  .footer-inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .footer-brand-name {
+    font-family: var(--font-mono);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-ink);
+    letter-spacing: -0.02em;
+  }
+
+  .footer-tagline {
+    font-size: 0.875rem;
+    color: var(--color-muted);
+    margin: 0;
+  }
+
+  .footer-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+  }
+
+  .footer-link {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-muted);
+    text-decoration: none;
+    transition: color 0.12s ease;
+  }
+
+  .footer-link:hover {
+    color: var(--color-accent);
+  }
+
+  .footer-legal {
+    font-size: 0.8125rem;
+    color: var(--color-muted-soft);
+    margin: 0;
+  }
+
+  .footer-astro-link {
+    color: var(--color-muted);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 0.12s ease;
+  }
+
+  .footer-astro-link:hover {
+    color: var(--color-accent);
+  }
+</style>
