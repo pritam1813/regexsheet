@@ -1,0 +1,578 @@
+---
+import type { RegexExample } from "../data/examplesRegex";
+
+interface Props {
+  example: RegexExample;
+}
+
+const { example } = Astro.props;
+
+const firstMatch = example.matches[0] ?? "";
+const testerHref = `/tester?p=${encodeURIComponent(example.pattern)}&t=${encodeURIComponent(firstMatch)}`;
+---
+
+<article class="example-card" id={example.id} data-category={example.category}>
+  <!-- Card Header -->
+  <div class="card-header">
+    <div class="card-title-group">
+      <h3 class="card-title">{example.title}</h3>
+      <span class="category-badge">{example.categoryLabel}</span>
+    </div>
+    <p class="card-desc">{example.description}</p>
+  </div>
+
+  <!-- Pattern Box & Actions -->
+  <div class="pattern-box">
+    <div class="pattern-display">
+      <span class="pattern-slash">/</span>
+      <code class="pattern-code">{example.pattern}</code>
+      <span class="pattern-slash">/{example.flags ?? ""}</span>
+    </div>
+
+    <div class="pattern-actions">
+      <button
+        type="button"
+        class="action-btn copy-pattern-btn"
+        data-pattern={example.pattern}
+        aria-label={`Copy pattern for ${example.title}`}
+      >
+        <svg class="btn-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+        </svg>
+        <span class="btn-text">Copy Regex</span>
+      </button>
+
+      <a
+        href={testerHref}
+        class="action-btn try-tester-btn"
+        aria-label={`Test pattern for ${example.title} in live tester`}
+      >
+        <svg class="btn-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M7 17L17 7"></path>
+          <path d="M7 7h10v10"></path>
+        </svg>
+        <span>Try in Tester</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Token Explanation Breakdown -->
+  {example.explanation.length > 0 && (
+    <details class="explanation-accordion">
+      <summary class="explanation-summary">
+        <span class="summary-text">Pattern Breakdown</span>
+        <svg class="summary-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M6 9l6 6 6-6"></path>
+        </svg>
+      </summary>
+      <ul class="breakdown-list">
+        {example.explanation.map((item) => (
+          <li class="breakdown-item">
+            <code class="breakdown-token">{item.token}</code>
+            <span class="breakdown-desc">{item.desc}</span>
+          </li>
+        ))}
+      </ul>
+    </details>
+  )}
+
+  <!-- Test Samples Preview -->
+  <div class="test-samples">
+    <div class="sample-column">
+      <span class="sample-label sample-label--match">Matches</span>
+      <div class="sample-tags">
+        {example.matches.map((m) => (
+          <span class="sample-pill sample-pill--match">
+            <span class="pill-icon" aria-hidden="true">✓</span>
+            <code>{m}</code>
+          </span>
+        ))}
+      </div>
+    </div>
+
+    <div class="sample-column">
+      <span class="sample-label sample-label--nonmatch">Doesn't Match</span>
+      <div class="sample-tags">
+        {example.nonMatches.map((nm) => (
+          <span class="sample-pill sample-pill--nonmatch">
+            <span class="pill-icon" aria-hidden="true">✕</span>
+            <code>{nm}</code>
+          </span>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- Multi-Language Implementation Snippets -->
+  <div class="code-snippets" data-example-id={example.id}>
+    <div class="snippets-header">
+      <div class="lang-tabs" role="tablist" aria-label="Code language selection">
+        <button
+          type="button"
+          role="tab"
+          class="lang-tab active"
+          data-lang="javascript"
+          aria-selected="true"
+          aria-controls={`panel-js-${example.id}`}
+        >
+          JavaScript
+        </button>
+        <button
+          type="button"
+          role="tab"
+          class="lang-tab"
+          data-lang="python"
+          aria-selected="false"
+          aria-controls={`panel-py-${example.id}`}
+        >
+          Python
+        </button>
+        <button
+          type="button"
+          role="tab"
+          class="lang-tab"
+          data-lang="java"
+          aria-selected="false"
+          aria-controls={`panel-java-${example.id}`}
+        >
+          Java
+        </button>
+      </div>
+
+      <button
+        type="button"
+        class="copy-code-btn"
+        aria-label="Copy snippet code"
+      >
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+        </svg>
+        <span class="copy-code-text">Copy Code</span>
+      </button>
+    </div>
+
+    <!-- JavaScript Snippet -->
+    <div
+      class="snippet-panel active"
+      id={`panel-js-${example.id}`}
+      data-lang="javascript"
+      role="tabpanel"
+    >
+      <pre class="snippet-pre"><code>{example.snippets.javascript}</code></pre>
+    </div>
+
+    <!-- Python Snippet -->
+    <div
+      class="snippet-panel"
+      id={`panel-py-${example.id}`}
+      data-lang="python"
+      role="tabpanel"
+      hidden
+    >
+      <pre class="snippet-pre"><code>{example.snippets.python}</code></pre>
+    </div>
+
+    <!-- Java Snippet -->
+    <div
+      class="snippet-panel"
+      id={`panel-java-${example.id}`}
+      data-lang="java"
+      role="tabpanel"
+      hidden
+    >
+      <pre class="snippet-pre"><code>{example.snippets.java}</code></pre>
+    </div>
+  </div>
+</article>
+
+<style>
+  .example-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    scroll-margin-top: 116px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .example-card:hover {
+    border-color: var(--color-accent);
+  }
+
+  /* Header */
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .card-title-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+  }
+
+  .card-title {
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: var(--color-ink);
+    margin: 0;
+  }
+
+  .category-badge {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    background: var(--color-accent-subtle);
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .card-desc {
+    font-size: 0.875rem;
+    color: var(--color-muted);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* Pattern Box */
+  .pattern-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-sm) var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .pattern-display {
+    display: flex;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: var(--color-ink);
+    min-width: 0;
+    overflow-x: auto;
+    padding: 2px 0;
+  }
+
+  .pattern-slash {
+    color: var(--color-accent);
+    font-weight: 700;
+  }
+
+  .pattern-code {
+    color: var(--color-accent);
+    font-weight: 600;
+    white-space: nowrap;
+    padding: 0 2px;
+  }
+
+  .pattern-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    flex-shrink: 0;
+  }
+
+  .action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-ink-soft);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.12s ease;
+  }
+
+  .action-btn:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    background: var(--color-hover);
+  }
+
+  .copy-pattern-btn.copied {
+    border-color: var(--color-accent);
+    background: var(--color-accent-subtle);
+    color: var(--color-accent);
+  }
+
+  .try-tester-btn {
+    background: var(--color-accent-subtle);
+    border-color: var(--color-accent-subtle);
+    color: var(--color-accent);
+  }
+
+  .try-tester-btn:hover {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: #fff;
+  }
+
+  /* Token Explanation */
+  .explanation-accordion {
+    border: 1px solid var(--color-border-soft);
+    border-radius: var(--radius-sm);
+    background: var(--color-canvas);
+    padding: var(--space-xs) var(--space-sm);
+  }
+
+  .explanation-summary {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-ink-soft);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    list-style: none;
+    user-select: none;
+    padding: 4px 0;
+  }
+
+  .explanation-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .summary-chevron {
+    transition: transform 0.2s ease;
+    color: var(--color-muted);
+  }
+
+  .explanation-accordion[open] .summary-chevron {
+    transform: rotate(180deg);
+  }
+
+  .breakdown-list {
+    margin: var(--space-xs) 0 0 0;
+    padding: var(--space-xs) 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border-top: 1px dashed var(--color-border);
+  }
+
+  .breakdown-item {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-sm);
+    font-size: 0.8125rem;
+  }
+
+  .breakdown-token {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-accent);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    padding: 1px 5px;
+    border-radius: var(--radius-xs);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .breakdown-desc {
+    color: var(--color-muted);
+    line-height: 1.4;
+  }
+
+  /* Test Samples */
+  .test-samples {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md);
+    background: var(--color-surface-raised);
+    border-radius: var(--radius-sm);
+    padding: var(--space-sm) var(--space-md);
+    border: 1px solid var(--color-border-soft);
+  }
+
+  .sample-column {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .sample-label {
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .sample-label--match {
+    color: #15803d; /* green-700 */
+  }
+
+  .sample-label--nonmatch {
+    color: #b91c1c; /* red-700 */
+  }
+
+  .sample-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .sample-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    padding: 2px 7px;
+    border-radius: var(--radius-xs);
+    word-break: break-all;
+  }
+
+  .sample-pill--match {
+    background: #f0fdf4;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+  }
+
+  .sample-pill--match .pill-icon {
+    font-weight: 700;
+    color: #15803d;
+  }
+
+  .sample-pill--nonmatch {
+    background: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+  }
+
+  .sample-pill--nonmatch .pill-icon {
+    font-weight: 700;
+    color: #b91c1c;
+  }
+
+  /* Multi-Language Snippets */
+  .code-snippets {
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    background: var(--color-surface-raised);
+    overflow: hidden;
+  }
+
+  .snippets-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--color-hover);
+    border-bottom: 1px solid var(--color-border-soft);
+    padding: 2px 8px;
+  }
+
+  .lang-tabs {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .lang-tab {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: var(--color-muted);
+    background: transparent;
+    border: none;
+    padding: 6px 10px;
+    border-radius: var(--radius-xs);
+    cursor: pointer;
+    transition: color 0.12s ease, background 0.12s ease;
+  }
+
+  .lang-tab:hover {
+    color: var(--color-ink);
+  }
+
+  .lang-tab.active {
+    color: var(--color-accent);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-card);
+    font-weight: 700;
+  }
+
+  .copy-code-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    color: var(--color-muted);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 3px 6px;
+    border-radius: var(--radius-xs);
+    transition: color 0.12s ease, background 0.12s ease;
+  }
+
+  .copy-code-btn:hover {
+    color: var(--color-ink);
+    background: rgb(0 0 0 / 0.05);
+  }
+
+  .copy-code-btn.copied {
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+
+  .snippet-panel {
+    display: block;
+  }
+
+  .snippet-panel[hidden] {
+    display: none;
+  }
+
+  .snippet-pre {
+    margin: 0;
+    padding: var(--space-sm) var(--space-md);
+    font-family: var(--font-mono);
+    font-size: 0.775rem;
+    line-height: 1.55;
+    color: var(--color-ink-soft);
+    overflow-x: auto;
+    white-space: pre;
+  }
+
+  @media (max-width: 640px) {
+    .test-samples {
+      grid-template-columns: 1fr;
+    }
+    .pattern-box {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .pattern-actions {
+      justify-content: flex-end;
+    }
+  }
+</style>
