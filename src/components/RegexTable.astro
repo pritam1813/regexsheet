@@ -8,224 +8,161 @@ interface Props {
 const { category } = Astro.props;
 ---
 
-<section class="category-section" id={category.id} aria-labelledby={`heading-${category.id}`}>
-  <h2 class="category-heading" id={`heading-${category.id}`}>
+<section
+  class="mb-12 scroll-mt-28"
+  id={category.id}
+  aria-labelledby={`heading-${category.id}`}
+>
+  <h2
+    class="font-sans text-lg font-semibold tracking-tight text-ink mb-3 pb-2 border-b-2 border-accent flex items-center gap-2"
+    id={`heading-${category.id}`}
+  >
     {category.title}
   </h2>
-  <div class="table-wrapper">
-    <table class="regex-table" role="table">
-      <thead>
-        <tr>
-          <th scope="col">Syntax</th>
-          <th scope="col">Description</th>
-          <th scope="col">Example</th>
-        </tr>
-      </thead>
-      <tbody>
-        {
-          category.entries.map((entry) => {
-            const rawExample = entry.example ?? "";
-            const arrowIdx = rawExample.indexOf("→");
-            const testStr = arrowIdx !== -1
-              ? rawExample.slice(arrowIdx + 1).replace(/[''']/g, "").trim()
-              : rawExample;
-            const testerHref = `/tester?p=${encodeURIComponent(entry.syntax)}&t=${encodeURIComponent(testStr)}`;
 
-            return (
-              <tr>
-                <td>
-                  <a
-                    href={testerHref}
-                    class="syntax-link"
-                    title={`Try ${entry.syntax} in the live tester`}
-                    aria-label={`${entry.syntax} — try in live tester`}
-                  >
-                    <code class="syntax-code">{entry.syntax}</code>
-                    <svg class="syntax-try-icon" width="11" height="11" viewBox="0 0 11 11" fill="none" aria-hidden="true">
-                      <path d="M2.5 5.5h6M6 2.5l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                  </a>
-                </td>
-                <td class="description-cell">{entry.description}</td>
-                <td>
-                  {entry.example ? (
-                    <code class="example-code">{entry.example}</code>
-                  ) : (
-                    <span class="no-example">—</span>
-                  )}
-                </td>
-              </tr>
-            );
-          })
-        }
-      </tbody>
-    </table>
+  <div
+    class="rounded-xl border border-border bg-surface shadow-card overflow-hidden"
+  >
+    <div class="overflow-x-auto">
+      <table
+        class="w-full min-w-155 border-collapse text-left text-sm"
+        role="table"
+      >
+        <thead>
+          <tr class="bg-surface-raised border-b border-border">
+            <th
+              scope="col"
+              class="w-[30%] px-4 py-3 sm:px-5 sm:py-3.5 text-[0.7rem] font-bold uppercase tracking-wider text-muted whitespace-nowrap"
+            >
+              Syntax
+            </th>
+            <th
+              scope="col"
+              class="w-[38%] px-4 py-3 sm:px-5 sm:py-3.5 text-[0.7rem] font-bold uppercase tracking-wider text-muted"
+            >
+              Description
+            </th>
+            <th
+              scope="col"
+              class="w-[32%] px-4 py-3 sm:px-5 sm:py-3.5 text-[0.7rem] font-bold uppercase tracking-wider text-muted"
+            >
+              Example
+            </th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-border-soft">
+          {
+            category.entries.map((entry) => {
+              const rawExample = entry.example ?? "";
+              const arrowIdx = rawExample.indexOf("→");
+              const testStr =
+                arrowIdx !== -1
+                  ? rawExample
+                      .slice(arrowIdx + 1)
+                      .replace(/[''']/g, "")
+                      .trim()
+                  : rawExample;
+              const testerHref = `/tester?p=${encodeURIComponent(entry.syntax)}&t=${encodeURIComponent(testStr)}`;
+
+              return (
+                <tr class="group/row transition-colors duration-150 hover:bg-hover">
+                  <td class="px-4 py-3 sm:px-5 sm:py-3.5 align-middle">
+                    <div class="flex items-center gap-8">
+                      {/* Interactive Syntax Badge (Copies on Click with Tooltip & Color Transition) */}
+                      <div class="relative group/syntax inline-flex">
+                        <button
+                          type="button"
+                          class="copy-syntax-btn inline-flex items-center gap-1.5 font-mono text-xs sm:text-[0.85rem] font-semibold text-accent bg-accent-subtle hover:bg-accent hover:text-white active:scale-95 px-2 py-0.5 rounded-sm tracking-wide transition-all duration-150 cursor-pointer text-left whitespace-nowrap focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
+                          data-copy-syntax={entry.syntax}
+                          aria-label={`Copy syntax: ${entry.syntax}`}
+                        >
+                          <span>{entry.syntax}</span>
+                        </button>
+                        <span class="tooltip-text pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 hidden group-hover/syntax:block group-focus-within/syntax:block bg-accent text-white text-[0.6875rem] font-medium px-2 py-0.5 rounded shadow-md whitespace-nowrap z-30">
+                          Copy syntax
+                        </span>
+                      </div>
+
+                      {/* Try Now Button (Up-Right Icon) with Tooltip */}
+                      <div class="relative group/tooltip opacity-0 group-hover/row:opacity-100 group-focus-within/row:opacity-100 transition-opacity duration-150 shrink-0">
+                        <a
+                          href={testerHref}
+                          class="inline-flex items-center justify-center size-7 text-muted bg-surface border border-border hover:bg-accent hover:border-accent hover:text-white active:bg-accent-hover active:scale-95 rounded-md shadow-xs transition-all duration-150"
+                          aria-label={`Try ${entry.syntax} in live tester`}
+                        >
+                          <svg
+                            class="size-3.5"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                          >
+                            <path d="M7 17L17 7" />
+                            <path d="M7 7h10v10" />
+                          </svg>
+                        </a>
+                        <span class="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 hidden group-hover/tooltip:block group-focus-within/tooltip:block bg-accent text-white text-[0.6875rem] font-medium px-2 py-0.5 rounded shadow-md whitespace-nowrap z-30">
+                          Try in tester
+                        </span>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-4 py-3 sm:px-5 sm:py-3.5 align-middle text-ink text-sm leading-relaxed">
+                    {entry.description}
+                  </td>
+                  <td class="px-4 py-3 sm:px-5 sm:py-3.5 align-middle text-sm">
+                    {entry.example ? (
+                      <code class="font-mono text-xs text-muted bg-surface-raised px-2 py-1 rounded-sm inline-block max-w-full break-all sm:break-normal">
+                        {entry.example}
+                      </code>
+                    ) : (
+                      <span class="text-muted opacity-40">—</span>
+                    )}
+                  </td>
+                </tr>
+              );
+            })
+          }
+        </tbody>
+      </table>
+    </div>
   </div>
 </section>
 
-<style>
-  .category-section {
-    margin-bottom: var(--space-xxl);
-    scroll-margin-top: 116px;
+<script>
+  function initCopySyntax() {
+    document.addEventListener("click", async (e) => {
+      const target = (e.target as HTMLElement)?.closest(
+        ".copy-syntax-btn",
+      ) as HTMLButtonElement | null;
+      if (!target) return;
+
+      const syntax = target.getAttribute("data-copy-syntax");
+      if (!syntax) return;
+
+      try {
+        await navigator.clipboard.writeText(syntax);
+
+        const tooltip = target.parentElement?.querySelector(".tooltip-text");
+
+        if (tooltip) {
+          tooltip.textContent = "Copied!";
+
+          setTimeout(() => {
+            tooltip.textContent = "Copy syntax";
+          }, 1800);
+        }
+      } catch (err) {
+        console.error("Failed to copy syntax:", err);
+      }
+    });
   }
 
-  .category-heading {
-    font-family: var(--font-sans);
-    font-size: 1.125rem;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    color: var(--color-ink);
-    margin: 0 0 var(--space-md) 0;
-    padding-bottom: var(--space-sm);
-    border-bottom: 2px solid var(--color-accent);
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
+  if (!(window as any).__regexTableCopyInitialized) {
+    (window as any).__regexTableCopyInitialized = true;
+    initCopySyntax();
   }
-
-  .table-wrapper {
-    border-radius: var(--radius-md);
-    border: 1px solid var(--color-border);
-    background: var(--color-surface);
-    box-shadow: var(--shadow-card);
-  }
-
-  .regex-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.875rem;
-  }
-
-  .regex-table thead tr {
-    background: var(--color-surface-raised);
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .regex-table th {
-    padding: var(--space-sm) var(--space-md);
-    text-align: left;
-    font-size: 0.7rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--color-muted);
-    white-space: nowrap;
-  }
-
-  /* Syntax — fixed narrow */
-  .regex-table th:nth-child(1) {
-    width: 16%;
-  }
-
-  /* Example — fixed share */
-  .regex-table th:nth-child(3) {
-    width: 38%;
-  }
-
-  .regex-table tbody tr {
-    border-bottom: 1px solid var(--color-border-soft);
-    transition: background 0.12s ease;
-  }
-
-  .regex-table tbody tr:last-child {
-    border-bottom: none;
-  }
-
-  .regex-table tbody tr:hover {
-    background: var(--color-hover);
-  }
-
-  .regex-table td {
-    padding: var(--space-sm) var(--space-md);
-    vertical-align: middle;
-    line-height: 1.5;
-  }
-
-  /* ── Syntax cell — the badge is a link ──────────────────── */
-  .syntax-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    text-decoration: none;
-  }
-
-  .syntax-code {
-    display: inline-block;
-    font-family: var(--font-mono);
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--color-accent);
-    background: var(--color-accent-subtle);
-    padding: 2px 8px;
-    border-radius: var(--radius-sm);
-    letter-spacing: 0.02em;
-    white-space: nowrap;
-    transition: background 0.14s ease, color 0.14s ease;
-  }
-
-  /* Arrow icon — hidden until row is hovered */
-  .syntax-try-icon {
-    color: var(--color-accent);
-    opacity: 0;
-    transform: translateX(-4px);
-    transition: opacity 0.15s ease, transform 0.15s ease;
-    flex-shrink: 0;
-  }
-
-  .regex-table tbody tr:hover .syntax-try-icon {
-    opacity: 1;
-    transform: translateX(0);
-  }
-
-  .syntax-link:hover .syntax-code {
-    background: var(--color-accent);
-    color: #fff;
-  }
-
-  .syntax-link:focus-visible {
-    outline: 2px solid var(--color-accent);
-    outline-offset: 3px;
-    border-radius: var(--radius-xs);
-  }
-
-  .syntax-link:focus-visible .syntax-try-icon {
-    opacity: 1;
-    transform: translateX(0);
-  }
-
-  .description-cell {
-    color: var(--color-ink);
-    font-size: 0.875rem;
-    line-height: 1.5;
-  }
-
-  .example-code {
-    display: inline-block;
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    color: var(--color-muted);
-    background: var(--color-surface-raised);
-    padding: 2px 8px;
-    border-radius: var(--radius-sm);
-    max-width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .no-example {
-    color: var(--color-muted);
-    opacity: 0.4;
-  }
-
-  @media (max-width: 640px) {
-    .regex-table th:nth-child(3),
-    .regex-table td:nth-child(3) {
-      display: none;
-    }
-
-    .regex-table th:nth-child(1) {
-      width: 34%;
-    }
-  }
-</style>
+</script>
