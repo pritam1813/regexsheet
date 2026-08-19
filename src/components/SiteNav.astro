@@ -23,6 +23,7 @@ const current = activePath.replace(/\/$/, "") || "/";
 
     <div class="nav-links">
       <a href="/" class:list={["nav-link", { "nav-link--active": current === "/" }]} id="nav-home" aria-current={current === "/" ? "page" : undefined}>Home</a>
+      <a href="/javascript" class:list={["nav-link", { "nav-link--active": current === "/javascript" }]} id="nav-javascript" aria-current={current === "/javascript" ? "page" : undefined}>JavaScript</a>
       <a href="/python" class:list={["nav-link", { "nav-link--active": current === "/python" }]} id="nav-python" aria-current={current === "/python" ? "page" : undefined}>Python</a>
       <a href="/java" class:list={["nav-link", { "nav-link--active": current === "/java" }]} id="nav-java" aria-current={current === "/java" ? "page" : undefined}>Java</a>
       <a href="/examples" class:list={["nav-link", { "nav-link--active": current === "/examples" }]} id="nav-examples" aria-current={current === "/examples" ? "page" : undefined}>Examples</a>

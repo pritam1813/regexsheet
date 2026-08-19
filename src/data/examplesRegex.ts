@@ -478,6 +478,12 @@ export const examplesNavCards: NavCard[] = [
     icon: "🌐",
   },
   {
+    href: "/javascript",
+    title: "JavaScript",
+    description: "RegExp object, matchAll, String methods, and JS flags (g, i, m, y, u, v).",
+    icon: "💛",
+  },
+  {
     href: "/python",
     title: "Python",
     description: "re module — named groups (?P<name>), verbose mode, and Python flags.",

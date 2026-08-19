@@ -94,6 +94,12 @@ export interface NavCard {
 
 export const navCards: NavCard[] = [
   {
+    href: "/javascript",
+    title: "JavaScript",
+    description: "RegExp object, matchAll, String methods, and JS flags (g, i, m, y, u, v).",
+    icon: "💛",
+  },
+  {
     href: "/python",
     title: "Python",
     description: "re module — named groups, verbose mode, and Python-specific flags.",

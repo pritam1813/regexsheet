@@ -305,6 +305,12 @@ export const pythonNavCards: NavCard[] = [
     icon: "🌐",
   },
   {
+    href: "/javascript",
+    title: "JavaScript",
+    description: "RegExp object, matchAll, String methods, and JS flags (g, i, m, y, u, v).",
+    icon: "💛",
+  },
+  {
     href: "/java",
     title: "Java",
     description: "java.util.regex — Pattern, Matcher, flags, and Java engine specifics.",
