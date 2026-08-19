@@ -7,61 +7,71 @@ export const pythonRegexCategories: RegexCategory[] = [
     entries: [
       {
         syntax: "re.search(pat, s)",
-        description: "Scan string for first match; returns Match object or None",
+        description:
+          "Scan string for first match; returns Match object or None",
         example: "re.search(r'\\d+', 'id: 42') → Match",
         tryPattern: null,
       },
       {
         syntax: "re.match(pat, s)",
-        description: "Match characters only at the start of string; returns Match or None",
+        description:
+          "Match characters only at the start of string; returns Match or None",
         example: "re.match(r'\\w+', 'foo bar') → 'foo'",
         tryPattern: null,
       },
       {
         syntax: "re.fullmatch(pat, s)",
-        description: "Match the entire string from start to end; returns Match or None",
+        description:
+          "Match the entire string from start to end; returns Match or None",
         example: "re.fullmatch(r'\\d{4}', '2026') → Match",
         tryPattern: null,
       },
       {
         syntax: "re.findall(pat, s)",
-        description: "Return all non-overlapping matches as a list of strings or tuples",
+        description:
+          "Return all non-overlapping matches as a list of strings or tuples",
         example: "re.findall(r'\\d+', '10, 20, 30') → ['10', '20', '30']",
         tryPattern: null,
       },
       {
         syntax: "re.finditer(pat, s)",
-        description: "Return an iterator yielding Match objects over all matches",
+        description:
+          "Return an iterator yielding Match objects over all matches",
         example: "[m.start() for m in re.finditer(r'\\d+', s)]",
         tryPattern: null,
       },
       {
         syntax: "re.sub(pat, repl, s)",
-        description: "Replace occurrences of pattern with repl (string or function)",
+        description:
+          "Replace occurrences of pattern with repl (string or function)",
         example: "re.sub(r'\\s+', '-', 'hello world') → 'hello-world'",
         tryPattern: null,
       },
       {
         syntax: "re.subn(pat, repl, s)",
-        description: "Same as re.sub(), returns tuple (new_string, number_of_subs)",
+        description:
+          "Same as re.sub(), returns tuple (new_string, number_of_subs)",
         example: "re.subn(r'\\d', '#', '1a2') → ('#a#', 2)",
         tryPattern: null,
       },
       {
         syntax: "re.split(pat, s)",
-        description: "Split string by occurrences of pattern (optional maxsplit)",
+        description:
+          "Split string by occurrences of pattern (optional maxsplit)",
         example: "re.split(r'[,;]\\s*', 'a, b; c') → ['a', 'b', 'c']",
         tryPattern: null,
       },
       {
         syntax: "re.compile(pat, flags)",
-        description: "Compile pattern into a reusable Pattern object for performance",
+        description:
+          "Compile pattern into a reusable Pattern object for performance",
         example: "pattern = re.compile(r'\\b\\w+\\b', re.I)",
         tryPattern: null,
       },
       {
         syntax: "re.escape(pattern)",
-        description: "Escape all special characters in string for literal matching",
+        description:
+          "Escape all special characters in string for literal matching",
         example: "re.escape('https://') → 'https://'",
         tryPattern: null,
       },
@@ -103,7 +113,8 @@ export const pythonRegexCategories: RegexCategory[] = [
       },
       {
         syntax: "m.groupdict()",
-        description: "Return a dict containing all named subgroups {name: value}",
+        description:
+          "Return a dict containing all named subgroups {name: value}",
         example: "m.groupdict() → {'year': '2026'}",
         tryPattern: null,
       },
@@ -127,7 +138,8 @@ export const pythonRegexCategories: RegexCategory[] = [
       },
       {
         syntax: "m.expand(template)",
-        description: "Do backslash substitution on template string (\\1 or \\g<name>)",
+        description:
+          "Do backslash substitution on template string (\\1 or \\g<name>)",
         example: "m.expand(r'Year: \\g<year>')",
         tryPattern: null,
       },
@@ -151,7 +163,8 @@ export const pythonRegexCategories: RegexCategory[] = [
       },
       {
         syntax: "re.MULTILINE, re.M",
-        description: "^ and $ match start/end of each line in addition to string",
+        description:
+          "^ and $ match start/end of each line in addition to string",
         example: "re.findall(r'^\\w+', text, re.M)",
         tryPattern: null,
       },
@@ -163,13 +176,15 @@ export const pythonRegexCategories: RegexCategory[] = [
       },
       {
         syntax: "re.VERBOSE, re.X",
-        description: "Ignore whitespace & enable inline comments (#) in pattern",
+        description:
+          "Ignore whitespace & enable inline comments (#) in pattern",
         example: "re.compile(r'\\d{3} # code', re.X)",
         tryPattern: null,
       },
       {
         syntax: "re.ASCII, re.A",
-        description: "Make \\w, \\d, \\s, \\b match ASCII only (not full Unicode)",
+        description:
+          "Make \\w, \\d, \\s, \\b match ASCII only (not full Unicode)",
         example: "re.findall(r'\\w+', text, re.A)",
         tryPattern: null,
       },
@@ -199,31 +214,35 @@ export const pythonRegexCategories: RegexCategory[] = [
     entries: [
       {
         syntax: 'r"raw string"',
-        description: "Raw string literal — avoids Python escape sequence collisions",
+        description:
+          "Raw string literal — avoids Python escape sequence collisions",
         example: "r'\\bword\\b' vs '\\\\bword\\\\b'",
         tryPattern: null,
       },
       {
         syntax: "(?P<name>...)",
-        description: "Named capturing group — accessible by name in match object",
+        description:
+          "Named capturing group — accessible by name in match object",
         example: "(?P<year>\\d{4}) → m.group('year')",
         tryPattern: "(?<year>\\d{4})",
       },
       {
         syntax: "(?P=name)",
         description: "Backreference to named group within the same pattern",
-        example: "(?P<q>['\"]).*?(?P=q) → \"quoted\"",
+        example: '(?P<q>[\'"]).*?(?P=q) → "quoted"',
         tryPattern: null,
       },
       {
         syntax: "\\g<name>",
-        description: "Backreference to named group in re.sub() replacement string",
+        description:
+          "Backreference to named group in re.sub() replacement string",
         example: "re.sub(r'(?P<v>\\d+)', r'\\g<v>px', s)",
         tryPattern: null,
       },
       {
         syntax: "\\g<1>",
-        description: "Backreference to numbered group in re.sub() (prevents ambiguity)",
+        description:
+          "Backreference to numbered group in re.sub() (prevents ambiguity)",
         example: "re.sub(r'(\\d+)', r'\\g<1>0', s)",
         tryPattern: null,
       },
@@ -235,7 +254,8 @@ export const pythonRegexCategories: RegexCategory[] = [
       },
       {
         syntax: "(?(id)yes|no)",
-        description: "Conditional: matches 'yes' if group id matched, else 'no'",
+        description:
+          "Conditional: matches 'yes' if group id matched, else 'no'",
         example: "(\\()?\\d{3}(?(1)\\))-\\d{4}",
         tryPattern: null,
       },
@@ -253,7 +273,8 @@ export const pythonRegexCategories: RegexCategory[] = [
       },
       {
         syntax: "\\b",
-        description: "Word boundary (raw string r'\\b' prevents ASCII backspace)",
+        description:
+          "Word boundary (raw string r'\\b' prevents ASCII backspace)",
         example: "r'\\bcat\\b' → 'cat' not 'category'",
         tryPattern: null,
       },
@@ -272,7 +293,8 @@ export const pythonRecipes: PythonRecipe[] = [
   {
     id: "recipe-named-groups",
     title: "Named Groups & Extraction",
-    description: "Extract structured components from a string using named groups (?P<name>...) and groupdict().",
+    description:
+      "Extract structured components from a string using named groups (?P<name>...) and groupdict().",
     code: `import re
 
 log_line = "2026-08-18 [ERROR] User 1042 failed login"
@@ -287,7 +309,8 @@ if match:
   {
     id: "recipe-callbacks",
     title: "Dynamic Replacements with Callable",
-    description: "Pass a callback function to re.sub() for custom transformation logic per match.",
+    description:
+      "Pass a callback function to re.sub() for custom transformation logic per match.",
     code: `import re
 
 text = "Items cost $12, $45, and $100."
@@ -303,7 +326,8 @@ result = re.sub(r"\\$(\\d+)", convert_usd_to_eur, text)
   {
     id: "recipe-verbose",
     title: "Verbose Multi-line Regex with Comments",
-    description: "Use re.VERBOSE (re.X) to structure and document complex regular expressions cleanly.",
+    description:
+      "Use re.VERBOSE (re.X) to structure and document complex regular expressions cleanly.",
     code: `import re
 
 email_pattern = re.compile(
@@ -325,7 +349,8 @@ print(match.group("user"))  # 'hello'`,
   {
     id: "recipe-finditer",
     title: "Find All Matches with Span Positions",
-    description: "Iterate over all pattern occurrences while accessing start and end character offsets.",
+    description:
+      "Iterate over all pattern occurrences while accessing start and end character offsets.",
     code: `import re
 
 text = "Port 8080, Port 443, Port 22"
@@ -336,35 +361,34 @@ for m in re.finditer(r"Port (\\d+)", text):
   },
 ];
 
+// Maximum four
 export const pythonNavCards: NavCard[] = [
   {
-    href: "/",
-    title: "Universal Regex",
-    description: "Baseline syntax reference across JavaScript, Python, Go, and all engines.",
-    icon: "🌐",
+    href: "/r",
+    title: "R",
+    description:
+      "Base R & stringr — grep, sub, POSIX classes, and raw string literals.",
+    icon: "📊",
   },
   {
     href: "/javascript",
     title: "JavaScript",
-    description: "RegExp object, matchAll, String methods, and JS flags (g, i, m, y, u, v).",
+    description:
+      "RegExp object, matchAll, String methods, and JS flags (g, i, m, y, u, v).",
     icon: "💛",
-  },
-  {
-    href: "/java",
-    title: "Java",
-    description: "java.util.regex — Pattern, Matcher, flags, and Java engine specifics.",
-    icon: "☕",
   },
   {
     href: "/examples",
     title: "Examples",
-    description: "Real-world patterns: email, URL, date, IPv4/v6, and phone numbers.",
+    description:
+      "Real-world patterns: email, URL, date, IPv4/v6, and phone numbers.",
     icon: "⚡",
   },
   {
     href: "/pdf",
     title: "Download PDF",
-    description: "Printable one-page regex reference card for offline desktop use.",
+    description:
+      "Printable one-page regex reference card for offline desktop use.",
     icon: "📄",
   },
 ];

@@ -13,19 +13,22 @@ export const javascriptRegexCategories: RegexCategory[] = [
       },
       {
         syntax: "re.exec(str)",
-        description: "Returns an array of match info, or null. Updates lastIndex if /g",
+        description:
+          "Returns an array of match info, or null. Updates lastIndex if /g",
         example: "/\\d+/.exec('id: 42') → ['42']",
         tryPattern: null,
       },
       {
         syntax: "str.match(re)",
-        description: "Returns match array or null. Returns all matches if /g is set",
+        description:
+          "Returns match array or null. Returns all matches if /g is set",
         example: "'1 2 3'.match(/\\d+/g) → ['1', '2', '3']",
         tryPattern: null,
       },
       {
         syntax: "str.matchAll(re)",
-        description: "Returns an iterator of all matches including capture groups (requires /g)",
+        description:
+          "Returns an iterator of all matches including capture groups (requires /g)",
         example: "[...str.matchAll(/\\d+/g)]",
         tryPattern: null,
       },
@@ -97,7 +100,8 @@ export const javascriptRegexCategories: RegexCategory[] = [
       },
       {
         syntax: "y (Sticky)",
-        description: "Matches only from the index indicated by the lastIndex property",
+        description:
+          "Matches only from the index indicated by the lastIndex property",
         example: "/foo/y",
         tryPattern: null,
       },
@@ -145,7 +149,8 @@ export const javascriptRegexCategories: RegexCategory[] = [
       },
       {
         syntax: "$&, $1, $2",
-        description: "Special replacement patterns: $& is whole match, $n is capture group",
+        description:
+          "Special replacement patterns: $& is whole match, $n is capture group",
         example: "str.replace(/(\\w+)/, '[$1]')",
         tryPattern: null,
       },
@@ -170,7 +175,8 @@ export const javascriptRecipes: JavascriptRecipe[] = [
   {
     id: "recipe-named-groups",
     title: "Named Groups & Extraction",
-    description: "Extract structured components from a string using named groups and the groups property.",
+    description:
+      "Extract structured components from a string using named groups and the groups property.",
     code: `const logLine = "2026-08-18 [ERROR] User failed login";
 const pattern = /(?<date>\\d{4}-\\d{2}-\\d{2}) \\[(?<level>\\w+)\\] (?<msg>.*)/;
 
@@ -183,7 +189,8 @@ if (match && match.groups) {
   {
     id: "recipe-matchall",
     title: "Iterating with matchAll",
-    description: "Use String.prototype.matchAll() to get all matches and their capture groups.",
+    description:
+      "Use String.prototype.matchAll() to get all matches and their capture groups.",
     code: `const text = "Item A: $10, Item B: $20";
 const regex = /\\$(\\d+)/g;
 
@@ -194,7 +201,8 @@ for (const match of text.matchAll(regex)) {
   {
     id: "recipe-callbacks",
     title: "Dynamic Replacements with Replacer Function",
-    description: "Pass a function to String.prototype.replace() for complex transformations.",
+    description:
+      "Pass a function to String.prototype.replace() for complex transformations.",
     code: `const text = "Items cost $12, $45, and $100.";
 
 // Convert USD to EUR (approx 0.92x)
@@ -203,32 +211,36 @@ const result = text.replace(/\\$(\\d+)/g, (match, p1) => {
   return \`€\${eur}\`;
 });
 // Output: 'Items cost €11, €41, and €92.'`,
-  }
+  },
 ];
 
+// Maximum four
 export const javascriptNavCards: NavCard[] = [
-  {
-    href: "/",
-    title: "Universal Regex",
-    description: "Baseline syntax reference across JavaScript, Python, Go, and all engines.",
-    icon: "🌐",
-  },
   {
     href: "/python",
     title: "Python",
-    description: "re module — named groups, verbose mode, and Python-specific flags.",
+    description:
+      "re module — named groups, verbose mode, and Python-specific flags.",
     icon: "🐍",
   },
   {
     href: "/java",
     title: "Java",
-    description: "java.util.regex — Pattern, Matcher, flags, and Java engine specifics.",
+    description:
+      "java.util.regex — Pattern, Matcher, flags, and Java engine specifics.",
     icon: "☕",
+  },
+  {
+    href: "/pdf",
+    title: "Download PDF",
+    description: "Printable one-page regex reference card for offline use.",
+    icon: "📄",
   },
   {
     href: "/examples",
     title: "Examples",
-    description: "Real-world patterns: email, URL, date, IPv4/v6, and phone numbers.",
+    description:
+      "Real-world patterns: email, URL, date, IPv4/v6, and phone numbers.",
     icon: "⚡",
   },
 ];
