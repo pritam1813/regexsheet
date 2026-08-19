@@ -62,7 +62,10 @@ const { category } = Astro.props;
                       .replace(/[''']/g, "")
                       .trim()
                   : rawExample;
-              const testerHref = `/tester?p=${encodeURIComponent(entry.syntax)}&t=${encodeURIComponent(testStr)}`;
+              // tryPattern: null = hide button, string = override pattern, undefined = use syntax
+              const showTry = entry.tryPattern !== null;
+              const tryPat = entry.tryPattern ?? entry.syntax;
+              const testerHref = `/tester?p=${encodeURIComponent(tryPat)}&t=${encodeURIComponent(testStr)}`;
 
               return (
                 <tr class="group/row transition-colors duration-150 hover:bg-hover">
@@ -85,6 +88,7 @@ const { category } = Astro.props;
                       </div>
 
                       {/* Try Now Button (Up-Right Icon) with Tooltip */}
+                      {showTry && (
                       <div class="relative group/tooltip opacity-0 group-hover/row:opacity-100 group-focus-within/row:opacity-100 transition-opacity duration-150 shrink-0">
                         <a
                           href={testerHref}
@@ -109,6 +113,7 @@ const { category } = Astro.props;
                           Try in tester
                         </span>
                       </div>
+                      )}
                     </div>
                   </td>
                   <td

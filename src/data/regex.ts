@@ -2,6 +2,13 @@ export interface RegexEntry {
   syntax: string;
   description: string;
   example?: string;
+  /**
+   * Controls the "Try →" button on the cheat-sheet:
+   *   undefined  → use `syntax` as the pattern (default)
+   *   null       → hide the Try button entirely
+   *   string     → use this concrete pattern instead of `syntax`
+   */
+  tryPattern?: string | null;
 }
 
 export interface RegexCategory {
@@ -36,23 +43,23 @@ export const universalRegex: RegexCategory[] = [
       { syntax: "$", description: "End of string (or line with multiline flag)", example: "world$ → 'Hello world'" },
       { syntax: "\\b", description: "Word boundary", example: "\\bcat\\b → 'cat' not 'catch'" },
       { syntax: "\\B", description: "Non-word boundary", example: "\\Bcat\\B → 'concatenate'" },
-      { syntax: "\\A", description: "Start of string (no multiline)", example: "\\AHello → 'Hello world'" },
-      { syntax: "\\Z", description: "End of string (no multiline)", example: "world\\Z → 'Hello world'" },
+      { syntax: "\\A", description: "Start of string (no multiline)", example: "\\AHello → 'Hello world'", tryPattern: null },
+      { syntax: "\\Z", description: "End of string (no multiline)", example: "world\\Z → 'Hello world'", tryPattern: null },
     ],
   },
   {
     id: "quantifiers",
     title: "Quantifiers",
     entries: [
-      { syntax: "*", description: "0 or more (greedy)", example: "ab* → 'a', 'ab', 'abbb'" },
-      { syntax: "+", description: "1 or more (greedy)", example: "ab+ → 'ab', 'abbb'" },
-      { syntax: "?", description: "0 or 1 (optional)", example: "ab? → 'a', 'ab'" },
-      { syntax: "{n}", description: "Exactly n times", example: "a{3} → 'aaa'" },
-      { syntax: "{n,}", description: "n or more times", example: "a{2,} → 'aa', 'aaa'" },
-      { syntax: "{n,m}", description: "Between n and m times", example: "a{2,4} → 'aa', 'aaa', 'aaaa'" },
-      { syntax: "*?", description: "0 or more (lazy / non-greedy)", example: "<.*?> → '<a>' not '<a>b</b>'" },
-      { syntax: "+?", description: "1 or more (lazy)", example: "a+? → first 'a' only" },
-      { syntax: "??", description: "0 or 1 (lazy)", example: "ab?? → 'a' preferred" },
+      { syntax: "*", description: "0 or more (greedy)", example: "ab* → 'a', 'ab', 'abbb'", tryPattern: "ab*" },
+      { syntax: "+", description: "1 or more (greedy)", example: "ab+ → 'ab', 'abbb'", tryPattern: "ab+" },
+      { syntax: "?", description: "0 or 1 (optional)", example: "ab? → 'a', 'ab'", tryPattern: "ab?" },
+      { syntax: "{n}", description: "Exactly n times", example: "a{3} → 'aaa'", tryPattern: "a{3}" },
+      { syntax: "{n,}", description: "n or more times", example: "a{2,} → 'aa', 'aaa'", tryPattern: "a{2,}" },
+      { syntax: "{n,m}", description: "Between n and m times", example: "a{2,4} → 'aa', 'aaa', 'aaaa'", tryPattern: "a{2,4}" },
+      { syntax: "*?", description: "0 or more (lazy / non-greedy)", example: "<.*?> → '<a>' not '<a>b</b>'", tryPattern: "<.*?>" },
+      { syntax: "+?", description: "1 or more (lazy)", example: "a+? → first 'a' only", tryPattern: "a+?" },
+      { syntax: "??", description: "0 or 1 (lazy)", example: "ab?? → 'a' preferred", tryPattern: "ab??" },
     ],
   },
   {
@@ -74,13 +81,13 @@ export const universalRegex: RegexCategory[] = [
     id: "flags",
     title: "Flags / Modifiers",
     entries: [
-      { syntax: "i", description: "Case-insensitive matching", example: "/hello/i → 'Hello', 'HELLO'" },
-      { syntax: "g", description: "Global — find all matches, not just first", example: "/a/g → all 'a's in string" },
-      { syntax: "m", description: "Multiline — ^ and $ match line starts/ends", example: "/^foo/m → 'foo' at start of any line" },
-      { syntax: "s", description: "Dotall — . matches newline too", example: "/a.b/s → 'a\\nb'" },
-      { syntax: "u", description: "Unicode — enable full Unicode support", example: "/\\u{1F600}/u → emoji match" },
-      { syntax: "y", description: "Sticky — match at exact position only", example: "/foo/y at index 0" },
-      { syntax: "x", description: "Extended — allow whitespace and comments (some engines)", example: "# comment" },
+      { syntax: "i", description: "Case-insensitive matching", example: "/hello/i → 'Hello', 'HELLO'", tryPattern: null },
+      { syntax: "g", description: "Global — find all matches, not just first", example: "/a/g → all 'a's in string", tryPattern: null },
+      { syntax: "m", description: "Multiline — ^ and $ match line starts/ends", example: "/^foo/m → 'foo' at start of any line", tryPattern: null },
+      { syntax: "s", description: "Dotall — . matches newline too", example: "/a.b/s → 'a\\nb'", tryPattern: null },
+      { syntax: "u", description: "Unicode — enable full Unicode support", example: "/\\u{1F600}/u → emoji match", tryPattern: null },
+      { syntax: "y", description: "Sticky — match at exact position only", example: "/foo/y at index 0", tryPattern: null },
+      { syntax: "x", description: "Extended — allow whitespace and comments (some engines)", example: "# comment", tryPattern: null },
     ],
   },
 ];
