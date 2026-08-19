@@ -31,38 +31,53 @@ const navItems = [
   />
   <SectionNav items={navItems} />
 
-  <main id="main-content" class="container-content main">
+  <main id="main-content" class="container-wide main">
     <!-- Python Tip Callout -->
     <div class="tip-callout" role="note" aria-label="Python Regex Pro Tip">
       <div class="tip-icon" aria-hidden="true">💡</div>
       <div class="tip-content">
-        <span class="tip-title">Pro Tip: Always use raw string notation <code>r"..."</code></span>
+        <span class="tip-title"
+          >Pro Tip: Always use raw string notation <code>r"..."</code></span
+        >
         <p class="tip-text">
-          In Python, prefix all regex patterns with <code>r</code> (e.g. <code>r"\bword\b"</code>). Without the <code>r</code> prefix, Python processes backslashes as standard string escape sequences — turning <code>"\b"</code> into an ASCII backspace (<code>\x08</code>) instead of a regex word boundary.
+          In Python, prefix all regex patterns with <code>r</code> (e.g. <code
+            >r"\bword\b"</code
+          >). Without the <code>r</code> prefix, Python processes backslashes as standard
+          string escape sequences — turning <code>"\b"</code> into an ASCII backspace
+          (<code>\x08</code>) instead of a regex word boundary.
         </p>
       </div>
     </div>
 
     <!-- Python regex reference tables -->
     <section class="tables-section" aria-label="Python re module reference">
-      {pythonRegexCategories.map((category) => (
-        <RegexTable category={category} />
-      ))}
+      {
+        pythonRegexCategories.map((category) => (
+          <RegexTable category={category} />
+        ))
+      }
     </section>
 
     <!-- Python Code Recipes -->
     <PythonRecipes />
 
     <!-- Nav cards to other guides -->
-    <section class="cards-section" id="explore-heading" aria-labelledby="explore-heading-title">
+    <section
+      class="cards-section"
+      id="explore-heading"
+      aria-labelledby="explore-heading-title"
+    >
       <div class="cards-header">
-        <h2 class="cards-heading" id="explore-heading-title">Explore Other Guides</h2>
-        <p class="cards-subtext">Switch to universal patterns, other programming languages, or download offline cheatsheets.</p>
+        <h2 class="cards-heading" id="explore-heading-title">
+          Explore Other Guides
+        </h2>
+        <p class="cards-subtext">
+          Switch to universal patterns, other programming languages, or download
+          offline cheatsheets.
+        </p>
       </div>
       <div class="cards-grid">
-        {pythonNavCards.map((card) => (
-          <NavCard card={card} />
-        ))}
+        {pythonNavCards.map((card) => <NavCard card={card} />)}
       </div>
     </section>
   </main>

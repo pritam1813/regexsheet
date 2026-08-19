@@ -26,10 +26,21 @@ import {
 
   <!-- Interactive Filter & Search Band -->
   <div class="filter-band">
-    <div class="container-content filter-inner">
+    <div class="container-wide filter-inner">
       <!-- Search Input -->
       <div class="search-wrapper">
-        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <svg
+          class="search-icon"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
           <circle cx="11" cy="11" r="8"></circle>
           <path d="M21 21l-4.35-4.35"></path>
         </svg>
@@ -40,8 +51,24 @@ import {
           placeholder="Filter examples (e.g. email, password, slug, date)..."
           aria-label="Filter regex examples"
         />
-        <button type="button" id="clear-search" class="clear-btn" aria-label="Clear search" hidden>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <button
+          type="button"
+          id="clear-search"
+          class="clear-btn"
+          aria-label="Clear search"
+          hidden
+        >
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
             <line x1="18" y1="6" x2="6" y2="18"></line>
             <line x1="6" y1="6" x2="18" y2="18"></line>
           </svg>
@@ -50,24 +77,36 @@ import {
 
       <!-- Controls row: Category Pills & Global Language Switcher -->
       <div class="controls-row">
-        <div class="category-pills" role="tablist" aria-label="Filter by category">
-          {examplesCategories.map((cat, idx) => (
-            <button
-              type="button"
-              role="tab"
-              class:list={["cat-pill", { active: idx === 0 }]}
-              data-category={cat.id}
-              aria-selected={idx === 0 ? "true" : "false"}
-            >
-              {cat.label}
-            </button>
-          ))}
+        <div
+          class="category-pills"
+          role="tablist"
+          aria-label="Filter by category"
+        >
+          {
+            examplesCategories.map((cat, idx) => (
+              <button
+                type="button"
+                role="tab"
+                class:list={["cat-pill", { active: idx === 0 }]}
+                data-category={cat.id}
+                aria-selected={idx === 0 ? "true" : "false"}
+              >
+                {cat.label}
+              </button>
+            ))
+          }
         </div>
 
         <!-- Global Language Selector -->
         <div class="global-lang-control">
-          <label for="global-lang-select" class="global-lang-label">Language:</label>
-          <select id="global-lang-select" class="global-lang-select" aria-label="Default code snippet language">
+          <label for="global-lang-select" class="global-lang-label"
+            >Language:</label
+          >
+          <select
+            id="global-lang-select"
+            class="global-lang-select"
+            aria-label="Default code snippet language"
+          >
             <option value="javascript">JavaScript</option>
             <option value="python">Python</option>
             <option value="java">Java</option>
@@ -77,37 +116,47 @@ import {
     </div>
   </div>
 
-  <main id="main-content" class="container-content main">
+  <main id="main-content" class="container-wide main">
     <!-- Results Count Bar -->
     <div class="results-bar">
-      <span id="results-count" class="results-text">Showing all {regexExamples.length} examples</span>
+      <span id="results-count" class="results-text"
+        >Showing all {regexExamples.length} examples</span
+      >
     </div>
 
     <!-- Examples List -->
     <div class="examples-list" id="examples-container">
-      {regexExamples.map((example) => (
-        <ExampleCard example={example} />
-      ))}
+      {regexExamples.map((example) => <ExampleCard example={example} />)}
     </div>
 
     <!-- Empty State -->
     <div id="empty-state" class="empty-state" hidden>
       <div class="empty-icon" aria-hidden="true">🔍</div>
       <h3 class="empty-title">No matching examples found</h3>
-      <p class="empty-desc">Try adjusting your search query or switching category filters.</p>
-      <button type="button" id="reset-filters-btn" class="reset-btn">Reset Filters</button>
+      <p class="empty-desc">
+        Try adjusting your search query or switching category filters.
+      </p>
+      <button type="button" id="reset-filters-btn" class="reset-btn"
+        >Reset Filters</button
+      >
     </div>
 
     <!-- Nav cards to other guides -->
-    <section class="cards-section" id="explore-heading" aria-labelledby="explore-heading-title">
+    <section
+      class="cards-section"
+      id="explore-heading"
+      aria-labelledby="explore-heading-title"
+    >
       <div class="cards-header">
-        <h2 class="cards-heading" id="explore-heading-title">Explore Reference Guides</h2>
-        <p class="cards-subtext">Deep-dive into engine specific cheatsheets or test your patterns live.</p>
+        <h2 class="cards-heading" id="explore-heading-title">
+          Explore Reference Guides
+        </h2>
+        <p class="cards-subtext">
+          Deep-dive into engine specific cheatsheets or test your patterns live.
+        </p>
       </div>
       <div class="cards-grid">
-        {examplesNavCards.map((card) => (
-          <NavCard card={card} />
-        ))}
+        {examplesNavCards.map((card) => <NavCard card={card} />)}
       </div>
     </section>
   </main>
@@ -117,10 +166,16 @@ import {
 
 <script>
   function setupExamplesPage() {
-    const searchInput = document.getElementById("example-search") as HTMLInputElement | null;
-    const clearBtn = document.getElementById("clear-search") as HTMLButtonElement | null;
+    const searchInput = document.getElementById(
+      "example-search",
+    ) as HTMLInputElement | null;
+    const clearBtn = document.getElementById(
+      "clear-search",
+    ) as HTMLButtonElement | null;
     const catPills = document.querySelectorAll<HTMLButtonElement>(".cat-pill");
-    const globalLangSelect = document.getElementById("global-lang-select") as HTMLSelectElement | null;
+    const globalLangSelect = document.getElementById(
+      "global-lang-select",
+    ) as HTMLSelectElement | null;
     const container = document.getElementById("examples-container");
     const cards = document.querySelectorAll<HTMLElement>(".example-card");
     const emptyState = document.getElementById("empty-state");
@@ -133,7 +188,8 @@ import {
     let currentSearch = "";
 
     // 1. Language Preference Management
-    const savedLang = localStorage.getItem("preferred_regex_lang") || "javascript";
+    const savedLang =
+      localStorage.getItem("preferred_regex_lang") || "javascript";
     if (globalLangSelect) {
       globalLangSelect.value = savedLang;
     }
@@ -171,7 +227,9 @@ import {
 
     // 2. Per-card Tab Switching
     document.addEventListener("click", (e) => {
-      const tab = (e.target as HTMLElement)?.closest(".lang-tab") as HTMLButtonElement | null;
+      const tab = (e.target as HTMLElement)?.closest(
+        ".lang-tab",
+      ) as HTMLButtonElement | null;
       if (!tab) return;
 
       const cardSnippets = tab.closest(".code-snippets");
@@ -180,8 +238,10 @@ import {
       const lang = tab.dataset.lang;
       if (!lang) return;
 
-      const siblingTabs = cardSnippets.querySelectorAll<HTMLButtonElement>(".lang-tab");
-      const siblingPanels = cardSnippets.querySelectorAll<HTMLElement>(".snippet-panel");
+      const siblingTabs =
+        cardSnippets.querySelectorAll<HTMLButtonElement>(".lang-tab");
+      const siblingPanels =
+        cardSnippets.querySelectorAll<HTMLElement>(".snippet-panel");
 
       siblingTabs.forEach((t) => {
         const active = t === tab;
@@ -200,13 +260,17 @@ import {
 
     // 3. Copy Code Buttons
     document.addEventListener("click", async (e) => {
-      const copyBtn = (e.target as HTMLElement)?.closest(".copy-code-btn") as HTMLButtonElement | null;
+      const copyBtn = (e.target as HTMLElement)?.closest(
+        ".copy-code-btn",
+      ) as HTMLButtonElement | null;
       if (!copyBtn) return;
 
       const cardSnippets = copyBtn.closest(".code-snippets");
       if (!cardSnippets) return;
 
-      const activePanel = cardSnippets.querySelector<HTMLElement>(".snippet-panel:not([hidden])");
+      const activePanel = cardSnippets.querySelector<HTMLElement>(
+        ".snippet-panel:not([hidden])",
+      );
       const code = activePanel?.querySelector("code")?.textContent;
       if (!code) return;
 
@@ -229,7 +293,9 @@ import {
 
     // 4. Copy Pattern Buttons
     document.addEventListener("click", async (e) => {
-      const btn = (e.target as HTMLElement)?.closest(".copy-pattern-btn") as HTMLButtonElement | null;
+      const btn = (e.target as HTMLElement)?.closest(
+        ".copy-pattern-btn",
+      ) as HTMLButtonElement | null;
       if (!btn) return;
 
       const pattern = btn.getAttribute("data-pattern");
@@ -259,12 +325,20 @@ import {
 
       cards.forEach((card) => {
         const category = card.getAttribute("data-category");
-        const title = card.querySelector(".card-title")?.textContent?.toLowerCase() || "";
-        const desc = card.querySelector(".card-desc")?.textContent?.toLowerCase() || "";
-        const pattern = card.querySelector(".pattern-code")?.textContent?.toLowerCase() || "";
+        const title =
+          card.querySelector(".card-title")?.textContent?.toLowerCase() || "";
+        const desc =
+          card.querySelector(".card-desc")?.textContent?.toLowerCase() || "";
+        const pattern =
+          card.querySelector(".pattern-code")?.textContent?.toLowerCase() || "";
 
-        const matchesCategory = currentCategory === "all" || category === currentCategory;
-        const matchesQuery = !query || title.includes(query) || desc.includes(query) || pattern.includes(query);
+        const matchesCategory =
+          currentCategory === "all" || category === currentCategory;
+        const matchesQuery =
+          !query ||
+          title.includes(query) ||
+          desc.includes(query) ||
+          pattern.includes(query);
 
         if (matchesCategory && matchesQuery) {
           card.style.display = "";
@@ -393,7 +467,9 @@ import {
     border: 1px solid var(--color-border);
     border-radius: var(--radius-full);
     outline: none;
-    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    transition:
+      border-color 0.15s ease,
+      box-shadow 0.15s ease;
   }
 
   .search-input:focus {

@@ -13,7 +13,7 @@ const {
 ---
 
 <header class="hero">
-  <div class="container-content hero-inner">
+  <div class="container-wide hero-inner">
     <div class="hero-badge">
       <span class="hero-badge-dot" aria-hidden="true"></span>
       {badge}
@@ -102,8 +102,15 @@ const {
   }
 
   @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50%       { opacity: 0.5; transform: scale(0.8); }
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.5;
+      transform: scale(0.8);
+    }
   }
 
   .hero-title {

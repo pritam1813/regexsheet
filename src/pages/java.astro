@@ -32,38 +32,56 @@ const navItems = [
   />
   <SectionNav items={navItems} />
 
-  <main id="main-content" class="container-content main">
+  <main id="main-content" class="container-wide main">
     <!-- Java Tip Callout -->
     <div class="tip-callout" role="note" aria-label="Java Regex Pro Tip">
       <div class="tip-icon" aria-hidden="true">💡</div>
       <div class="tip-content">
-        <span class="tip-title">Pro Tip: Remember to double-escape backslashes <code>"\\d+"</code></span>
+        <span class="tip-title"
+          >Pro Tip: Remember to double-escape backslashes <code>"\\d+"</code
+          ></span
+        >
         <p class="tip-text">
-          In Java string literals, the backslash is an escape character for the compiler. To pass a regex token like <code>\d</code> or <code>\b</code> to the regex engine, you must escape the backslash itself: <code>"\\d+"</code> or <code>"\\bword\\b"</code>. For literal strings, use <code>Pattern.quote(str)</code> or <code>\Q...\E</code>.
+          In Java string literals, the backslash is an escape character for the
+          compiler. To pass a regex token like <code>\d</code> or <code>\b</code
+          > to the regex engine, you must escape the backslash itself: <code
+            >"\\d+"</code
+          > or <code>"\\bword\\b"</code>. For literal strings, use <code
+            >Pattern.quote(str)</code
+          > or <code>\Q...\E</code>.
         </p>
       </div>
     </div>
 
     <!-- Java regex reference tables -->
     <section class="tables-section" aria-label="Java util regex reference">
-      {javaRegexCategories.map((category) => (
-        <RegexTable category={category} />
-      ))}
+      {
+        javaRegexCategories.map((category) => (
+          <RegexTable category={category} />
+        ))
+      }
     </section>
 
     <!-- Java Code Recipes -->
     <JavaRecipes />
 
     <!-- Nav cards to other guides -->
-    <section class="cards-section" id="explore-heading" aria-labelledby="explore-heading-title">
+    <section
+      class="cards-section"
+      id="explore-heading"
+      aria-labelledby="explore-heading-title"
+    >
       <div class="cards-header">
-        <h2 class="cards-heading" id="explore-heading-title">Explore Other Guides</h2>
-        <p class="cards-subtext">Switch to universal patterns, other programming languages, or test expressions interactively.</p>
+        <h2 class="cards-heading" id="explore-heading-title">
+          Explore Other Guides
+        </h2>
+        <p class="cards-subtext">
+          Switch to universal patterns, other programming languages, or test
+          expressions interactively.
+        </p>
       </div>
       <div class="cards-grid">
-        {javaNavCards.map((card) => (
-          <NavCard card={card} />
-        ))}
+        {javaNavCards.map((card) => <NavCard card={card} />)}
       </div>
     </section>
   </main>

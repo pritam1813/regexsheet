@@ -17,24 +17,28 @@ import { universalRegex, navCards } from "../data/regex";
   <Hero />
   <SectionNav />
 
-  <main id="main-content" class="container-content main">
+  <main id="main-content" class="container-wide main">
     <!-- Universal regex tables, one per category -->
     <section class="tables-section" aria-label="Regex syntax reference">
-      {universalRegex.map((category) => (
-        <RegexTable category={category} />
-      ))}
+      {universalRegex.map((category) => <RegexTable category={category} />)}
     </section>
 
     <!-- Nav cards to sub-pages -->
-    <section class="cards-section" id="explore-heading" aria-labelledby="explore-heading-title">
+    <section
+      class="cards-section"
+      id="explore-heading"
+      aria-labelledby="explore-heading-title"
+    >
       <div class="cards-header">
-        <h2 class="cards-heading" id="explore-heading-title">Explore Language-Specific Guides</h2>
-        <p class="cards-subtext">Each engine has quirks. Dive into the details.</p>
+        <h2 class="cards-heading" id="explore-heading-title">
+          Explore Language-Specific Guides
+        </h2>
+        <p class="cards-subtext">
+          Each engine has quirks. Dive into the details.
+        </p>
       </div>
       <div class="cards-grid">
-        {navCards.map((card) => (
-          <NavCard card={card} />
-        ))}
+        {navCards.map((card) => <NavCard card={card} />)}
       </div>
     </section>
   </main>

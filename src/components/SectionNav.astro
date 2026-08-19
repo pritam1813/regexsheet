@@ -22,13 +22,15 @@ const { items = defaultItems } = Astro.props;
 ---
 
 <nav class="sticky-nav" aria-label="Section navigation">
-  <div class="container-content sticky-nav-inner">
+  <div class="container-wide sticky-nav-inner">
     <div class="sticky-nav-scroll">
-      {items.map((item) => (
-        <a href={`#${item.id}`} class="nav-pill" data-section={item.id}>
-          {item.label}
-        </a>
-      ))}
+      {
+        items.map((item) => (
+          <a href={`#${item.id}`} class="nav-pill" data-section={item.id}>
+            {item.label}
+          </a>
+        ))
+      }
     </div>
   </div>
 </nav>
@@ -59,7 +61,7 @@ const { items = defaultItems } = Astro.props;
       {
         rootMargin: "-110px 0px -70% 0px",
         threshold: 0,
-      }
+      },
     );
 
     sections.forEach((sec) => observer.observe(sec));
@@ -126,7 +128,11 @@ const { items = defaultItems } = Astro.props;
     border-radius: var(--radius-full);
     text-decoration: none;
     white-space: nowrap;
-    transition: background 0.12s ease, border-color 0.12s ease, color 0.12s ease, box-shadow 0.12s ease;
+    transition:
+      background 0.12s ease,
+      border-color 0.12s ease,
+      color 0.12s ease,
+      box-shadow 0.12s ease;
     flex-shrink: 0;
   }
 

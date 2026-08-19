@@ -12,11 +12,22 @@ import LiveRegexTester from "../components/LiveRegexTester.astro";
   <SiteNav />
 
   <header class="tester-hero">
-    <div class="container-content hero-inner">
+    <div class="container-wide hero-inner">
       <div class="back-link-wrap">
         <a href="/" class="back-link" aria-label="Back to cheat sheet">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-            <path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 14 14"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M9 2L4 7l5 5"
+              stroke="currentColor"
+              stroke-width="1.75"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
           </svg>
           Cheat Sheet
         </a>
@@ -24,35 +35,63 @@ import LiveRegexTester from "../components/LiveRegexTester.astro";
       <h1 class="hero-title">Live Regex Tester</h1>
       <p class="hero-subtitle">
         Enter a pattern and test string — matches highlight as you type.
-        <span class="hero-tip">Tip: click <strong>Try →</strong> on any cheat-sheet row to pre-fill.</span>
+        <span class="hero-tip"
+          >Tip: click <strong>Try →</strong> on any cheat-sheet row to pre-fill.</span
+        >
       </p>
     </div>
   </header>
 
-  <main class="container-content tester-main" id="main-content">
+  <main class="container-wide tester-main" id="main-content">
     <LiveRegexTester />
 
     <!-- Quick-reference strips -->
     <section class="quick-ref" aria-labelledby="quick-ref-heading">
       <h2 class="quick-ref-heading" id="quick-ref-heading">Quick reference</h2>
       <div class="qr-grid">
-        {[
-          { label: "Any digit",        pattern: "\\d+",              test: "Order 42 costs $9.99" },
-          { label: "Email address",    pattern: "[\\w.+-]+@[\\w-]+\\.[\\w.]+", test: "Contact us at hello@example.com or support@site.io" },
-          { label: "Word boundary",    pattern: "\\bcat\\b",         test: "The cat concatenate catch a catfish" },
-          { label: "Capturing group",  pattern: "(\\d{4})-(\\d{2})-(\\d{2})", test: "Date: 2024-03-15" },
-          { label: "Non-greedy",       pattern: "<.+?>",             test: "<b>bold</b> and <i>italic</i>" },
-          { label: "Lookahead",        pattern: "\\d+(?= dollars)",  test: "I have 42 dollars and 7 euros" },
-        ].map((ex) => (
-          <a
-            class="qr-chip"
-            href={`/tester?p=${encodeURIComponent(ex.pattern)}&t=${encodeURIComponent(ex.test)}`}
-            aria-label={`Try example: ${ex.label}`}
-          >
-            <span class="qr-label">{ex.label}</span>
-            <code class="qr-pattern">{ex.pattern}</code>
-          </a>
-        ))}
+        {
+          [
+            {
+              label: "Any digit",
+              pattern: "\\d+",
+              test: "Order 42 costs $9.99",
+            },
+            {
+              label: "Email address",
+              pattern: "[\\w.+-]+@[\\w-]+\\.[\\w.]+",
+              test: "Contact us at hello@example.com or support@site.io",
+            },
+            {
+              label: "Word boundary",
+              pattern: "\\bcat\\b",
+              test: "The cat concatenate catch a catfish",
+            },
+            {
+              label: "Capturing group",
+              pattern: "(\\d{4})-(\\d{2})-(\\d{2})",
+              test: "Date: 2024-03-15",
+            },
+            {
+              label: "Non-greedy",
+              pattern: "<.+?>",
+              test: "<b>bold</b> and <i>italic</i>",
+            },
+            {
+              label: "Lookahead",
+              pattern: "\\d+(?= dollars)",
+              test: "I have 42 dollars and 7 euros",
+            },
+          ].map((ex) => (
+            <a
+              class="qr-chip"
+              href={`/tester?p=${encodeURIComponent(ex.pattern)}&t=${encodeURIComponent(ex.test)}`}
+              aria-label={`Try example: ${ex.label}`}
+            >
+              <span class="qr-label">{ex.label}</span>
+              <code class="qr-pattern">{ex.pattern}</code>
+            </a>
+          ))
+        }
       </div>
     </section>
   </main>
@@ -75,7 +114,11 @@ import LiveRegexTester from "../components/LiveRegexTester.astro";
     content: "";
     position: absolute;
     inset: 0;
-    background-image: radial-gradient(circle, rgb(91 33 182 / 0.05) 1px, transparent 1px);
+    background-image: radial-gradient(
+      circle,
+      rgb(91 33 182 / 0.05) 1px,
+      transparent 1px
+    );
     background-size: 24px 24px;
     pointer-events: none;
   }
@@ -104,7 +147,10 @@ import LiveRegexTester from "../components/LiveRegexTester.astro";
     border-radius: var(--radius-full);
     border: 1px solid var(--color-border);
     background: var(--color-surface);
-    transition: color 0.12s ease, border-color 0.12s ease, background 0.12s ease;
+    transition:
+      color 0.12s ease,
+      border-color 0.12s ease,
+      background 0.12s ease;
   }
 
   .back-link:hover {
@@ -192,7 +238,10 @@ import LiveRegexTester from "../components/LiveRegexTester.astro";
     border: 1px solid var(--color-border);
     border-radius: var(--radius-sm);
     text-decoration: none;
-    transition: border-color 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+    transition:
+      border-color 0.12s ease,
+      box-shadow 0.12s ease,
+      background 0.12s ease;
     cursor: pointer;
   }
 
