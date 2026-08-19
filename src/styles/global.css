@@ -10,27 +10,41 @@
    ---------------------------------------------------------- */
 @theme {
   /* Typography */
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+  --font-sans:
+    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono:
+    "JetBrains Mono", "Fira Code", "Cascadia Code", "Consolas", monospace;
 
   /* Colors */
-  --color-ink:           #1a1a2e;
-  --color-ink-soft:      #2d2d44;
-  --color-muted:         #6b7280;
-  --color-muted-soft:    #9ca3af;
+  --color-ink: #1a1a2e;
+  --color-ink-soft: #2d2d44;
+  --color-muted: #6b7280;
+  --color-muted-soft: #9ca3af;
 
-  --color-accent:        #5b21b6;   /* deep violet — primary brand */
-  --color-accent-hover:  #4c1d95;
-  --color-accent-subtle: #ede9fe;   /* violet-50 equivalent */
-  --color-on-accent:     #ffffff;
+  --color-accent: #5b21b6; /* deep violet — primary brand */
+  --color-accent-hover: #4c1d95;
+  --color-accent-subtle: #ede9fe; /* violet-50 equivalent */
+  --color-on-accent: #ffffff;
 
-  --color-surface:       #ffffff;
-  --color-surface-raised:#f8f7ff;   /* very faint violet tint */
-  --color-hover:         #f5f3ff;
+  --color-success: #16a34a;
+  --color-success-bg: #f0fdf4;
+  --color-success-text: #15803d;
+  --color-success-border: #bbf7d0;
 
-  --color-border:        #e5e7eb;
-  --color-border-soft:   #f3f4f6;
-  --color-canvas:        #fafafa;
+  --color-error: #dc2626;
+  --color-error-bg: #fef2f2;
+  --color-error-text: #b91c1c;
+  --color-error-border: #fecaca;
+
+  --color-highlight: #f59e0b; /* amber-500 */
+
+  --color-surface: #ffffff;
+  --color-surface-raised: #f8f7ff; /* very faint violet tint */
+  --color-hover: #f5f3ff;
+
+  --color-border: #e5e7eb;
+  --color-border-soft: #f3f4f6;
+  --color-canvas: #fafafa;
 
   /* Radius */
   --radius-xs: 4px;
@@ -41,42 +55,61 @@
   --radius-full: 9999px;
 
   /* Spacing */
-  --space-xxs:  2px;
-  --space-xs:   4px;
-  --space-sm:   8px;
-  --space-md:   12px;
-  --space-lg:   24px;
-  --space-xl:   32px;
-  --space-xxl:  48px;
+  --space-xxs: 2px;
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-xxl: 48px;
   --space-section: 64px;
 
   /* Shadows */
-  --shadow-card:       0 1px 3px 0 rgb(0 0 0 / 0.06), 0 1px 2px -1px rgb(0 0 0 / 0.04);
-  --shadow-card-hover: 0 4px 12px 0 rgb(91 33 182 / 0.12), 0 2px 4px -1px rgb(0 0 0 / 0.06);
+  --shadow-card:
+    0 1px 3px 0 rgb(0 0 0 / 0.06), 0 1px 2px -1px rgb(0 0 0 / 0.04);
+  --shadow-card-hover:
+    0 4px 12px 0 rgb(91 33 182 / 0.12), 0 2px 4px -1px rgb(0 0 0 / 0.06);
 }
 
 @layer base {
-  :root[data-theme="dark"], .dark {
-    --color-ink:           #f8fafc;
-    --color-ink-soft:      #e2e8f0;
-    --color-muted:         #94a3b8;
-    --color-muted-soft:    #64748b;
+  :root[data-theme="dark"],
+  .dark {
+    /* Dark theme */
+    --color-ink: #dcd9ec; /* was #f1eef9 — ~87% equivalent */
+    --color-ink-soft: #b3aec8; /* was #c7c2d9 */
+    --color-muted: #9490a8;
+    --color-muted-soft: #6f6b82;
 
-    --color-accent:        #a78bfa;   /* lighter violet */
-    --color-accent-hover:  #c4b5fd;
-    --color-accent-subtle: #4c1d95;   /* darker background violet */
-    --color-on-accent:     #1e293b;
+    --color-accent: #a78bfa; /* violet-400 — lightened for dark bg */
+    --color-accent-hover: #c4b5fd; /* lighter still on hover */
+    --color-accent-subtle: #2a2340; /* dark violet tint, inverse of accent-subtle */
+    --color-on-accent: #1a1a2e; /* reuse light-mode ink — reads better than white on a lighter accent */
 
-    --color-surface:       #1e293b;
-    --color-surface-raised:#334155;
-    --color-hover:         #0f172a;
+    --color-surface: #17141f; /* near-black with violet undertone */
+    --color-surface-raised: #1e1a2b;
+    --color-hover: #241f33;
 
-    --color-border:        #475569;
-    --color-border-soft:   #334155;
-    --color-canvas:        #0f172a;
+    --color-border: #322c44;
+    --color-border-soft: #241f2f;
+    --color-canvas: #0e0c14; /* page bg, darker than surface for depth */
 
-    --shadow-card:       0 1px 3px 0 rgb(0 0 0 / 0.4), 0 1px 2px -1px rgb(0 0 0 / 0.2);
-    --shadow-card-hover: 0 4px 12px 0 rgb(167 139 250 / 0.12), 0 2px 4px -1px rgb(0 0 0 / 0.4);
+    --color-success: #22c55e;
+    --color-success-bg: rgba(21, 128, 61, 0.15);
+    --color-success-text: #4ade80;
+    --color-success-border: #166534;
+
+    --color-error: #ef4444;
+    --color-error-bg: rgba(185, 28, 28, 0.15);
+    --color-error-text: #f87171;
+    --color-error-border: #991b1b;
+
+    --color-highlight: #fbbf24; /* amber-400 */
+
+    /* Shadows — black shadows barely register on dark bg, so lean on opacity + a faint accent glow */
+    --shadow-card:
+      0 1px 3px 0 rgb(0 0 0 / 0.4), 0 1px 2px -1px rgb(0 0 0 / 0.3);
+    --shadow-card-hover:
+      0 4px 16px 0 rgb(167 139 250 / 0.18), 0 2px 4px -1px rgb(0 0 0 / 0.3);
   }
 }
 

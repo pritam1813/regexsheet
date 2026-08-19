@@ -130,7 +130,7 @@ const { initialPattern = "", initialTest = "" } = Astro.props;
 
   .pattern-wrap:focus-within {
     border-color: var(--color-accent);
-    box-shadow: 0 0 0 3px rgb(91 33 182 / 0.1);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 15%, transparent);
   }
 
   .delim {
@@ -225,7 +225,7 @@ const { initialPattern = "", initialTest = "" } = Astro.props;
 
   .test-wrap:focus-within {
     border-color: var(--color-accent);
-    box-shadow: 0 0 0 3px rgb(91 33 182 / 0.1);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 15%, transparent);
   }
 
   /* Mirror — absorbs highlight colours, sits behind the textarea */
@@ -270,15 +270,15 @@ const { initialPattern = "", initialTest = "" } = Astro.props;
 
   /* ── Highlight marks (global so they survive innerHTML injection) ── */
   :global(.rx-match) {
-    background: rgb(245 158 11 / 0.25);
+    background: color-mix(in srgb, var(--color-highlight) 25%, transparent);
     border-radius: 2px;
-    outline: 1px solid rgb(245 158 11 / 0.55);
+    outline: 1px solid color-mix(in srgb, var(--color-highlight) 55%, transparent);
     color: transparent;
   }
 
   :global(.rx-match-first) {
-    background: rgb(139 92 246 / 0.25);
-    outline: 1px solid rgb(139 92 246 / 0.55);
+    background: color-mix(in srgb, var(--color-accent) 25%, transparent);
+    outline: 1px solid color-mix(in srgb, var(--color-accent) 55%, transparent);
   }
 
   /* ── Status bar ─────────────────────────────────────────── */
@@ -299,7 +299,7 @@ const { initialPattern = "", initialTest = "" } = Astro.props;
   :global(.status-ok) {
     font-size: 0.8125rem;
     font-weight: 500;
-    color: #16a34a;
+    color: var(--color-success);
     display: flex;
     align-items: center;
     gap: 8px;
@@ -309,8 +309,8 @@ const { initialPattern = "", initialTest = "" } = Astro.props;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: #16a34a;
-    color: #fff;
+    background: var(--color-success);
+    color: #ffffff;
     font-size: 0.7rem;
     font-weight: 700;
     border-radius: var(--radius-full);
@@ -319,15 +319,20 @@ const { initialPattern = "", initialTest = "" } = Astro.props;
     font-family: var(--font-mono);
   }
 
+  :global([data-theme="dark"] .status-ok .badge),
+  :global(.dark .status-ok .badge) {
+    color: var(--color-canvas);
+  }
+
   :global(.status-none) {
     font-size: 0.8125rem;
-    color: #dc2626;
+    color: var(--color-error);
     font-weight: 500;
   }
 
   :global(.status-error) {
     font-size: 0.8125rem;
-    color: #dc2626;
+    color: var(--color-error);
     font-weight: 500;
     font-family: var(--font-mono);
   }
