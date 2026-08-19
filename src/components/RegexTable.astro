@@ -25,7 +25,7 @@ const { category } = Astro.props;
   >
     <div class="overflow-x-auto">
       <table
-        class="w-full min-w-155 border-collapse text-left text-sm"
+        class="w-full min-w-100 border-collapse text-left text-sm table-fixed"
         role="table"
       >
         <thead>
@@ -66,15 +66,16 @@ const { category } = Astro.props;
 
               return (
                 <tr class="group/row transition-colors duration-150 hover:bg-hover">
-                  <td class="px-4 py-3 sm:px-5 sm:py-3.5 align-middle">
-                    <div class="flex items-center gap-8">
+                  <td class="px-4 py-3 sm:px-5 sm:py-3.5 align-middle min-w-0">
+                    <div class="flex items-center gap-3 min-w-0">
                       {/* Interactive Syntax Badge (Copies on Click with Tooltip & Color Transition) */}
-                      <div class="relative group/syntax inline-flex">
+                      <div class="relative group/syntax inline-flex min-w-0">
                         <button
                           type="button"
-                          class="copy-syntax-btn inline-flex items-center gap-1.5 font-mono text-xs sm:text-[0.85rem] font-semibold text-accent bg-accent-subtle hover:bg-accent hover:text-white active:scale-95 px-2 py-0.5 rounded-sm tracking-wide transition-all duration-150 cursor-pointer text-left whitespace-nowrap focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
+                          class="overflow-hidden text-ellipsis max-w-full copy-syntax-btn inline-flex items-center gap-1.5 font-mono text-xs sm:text-[0.85rem] font-semibold text-accent bg-accent-subtle hover:bg-accent hover:text-white active:scale-95 px-2 py-0.5 rounded-sm tracking-wide transition-all duration-150 cursor-pointer text-left whitespace-nowrap focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
                           data-copy-syntax={entry.syntax}
                           aria-label={`Copy syntax: ${entry.syntax}`}
+                          title={entry.syntax}
                         >
                           <span>{entry.syntax}</span>
                         </button>
@@ -110,12 +111,18 @@ const { category } = Astro.props;
                       </div>
                     </div>
                   </td>
-                  <td class="px-4 py-3 sm:px-5 sm:py-3.5 align-middle text-ink text-sm leading-relaxed">
-                    {entry.description}
+                  <td
+                    class="px-4 py-3 sm:px-5 sm:py-3.5 align-middle text-ink text-sm leading-relaxed min-w-36"
+                    title={entry.description}
+                  >
+                    <span class="line-clamp-2">{entry.description}</span>
                   </td>
                   <td class="px-4 py-3 sm:px-5 sm:py-3.5 align-middle text-sm">
                     {entry.example ? (
-                      <code class="font-mono text-xs text-muted bg-surface-raised px-2 py-1 rounded-sm inline-block max-w-full break-all sm:break-normal">
+                      <code
+                        class="font-mono text-xs text-muted bg-surface-raised px-2 py-1 rounded-sm block max-w-full overflow-hidden text-ellipsis whitespace-nowrap"
+                        title={entry.example}
+                      >
                         {entry.example}
                       </code>
                     ) : (
