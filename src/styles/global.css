@@ -22,6 +22,7 @@
   --color-accent:        #5b21b6;   /* deep violet — primary brand */
   --color-accent-hover:  #4c1d95;
   --color-accent-subtle: #ede9fe;   /* violet-50 equivalent */
+  --color-on-accent:     #ffffff;
 
   --color-surface:       #ffffff;
   --color-surface-raised:#f8f7ff;   /* very faint violet tint */
@@ -52,6 +53,31 @@
   /* Shadows */
   --shadow-card:       0 1px 3px 0 rgb(0 0 0 / 0.06), 0 1px 2px -1px rgb(0 0 0 / 0.04);
   --shadow-card-hover: 0 4px 12px 0 rgb(91 33 182 / 0.12), 0 2px 4px -1px rgb(0 0 0 / 0.06);
+}
+
+@layer base {
+  :root[data-theme="dark"], .dark {
+    --color-ink:           #f8fafc;
+    --color-ink-soft:      #e2e8f0;
+    --color-muted:         #94a3b8;
+    --color-muted-soft:    #64748b;
+
+    --color-accent:        #a78bfa;   /* lighter violet */
+    --color-accent-hover:  #c4b5fd;
+    --color-accent-subtle: #4c1d95;   /* darker background violet */
+    --color-on-accent:     #1e293b;
+
+    --color-surface:       #1e293b;
+    --color-surface-raised:#334155;
+    --color-hover:         #0f172a;
+
+    --color-border:        #475569;
+    --color-border-soft:   #334155;
+    --color-canvas:        #0f172a;
+
+    --shadow-card:       0 1px 3px 0 rgb(0 0 0 / 0.4), 0 1px 2px -1px rgb(0 0 0 / 0.2);
+    --shadow-card-hover: 0 4px 12px 0 rgb(167 139 250 / 0.12), 0 2px 4px -1px rgb(0 0 0 / 0.4);
+  }
 }
 
 /* ----------------------------------------------------------

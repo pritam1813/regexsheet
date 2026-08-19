@@ -72,14 +72,14 @@ const { category } = Astro.props;
                       <div class="relative group/syntax inline-flex min-w-0">
                         <button
                           type="button"
-                          class="overflow-hidden text-ellipsis max-w-full copy-syntax-btn inline-flex items-center gap-1.5 font-mono text-xs sm:text-[0.85rem] font-semibold text-accent bg-accent-subtle hover:bg-accent hover:text-white active:scale-95 px-2 py-0.5 rounded-sm tracking-wide transition-all duration-150 cursor-pointer text-left whitespace-nowrap focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
+                          class="overflow-hidden text-ellipsis max-w-full copy-syntax-btn inline-flex items-center gap-1.5 font-mono text-xs sm:text-[0.85rem] font-semibold text-accent bg-accent-subtle hover:bg-accent hover:text-on-accent active:scale-95 px-2 py-0.5 rounded-sm tracking-wide transition-all duration-150 cursor-pointer text-left whitespace-nowrap focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
                           data-copy-syntax={entry.syntax}
                           aria-label={`Copy syntax: ${entry.syntax}`}
                           title={entry.syntax}
                         >
                           <span>{entry.syntax}</span>
                         </button>
-                        <span class="tooltip-text pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 hidden group-hover/syntax:block group-focus-within/syntax:block bg-accent text-white text-[0.6875rem] font-medium px-2 py-0.5 rounded shadow-md whitespace-nowrap z-30">
+                        <span class="tooltip-text pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 hidden group-hover/syntax:block group-focus-within/syntax:block bg-accent text-on-accent text-[0.6875rem] font-medium px-2 py-0.5 rounded shadow-md whitespace-nowrap z-30">
                           Copy syntax
                         </span>
                       </div>
@@ -88,7 +88,7 @@ const { category } = Astro.props;
                       <div class="relative group/tooltip opacity-0 group-hover/row:opacity-100 group-focus-within/row:opacity-100 transition-opacity duration-150 shrink-0">
                         <a
                           href={testerHref}
-                          class="inline-flex items-center justify-center size-7 text-muted bg-surface border border-border hover:bg-accent hover:border-accent hover:text-white active:bg-accent-hover active:scale-95 rounded-md shadow-xs transition-all duration-150"
+                          class="inline-flex items-center justify-center size-7 text-muted bg-surface border border-border hover:bg-accent hover:border-accent hover:text-on-accent active:bg-accent-hover active:scale-95 rounded-md shadow-xs transition-all duration-150"
                           aria-label={`Try ${entry.syntax} in live tester`}
                         >
                           <svg
@@ -105,7 +105,7 @@ const { category } = Astro.props;
                             <path d="M7 7h10v10" />
                           </svg>
                         </a>
-                        <span class="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 hidden group-hover/tooltip:block group-focus-within/tooltip:block bg-accent text-white text-[0.6875rem] font-medium px-2 py-0.5 rounded shadow-md whitespace-nowrap z-30">
+                        <span class="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 hidden group-hover/tooltip:block group-focus-within/tooltip:block bg-accent text-on-accent text-[0.6875rem] font-medium px-2 py-0.5 rounded shadow-md whitespace-nowrap z-30">
                           Try in tester
                         </span>
                       </div>

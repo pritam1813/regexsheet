@@ -22,3 +22,9 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Agent skills references
+.agents/skills/*/references/docs/
+.agents/skills/*/references/docs-index.tsx
+.claude/skills/*/references/docs/
+.claude/skills/*/references/docs-index.tsx

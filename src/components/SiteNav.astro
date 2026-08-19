@@ -1,5 +1,7 @@
 ---
 // Site-wide top navigation bar
+import ThemeToggle from "./ThemeToggle.astro";
+
 interface Props {
   activePath?: string;
 }
@@ -31,6 +33,7 @@ const current = activePath.replace(/\/$/, "") || "/";
         Tester
       </a>
       <a href="/pdf" class="nav-link nav-link--cta" id="nav-pdf">PDF ↓</a>
+      <ThemeToggle />
     </div>
   </div>
 </nav>
@@ -40,7 +43,7 @@ const current = activePath.replace(/\/$/, "") || "/";
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgb(255 255 255 / 0.9);
+    background: color-mix(in srgb, var(--color-surface) 90%, transparent);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--color-border);
@@ -119,7 +122,7 @@ const current = activePath.replace(/\/$/, "") || "/";
 
   .nav-link--cta:hover {
     background: var(--color-accent);
-    color: #fff;
+    color: var(--color-on-accent);
   }
 
   .nav-link--tester {

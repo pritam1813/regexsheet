@@ -49,6 +49,36 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Theme Initialization Script (prevents FOUC) -->
+    <script is:inline>
+      const getSystemTheme = () => window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        return getSystemTheme();
+      })();
+      
+      const applyTheme = (t) => {
+        if (t === 'dark') {
+          document.documentElement.classList.add('dark');
+          document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      };
+
+      applyTheme(theme);
+      
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+        if (!localStorage.getItem('theme')) {
+          applyTheme(e.matches ? 'dark' : 'light');
+        }
+      });
+    </script>
   </head>
   <body>
     <slot />

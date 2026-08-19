@@ -428,7 +428,7 @@ import {
     position: sticky;
     top: 56px;
     z-index: 90;
-    background: rgb(255 255 255 / 0.92);
+    background: color-mix(in srgb, var(--color-surface) 92%, transparent);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--color-border);
@@ -495,7 +495,7 @@ import {
 
   .clear-btn:hover {
     background: var(--color-muted-soft);
-    color: #fff;
+    color: var(--color-surface);
   }
 
   .controls-row {
@@ -632,7 +632,7 @@ import {
     font-family: var(--font-sans);
     font-size: 0.875rem;
     font-weight: 600;
-    color: #fff;
+    color: var(--color-on-accent);
     background: var(--color-accent);
     border: none;
     padding: 8px 18px;
