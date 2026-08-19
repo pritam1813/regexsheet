@@ -139,6 +139,36 @@ body {
 }
 
 /* ----------------------------------------------------------
+   Custom Scrollbar
+   ---------------------------------------------------------- */
+::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-muted-soft);
+  border-radius: var(--radius-full);
+  border: 3px solid transparent;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-muted);
+  border: 3px solid transparent;
+  background-clip: padding-box;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-muted-soft) transparent;
+}
+
+/* ----------------------------------------------------------
    @utility — Project-level utilities
    ---------------------------------------------------------- */
 @utility container-content {
