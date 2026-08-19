@@ -1,0 +1,170 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SiteNav from "../components/SiteNav.astro";
+import Hero from "../components/Hero.astro";
+import SectionNav from "../components/SectionNav.astro";
+import RegexTable from "../components/RegexTable.astro";
+import JavaRecipes from "../components/JavaRecipes.astro";
+import NavCard from "../components/NavCard.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import { javaRegexCategories, javaNavCards } from "../data/javaRegex";
+
+const navItems = [
+  { id: "pattern-class", label: "Pattern Class" },
+  { id: "matcher-methods", label: "Matcher Methods" },
+  { id: "string-methods", label: "String Methods" },
+  { id: "flags", label: "Flags" },
+  { id: "java-syntax", label: "Java Syntax & POSIX" },
+  { id: "recipes", label: "Code Recipes" },
+  { id: "explore-heading", label: "Other Guides" },
+];
+---
+
+<Layout
+  title="Java Regex Cheat Sheet — java.util.regex Reference & Recipes"
+  description="A comprehensive, fast Java regex cheat sheet. Covers java.util.regex.Pattern, Matcher methods, String regex utilities, Pattern flags, POSIX character classes, possessive quantifiers, named groups, and Java code snippets."
+>
+  <SiteNav />
+  <Hero
+    badge="Java SE Reference"
+    title="Java Regex Cheat Sheet"
+    subtitle="Complete quick reference for java.util.regex — Pattern compilation, Matcher methods, flags, possessive quantifiers, POSIX classes, and Java code recipes."
+  />
+  <SectionNav items={navItems} />
+
+  <main id="main-content" class="container-content main">
+    <!-- Java Tip Callout -->
+    <div class="tip-callout" role="note" aria-label="Java Regex Pro Tip">
+      <div class="tip-icon" aria-hidden="true">💡</div>
+      <div class="tip-content">
+        <span class="tip-title">Pro Tip: Remember to double-escape backslashes <code>"\\d+"</code></span>
+        <p class="tip-text">
+          In Java string literals, the backslash is an escape character for the compiler. To pass a regex token like <code>\d</code> or <code>\b</code> to the regex engine, you must escape the backslash itself: <code>"\\d+"</code> or <code>"\\bword\\b"</code>. For literal strings, use <code>Pattern.quote(str)</code> or <code>\Q...\E</code>.
+        </p>
+      </div>
+    </div>
+
+    <!-- Java regex reference tables -->
+    <section class="tables-section" aria-label="Java util regex reference">
+      {javaRegexCategories.map((category) => (
+        <RegexTable category={category} />
+      ))}
+    </section>
+
+    <!-- Java Code Recipes -->
+    <JavaRecipes />
+
+    <!-- Nav cards to other guides -->
+    <section class="cards-section" id="explore-heading" aria-labelledby="explore-heading-title">
+      <div class="cards-header">
+        <h2 class="cards-heading" id="explore-heading-title">Explore Other Guides</h2>
+        <p class="cards-subtext">Switch to universal patterns, other programming languages, or test expressions interactively.</p>
+      </div>
+      <div class="cards-grid">
+        {javaNavCards.map((card) => (
+          <NavCard card={card} />
+        ))}
+      </div>
+    </section>
+  </main>
+
+  <SiteFooter />
+</Layout>
+
+<style>
+  .main {
+    padding-top: var(--space-section);
+    padding-bottom: var(--space-xl);
+  }
+
+  .tip-callout {
+    display: flex;
+    gap: var(--space-md);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-accent);
+    border-radius: var(--radius-md);
+    padding: var(--space-md) var(--space-lg);
+    margin-bottom: var(--space-xl);
+    box-shadow: var(--shadow-card);
+  }
+
+  .tip-icon {
+    font-size: 1.25rem;
+    line-height: 1.4;
+    flex-shrink: 0;
+  }
+
+  .tip-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xxs);
+  }
+
+  .tip-title {
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  .tip-title code,
+  .tip-text code {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--color-accent);
+    background: var(--color-accent-subtle);
+    padding: 1px 5px;
+    border-radius: var(--radius-xs);
+  }
+
+  .tip-text {
+    font-size: 0.875rem;
+    color: var(--color-muted);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  .tables-section {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cards-section {
+    margin-top: var(--space-section);
+    padding-top: var(--space-xxl);
+    border-top: 1px solid var(--color-border);
+    scroll-margin-top: 116px;
+  }
+
+  .cards-header {
+    margin-bottom: var(--space-xl);
+  }
+
+  .cards-heading {
+    font-family: var(--font-sans);
+    font-size: 1.375rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+    margin: 0 0 var(--space-xs) 0;
+  }
+
+  .cards-subtext {
+    font-size: 0.9375rem;
+    color: var(--color-muted);
+    margin: 0;
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+  }
+
+  @media (max-width: 640px) {
+    .cards-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
