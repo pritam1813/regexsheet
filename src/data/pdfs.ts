@@ -129,6 +129,19 @@ export const pdfCheatSheets: PdfCheatSheet[] = [
     fileSizeEstimate: "A4 / Letter",
     targetPage: "/notepad-plus-plus",
   },
+  {
+    title: "Vim Regex Cheat Sheet",
+    lang: "Vim",
+    slug: "vim",
+    icon: "🟢",
+    badge: "Vim & Neovim",
+    description:
+      "Very magic mode (\\v), search & replace (:%s), :g and :v global commands, \\zs & \\ze boundaries, and expression replacements.",
+    highlights: ["Very Magic Mode (\\v)", "Substitute (:%s) & :g/:v", "Match Bounds (\\zs, \\ze)", "Expression Register (\\=)"],
+    pages: "1 Page",
+    fileSizeEstimate: "A4 / Letter",
+    targetPage: "/vim",
+  },
 ];
 
 /**

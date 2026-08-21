@@ -10,6 +10,7 @@ import { csharpRegexCategories } from "../../data/csharpRegex";
 import { sqlRegexCategories } from "../../data/sqlRegex";
 import { perlRegexCategories } from "../../data/perlRegex";
 import { notepadppRegexCategories } from "../../data/notepadppRegex";
+import { vimRegexCategories } from "../../data/vimRegex";
 import type { RegexCategory } from "../../data/regex";
 
 export function getStaticPaths() {
@@ -23,6 +24,7 @@ export function getStaticPaths() {
     sql: sqlRegexCategories,
     perl: perlRegexCategories,
     "notepad-plus-plus": notepadppRegexCategories,
+    vim: vimRegexCategories,
   };
 
   return pdfCheatSheets.map((sheet) => ({
