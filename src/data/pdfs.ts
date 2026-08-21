@@ -142,6 +142,19 @@ export const pdfCheatSheets: PdfCheatSheet[] = [
     fileSizeEstimate: "A4 / Letter",
     targetPage: "/vim",
   },
+  {
+    title: "Grep Regex Cheat Sheet",
+    lang: "grep",
+    slug: "grep",
+    icon: "🔍",
+    badge: "CLI & POSIX",
+    description:
+      "Extended regex (-E), PCRE (-P), recursive search, output control (-o, -v, -n), context lines (-C), and POSIX character classes.",
+    highlights: ["Extended (-E) & PCRE (-P)", "Output Flags (-o, -v, -n)", "Context Lines (-A, -B, -C)", "POSIX Classes & Shell Recipes"],
+    pages: "1 Page",
+    fileSizeEstimate: "A4 / Letter",
+    targetPage: "/grep",
+  },
 ];
 
 /**

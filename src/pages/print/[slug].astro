@@ -11,6 +11,7 @@ import { sqlRegexCategories } from "../../data/sqlRegex";
 import { perlRegexCategories } from "../../data/perlRegex";
 import { notepadppRegexCategories } from "../../data/notepadppRegex";
 import { vimRegexCategories } from "../../data/vimRegex";
+import { grepRegexCategories } from "../../data/grepRegex";
 import type { RegexCategory } from "../../data/regex";
 
 export function getStaticPaths() {
@@ -25,6 +26,7 @@ export function getStaticPaths() {
     perl: perlRegexCategories,
     "notepad-plus-plus": notepadppRegexCategories,
     vim: vimRegexCategories,
+    grep: grepRegexCategories,
   };
 
   return pdfCheatSheets.map((sheet) => ({
