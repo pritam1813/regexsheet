@@ -1,0 +1,228 @@
+---
+import { sqlRecipes } from "../data/sqlRegex";
+---
+
+<section class="recipes-section" id="recipes" aria-labelledby="recipes-heading">
+  <div class="recipes-header">
+    <h2 class="category-heading" id="recipes-heading">SQL Code Recipes</h2>
+    <p class="recipes-subtext">Common real-world query patterns across PostgreSQL, MySQL 8+, Oracle, Snowflake, and BigQuery.</p>
+  </div>
+
+  <div class="recipes-grid">
+    {sqlRecipes.map((recipe) => (
+      <div class="recipe-card" id={recipe.id}>
+        <div class="recipe-card-header">
+          <h3 class="recipe-title">{recipe.title}</h3>
+          <span class="recipe-badge">SQL</span>
+        </div>
+        <p class="recipe-desc">{recipe.description}</p>
+        <div class="recipe-code-wrapper">
+          <div class="code-top-bar">
+            <span class="code-lang">sql</span>
+            <button
+              type="button"
+              class="copy-btn"
+              data-code={recipe.code}
+              aria-label={`Copy code for ${recipe.title}`}
+            >
+              <svg class="copy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              <span class="copy-text">Copy</span>
+            </button>
+          </div>
+          <pre class="recipe-code"><code>{recipe.code}</code></pre>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<script>
+  function setupSqlCopyButtons() {
+    const buttons = document.querySelectorAll<HTMLButtonElement>(".copy-btn");
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        const code = btn.getAttribute("data-code");
+        if (!code) return;
+
+        try {
+          await navigator.clipboard.writeText(code);
+          const textSpan = btn.querySelector(".copy-text");
+          if (textSpan) {
+            const originalText = textSpan.textContent;
+            textSpan.textContent = "Copied!";
+            btn.classList.add("copied");
+            setTimeout(() => {
+              textSpan.textContent = originalText;
+              btn.classList.remove("copied");
+            }, 2000);
+          }
+        } catch (err) {
+          console.error("Failed to copy text", err);
+        }
+      });
+    });
+  }
+
+  setupSqlCopyButtons();
+  document.addEventListener("astro:page-load", setupSqlCopyButtons);
+</script>
+
+<style>
+  .recipes-section {
+    margin-bottom: var(--space-xxl);
+    scroll-margin-top: 116px;
+  }
+
+  .recipes-header {
+    margin-bottom: var(--space-md);
+  }
+
+  .category-heading {
+    font-family: var(--font-sans);
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--color-ink);
+    margin: 0 0 var(--space-xs) 0;
+    padding-bottom: var(--space-sm);
+    border-bottom: 2px solid var(--color-accent);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .recipes-subtext {
+    font-size: 0.875rem;
+    color: var(--color-muted);
+    margin: 0;
+  }
+
+  .recipes-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+    margin-top: var(--space-md);
+  }
+
+  .recipe-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card);
+    padding: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    min-width: 0;
+  }
+
+  .recipe-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+  }
+
+  .recipe-title {
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-ink);
+    margin: 0;
+  }
+
+  .recipe-badge {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    background: var(--color-accent-subtle);
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .recipe-desc {
+    font-size: 0.8125rem;
+    color: var(--color-muted);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .recipe-code-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+    background: var(--color-surface-raised);
+    overflow: hidden;
+  }
+
+  .code-top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 8px;
+    background: var(--color-hover);
+    border-bottom: 1px solid var(--color-border-soft);
+  }
+
+  .code-lang {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: var(--color-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--color-muted);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: var(--radius-xs);
+    transition: color 0.12s ease, background 0.12s ease;
+  }
+
+  .copy-btn:hover {
+    color: var(--color-ink);
+    background: color-mix(in srgb, var(--color-ink) 5%, transparent);
+  }
+
+  .copy-btn.copied {
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+
+  .recipe-code {
+    flex: 1;
+    margin: 0;
+    padding: var(--space-sm);
+    font-family: var(--font-mono);
+    font-size: 0.775rem;
+    line-height: 1.5;
+    color: var(--color-ink-soft);
+    overflow-x: auto;
+    white-space: pre;
+    min-width: 0;
+  }
+
+  @media (max-width: 768px) {
+    .recipes-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

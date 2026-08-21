@@ -90,6 +90,19 @@ export const pdfCheatSheets: PdfCheatSheet[] = [
     fileSizeEstimate: "A4 / Letter",
     targetPage: "/csharp",
   },
+  {
+    title: "SQL Regex Cheat Sheet",
+    lang: "SQL",
+    slug: "sql",
+    icon: "🗄️",
+    badge: "Cross-RDBMS",
+    description:
+      "PostgreSQL POSIX operators (~, ~*), MySQL REGEXP/RLIKE, Oracle/Snowflake REGEXP_LIKE, and BigQuery functions.",
+    highlights: ["REGEXP_LIKE / SUBSTR", "PostgreSQL ~ & ~*", "Cloud DW Functions", "Data Masking & Parsing"],
+    pages: "1 Page",
+    fileSizeEstimate: "A4 / Letter",
+    targetPage: "/sql",
+  },
 ];
 
 /**

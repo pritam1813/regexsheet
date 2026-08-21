@@ -1,0 +1,184 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SiteNav from "../components/SiteNav.astro";
+import Hero from "../components/Hero.astro";
+import SectionNav from "../components/SectionNav.astro";
+import RegexTable from "../components/RegexTable.astro";
+import SqlRecipes from "../components/SqlRecipes.astro";
+import NavCard from "../components/NavCard.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import { sqlRegexCategories, sqlNavCards } from "../data/sqlRegex";
+
+const navItems = [
+  { id: "standard-functions", label: "Standard Functions" },
+  { id: "postgres-operators", label: "PostgreSQL" },
+  { id: "mysql-sqlite", label: "MySQL & SQLite" },
+  { id: "cloud-dw", label: "Cloud Warehouses" },
+  { id: "match-parameters", label: "Match Flags" },
+  { id: "tsql-wildcards", label: "SQL Server (T-SQL)" },
+  { id: "recipes", label: "Code Recipes" },
+  { id: "explore-heading", label: "Other Guides" },
+];
+---
+
+<Layout
+  title="SQL Regex Cheat Sheet — PostgreSQL, MySQL, Oracle, Snowflake & BigQuery Reference"
+  description="A comprehensive, fast SQL regex cheat sheet. Covers REGEXP_LIKE, REGEXP_SUBSTR, REGEXP_REPLACE, REGEXP_INSTR, PostgreSQL POSIX operators (~, ~*), MySQL RLIKE, BigQuery, Snowflake, and T-SQL pattern matching."
+>
+  <SiteNav />
+  <Hero
+    badge="SQL Database Reference"
+    title="SQL Regex Cheat Sheet"
+    subtitle="Complete quick reference for regular expressions in SQL databases — PostgreSQL, MySQL, Oracle, Snowflake, Google BigQuery, and SQL Server (T-SQL) functions, operators, and real-world recipes."
+  />
+  <SectionNav items={navItems} />
+
+  <main id="main-content" class="container-wide main">
+    <!-- SQL Tip Callout -->
+    <div class="tip-callout" role="note" aria-label="SQL Regex Pro Tip">
+      <div class="tip-icon" aria-hidden="true">💡</div>
+      <div class="tip-content">
+        <span class="tip-title"
+          >Pro Tip: Mind SQL Dialect Differences &amp; Backslash Escaping</span
+        >
+        <p class="tip-text">
+          In PostgreSQL, use <code>~</code> (case-sensitive) and <code>~*</code> (case-insensitive) for fast boolean index matching.
+          In MySQL 8+, Oracle, and Snowflake, use standard functions <code>REGEXP_LIKE()</code> and <code>REGEXP_SUBSTR()</code>.
+          In string literals, remember that some SQL engines (or CLI clients) require double escaping backslashes (e.g. <code>'\\d+'</code>) unless standard conforming strings or raw string syntax (like BigQuery's <code>r'\d+'</code>) are used.
+        </p>
+      </div>
+    </div>
+
+    <!-- SQL regex reference tables -->
+    <section class="tables-section" aria-label="SQL regular expressions reference">
+      {
+        sqlRegexCategories.map((category) => (
+          <RegexTable category={category} />
+        ))
+      }
+    </section>
+
+    <!-- SQL Code Recipes -->
+    <SqlRecipes />
+
+    <!-- Nav cards to other guides -->
+    <section
+      class="cards-section"
+      id="explore-heading"
+      aria-labelledby="explore-heading-title"
+    >
+      <div class="cards-header">
+        <h2 class="cards-heading" id="explore-heading-title">
+          Explore Other Guides
+        </h2>
+        <p class="cards-subtext">
+          Switch to universal patterns, general programming languages, or test
+          expressions interactively.
+        </p>
+      </div>
+      <div class="cards-grid">
+        {sqlNavCards.map((card) => <NavCard card={card} />)}
+      </div>
+    </section>
+  </main>
+
+  <SiteFooter />
+</Layout>
+
+<style>
+  .main {
+    padding-top: var(--space-section);
+    padding-bottom: var(--space-xl);
+  }
+
+  .tip-callout {
+    display: flex;
+    gap: var(--space-md);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-accent);
+    border-radius: var(--radius-md);
+    padding: var(--space-md) var(--space-lg);
+    margin-bottom: var(--space-xl);
+    box-shadow: var(--shadow-card);
+  }
+
+  .tip-icon {
+    font-size: 1.25rem;
+    line-height: 1.4;
+    flex-shrink: 0;
+  }
+
+  .tip-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xxs);
+  }
+
+  .tip-title {
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  .tip-title code,
+  .tip-text code {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--color-accent);
+    background: var(--color-accent-subtle);
+    padding: 1px 5px;
+    border-radius: var(--radius-xs);
+  }
+
+  .tip-text {
+    font-size: 0.875rem;
+    color: var(--color-muted);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  .tables-section {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cards-section {
+    margin-top: var(--space-section);
+    padding-top: var(--space-xxl);
+    border-top: 1px solid var(--color-border);
+    scroll-margin-top: 116px;
+  }
+
+  .cards-header {
+    margin-bottom: var(--space-xl);
+  }
+
+  .cards-heading {
+    font-family: var(--font-sans);
+    font-size: 1.375rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+    margin: 0 0 var(--space-xs) 0;
+  }
+
+  .cards-subtext {
+    font-size: 0.9375rem;
+    color: var(--color-muted);
+    margin: 0;
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+  }
+
+  @media (max-width: 640px) {
+    .cards-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
