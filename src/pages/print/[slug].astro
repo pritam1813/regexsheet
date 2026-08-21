@@ -6,6 +6,7 @@ import { javascriptRegexCategories } from "../../data/javascriptRegex";
 import { pythonRegexCategories } from "../../data/pythonRegex";
 import { javaRegexCategories } from "../../data/javaRegex";
 import { rRegexCategories } from "../../data/rRegex";
+import { csharpRegexCategories } from "../../data/csharpRegex";
 import type { RegexCategory } from "../../data/regex";
 
 export function getStaticPaths() {
@@ -15,6 +16,7 @@ export function getStaticPaths() {
     python: pythonRegexCategories,
     java: javaRegexCategories,
     r: rRegexCategories,
+    csharp: csharpRegexCategories,
   };
 
   return pdfCheatSheets.map((sheet) => ({

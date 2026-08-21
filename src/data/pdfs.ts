@@ -77,6 +77,19 @@ export const pdfCheatSheets: PdfCheatSheet[] = [
     fileSizeEstimate: "A4 / Letter",
     targetPage: "/r",
   },
+  {
+    title: "C# Regex Cheat Sheet",
+    lang: "C#",
+    slug: "csharp",
+    icon: "🔷",
+    badge: ".NET 7 / 8 / 9",
+    description:
+      "System.Text.RegularExpressions, [GeneratedRegex] source generators, Match/Group/Capture model, balancing groups, and timeouts.",
+    highlights: ["Regex Class API", "[GeneratedRegex] Source Gen", "RegexOptions Flags", "Balancing Groups & Recipes"],
+    pages: "1 Page",
+    fileSizeEstimate: "A4 / Letter",
+    targetPage: "/csharp",
+  },
 ];
 
 /**

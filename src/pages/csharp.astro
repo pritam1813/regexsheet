@@ -1,0 +1,183 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SiteNav from "../components/SiteNav.astro";
+import Hero from "../components/Hero.astro";
+import SectionNav from "../components/SectionNav.astro";
+import RegexTable from "../components/RegexTable.astro";
+import CSharpRecipes from "../components/CSharpRecipes.astro";
+import NavCard from "../components/NavCard.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import { csharpRegexCategories, csharpNavCards } from "../data/csharpRegex";
+
+const navItems = [
+  { id: "regex-class", label: "Regex Class" },
+  { id: "source-generator", label: "Source Generators" },
+  { id: "match-group-capture", label: "Match & Groups" },
+  { id: "regex-options", label: "RegexOptions Flags" },
+  { id: "csharp-syntax", label: ".NET Syntax" },
+  { id: "recipes", label: "Code Recipes" },
+  { id: "explore-heading", label: "Other Guides" },
+];
+---
+
+<Layout
+  title="C# Regex Cheat Sheet — System.Text.RegularExpressions Reference & Recipes"
+  description="A comprehensive, fast C# regex cheat sheet. Covers System.Text.RegularExpressions.Regex, [GeneratedRegex] source generators, Match & Group APIs, RegexOptions flags, balancing groups, timeouts, and modern .NET code snippets."
+>
+  <SiteNav />
+  <Hero
+    badge="C# / .NET Reference"
+    title="C# Regex Cheat Sheet"
+    subtitle="Complete quick reference for System.Text.RegularExpressions — Regex methods, [GeneratedRegex] source generators, Match/Group/Capture model, RegexOptions, balancing groups, and modern .NET recipes."
+  />
+  <SectionNav items={navItems} />
+
+  <main id="main-content" class="container-wide main">
+    <!-- C# Tip Callout -->
+    <div class="tip-callout" role="note" aria-label="C# Regex Pro Tip">
+      <div class="tip-icon" aria-hidden="true">💡</div>
+      <div class="tip-content">
+        <span class="tip-title"
+          >Pro Tip: Use Verbatim Strings <code>@"\d+"</code> &amp; <code>[GeneratedRegex]</code> in Modern .NET</span
+        >
+        <p class="tip-text">
+          In C#, prefixing pattern strings with <code>@</code> (e.g. <code>@"\b\w+\b"</code>) prevents escape sequence translation so you don't need double backslashes.
+          In C# 11 / .NET 7+, always prefer compile-time source generator <code>[GeneratedRegex]</code> over <code>new Regex()</code> or static <code>Regex.Match()</code> for zero startup overhead, Native AOT support, and maximum runtime throughput.
+          To eliminate ReDoS risks, use <code>RegexOptions.NonBacktracking</code> or specify an explicit <code>TimeSpan</code> timeout.
+        </p>
+      </div>
+    </div>
+
+    <!-- C# regex reference tables -->
+    <section class="tables-section" aria-label="C# regular expressions reference">
+      {
+        csharpRegexCategories.map((category) => (
+          <RegexTable category={category} />
+        ))
+      }
+    </section>
+
+    <!-- C# Code Recipes -->
+    <CSharpRecipes />
+
+    <!-- Nav cards to other guides -->
+    <section
+      class="cards-section"
+      id="explore-heading"
+      aria-labelledby="explore-heading-title"
+    >
+      <div class="cards-header">
+        <h2 class="cards-heading" id="explore-heading-title">
+          Explore Other Guides
+        </h2>
+        <p class="cards-subtext">
+          Switch to universal patterns, other programming languages, or test
+          expressions interactively.
+        </p>
+      </div>
+      <div class="cards-grid">
+        {csharpNavCards.map((card) => <NavCard card={card} />)}
+      </div>
+    </section>
+  </main>
+
+  <SiteFooter />
+</Layout>
+
+<style>
+  .main {
+    padding-top: var(--space-section);
+    padding-bottom: var(--space-xl);
+  }
+
+  .tip-callout {
+    display: flex;
+    gap: var(--space-md);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-accent);
+    border-radius: var(--radius-md);
+    padding: var(--space-md) var(--space-lg);
+    margin-bottom: var(--space-xl);
+    box-shadow: var(--shadow-card);
+  }
+
+  .tip-icon {
+    font-size: 1.25rem;
+    line-height: 1.4;
+    flex-shrink: 0;
+  }
+
+  .tip-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xxs);
+  }
+
+  .tip-title {
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  .tip-title code,
+  .tip-text code {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--color-accent);
+    background: var(--color-accent-subtle);
+    padding: 1px 5px;
+    border-radius: var(--radius-xs);
+  }
+
+  .tip-text {
+    font-size: 0.875rem;
+    color: var(--color-muted);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  .tables-section {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cards-section {
+    margin-top: var(--space-section);
+    padding-top: var(--space-xxl);
+    border-top: 1px solid var(--color-border);
+    scroll-margin-top: 116px;
+  }
+
+  .cards-header {
+    margin-bottom: var(--space-xl);
+  }
+
+  .cards-heading {
+    font-family: var(--font-sans);
+    font-size: 1.375rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+    margin: 0 0 var(--space-xs) 0;
+  }
+
+  .cards-subtext {
+    font-size: 0.9375rem;
+    color: var(--color-muted);
+    margin: 0;
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+  }
+
+  @media (max-width: 640px) {
+    .cards-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
