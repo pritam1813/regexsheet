@@ -116,6 +116,19 @@ export const pdfCheatSheets: PdfCheatSheet[] = [
     fileSizeEstimate: "A4 / Letter",
     targetPage: "/perl",
   },
+  {
+    title: "Notepad++ Regex Cheat Sheet",
+    lang: "Notepad++",
+    slug: "notepad-plus-plus",
+    icon: "📝",
+    badge: "Find & Replace",
+    description:
+      "PCRE regex search mode, universal newlines (\\R), case modifications (\\U, \\L, \\u), keep-out (\\K), and batch text recipes.",
+    highlights: ["Universal Newlines (\\R)", "Case Modifiers (\\U, \\L)", "Capture Groups ($1, $2)", "Find & Replace Recipes"],
+    pages: "1 Page",
+    fileSizeEstimate: "A4 / Letter",
+    targetPage: "/notepad-plus-plus",
+  },
 ];
 
 /**
