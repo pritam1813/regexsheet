@@ -8,6 +8,7 @@ import { javaRegexCategories } from "../../data/javaRegex";
 import { rRegexCategories } from "../../data/rRegex";
 import { csharpRegexCategories } from "../../data/csharpRegex";
 import { sqlRegexCategories } from "../../data/sqlRegex";
+import { perlRegexCategories } from "../../data/perlRegex";
 import type { RegexCategory } from "../../data/regex";
 
 export function getStaticPaths() {
@@ -19,6 +20,7 @@ export function getStaticPaths() {
     r: rRegexCategories,
     csharp: csharpRegexCategories,
     sql: sqlRegexCategories,
+    perl: perlRegexCategories,
   };
 
   return pdfCheatSheets.map((sheet) => ({

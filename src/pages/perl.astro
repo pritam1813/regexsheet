@@ -1,0 +1,183 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SiteNav from "../components/SiteNav.astro";
+import Hero from "../components/Hero.astro";
+import SectionNav from "../components/SectionNav.astro";
+import RegexTable from "../components/RegexTable.astro";
+import PerlRecipes from "../components/PerlRecipes.astro";
+import NavCard from "../components/NavCard.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import { perlRegexCategories, perlNavCards } from "../data/perlRegex";
+
+const navItems = [
+  { id: "pattern-operators", label: "Binding & Operators" },
+  { id: "special-variables", label: "Special Variables" },
+  { id: "regex-modifiers", label: "Modifiers & Flags" },
+  { id: "advanced-constructs", label: "Advanced & PCRE" },
+  { id: "character-classes", label: "Unicode & Classes" },
+  { id: "recipes", label: "Code Recipes" },
+  { id: "explore-heading", label: "Other Guides" },
+];
+---
+
+<Layout
+  title="Perl Regex Cheat Sheet — Pattern Binding, Modifiers, & PCRE Reference"
+  description="A comprehensive, fast Perl regex cheat sheet. Covers =~, !~, s///, tr///, qr//, special variables ($1, $&, %+, @-), modifiers (/g, /i, /m, /s, /x, /e, /r), \\K keep-out, recursive regex (?R), and modern Perl recipes."
+>
+  <SiteNav />
+  <Hero
+    badge="Perl & PCRE Reference"
+    title="Perl Regex Cheat Sheet"
+    subtitle="The definitive quick reference for Perl regular expressions — pattern binding operators, substitution modifiers, special variables, atomic groups, recursion, and practical idioms."
+  />
+  <SectionNav items={navItems} />
+
+  <main id="main-content" class="container-wide main">
+    <!-- Perl Tip Callout -->
+    <div class="tip-callout" role="note" aria-label="Perl Regex Pro Tip">
+      <div class="tip-icon" aria-hidden="true">💡</div>
+      <div class="tip-content">
+        <span class="tip-title"
+          >Pro Tip: Use Non-Destructive <code>/r</code> &amp; <code>\K</code> for Cleaner Substitutions</span
+        >
+        <p class="tip-text">
+          In modern Perl (5.14+), the <code>/r</code> modifier returns a transformed copy without modifying the original variable (e.g. <code>my $slug = $text =~ s/\s+/-/gr;</code>).
+          Use <code>\K</code> to keep preceding matched text out of <code>$&amp;</code> and replacement strings, eliminating complex lookaround boilerplate.
+          For compiling patterns dynamically, always use <code>qr//</code> to benefit from compile-time regex caching.
+        </p>
+      </div>
+    </div>
+
+    <!-- Perl regex reference tables -->
+    <section class="tables-section" aria-label="Perl regular expressions reference">
+      {
+        perlRegexCategories.map((category) => (
+          <RegexTable category={category} />
+        ))
+      }
+    </section>
+
+    <!-- Perl Code Recipes -->
+    <PerlRecipes />
+
+    <!-- Nav cards to other guides -->
+    <section
+      class="cards-section"
+      id="explore-heading"
+      aria-labelledby="explore-heading-title"
+    >
+      <div class="cards-header">
+        <h2 class="cards-heading" id="explore-heading-title">
+          Explore Other Guides
+        </h2>
+        <p class="cards-subtext">
+          Switch to universal patterns, other programming languages, or test
+          expressions interactively.
+        </p>
+      </div>
+      <div class="cards-grid">
+        {perlNavCards.map((card) => <NavCard card={card} />)}
+      </div>
+    </section>
+  </main>
+
+  <SiteFooter />
+</Layout>
+
+<style>
+  .main {
+    padding-top: var(--space-section);
+    padding-bottom: var(--space-xl);
+  }
+
+  .tip-callout {
+    display: flex;
+    gap: var(--space-md);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-accent);
+    border-radius: var(--radius-md);
+    padding: var(--space-md) var(--space-lg);
+    margin-bottom: var(--space-xl);
+    box-shadow: var(--shadow-card);
+  }
+
+  .tip-icon {
+    font-size: 1.25rem;
+    line-height: 1.4;
+    flex-shrink: 0;
+  }
+
+  .tip-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xxs);
+  }
+
+  .tip-title {
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  .tip-title code,
+  .tip-text code {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--color-accent);
+    background: var(--color-accent-subtle);
+    padding: 1px 5px;
+    border-radius: var(--radius-xs);
+  }
+
+  .tip-text {
+    font-size: 0.875rem;
+    color: var(--color-muted);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  .tables-section {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cards-section {
+    margin-top: var(--space-section);
+    padding-top: var(--space-xxl);
+    border-top: 1px solid var(--color-border);
+    scroll-margin-top: 116px;
+  }
+
+  .cards-header {
+    margin-bottom: var(--space-xl);
+  }
+
+  .cards-heading {
+    font-family: var(--font-sans);
+    font-size: 1.375rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+    margin: 0 0 var(--space-xs) 0;
+  }
+
+  .cards-subtext {
+    font-size: 0.9375rem;
+    color: var(--color-muted);
+    margin: 0;
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+  }
+
+  @media (max-width: 640px) {
+    .cards-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

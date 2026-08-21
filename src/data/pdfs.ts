@@ -103,6 +103,19 @@ export const pdfCheatSheets: PdfCheatSheet[] = [
     fileSizeEstimate: "A4 / Letter",
     targetPage: "/sql",
   },
+  {
+    title: "Perl Regex Cheat Sheet",
+    lang: "Perl",
+    slug: "perl",
+    icon: "🐪",
+    badge: "Perl 5.14+ & PCRE",
+    description:
+      "Pattern binding (=~, !~), s/// substitutions, special variables ($1, %+, \\K), recursive regex (?R), and modifiers.",
+    highlights: ["Pattern Binding (=~, !~)", "Modifiers (/g, /i, /e, /r)", "Special Vars ($&, %+, \\K)", "Recursive Patterns"],
+    pages: "1 Page",
+    fileSizeEstimate: "A4 / Letter",
+    targetPage: "/perl",
+  },
 ];
 
 /**
