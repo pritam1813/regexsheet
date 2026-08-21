@@ -1,0 +1,549 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SiteNav from "../components/SiteNav.astro";
+import Hero from "../components/Hero.astro";
+import NavCard from "../components/NavCard.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import { pdfCheatSheets, pdfPath } from "../data/pdfs";
+import { navCards } from "../data/regex";
+
+// Filter out PDF from navCards if shown in explore section
+const otherNavCards = [
+  {
+    href: "/tester",
+    title: "Live Regex Tester",
+    description: "Interactive real-time regex playground with instant highlighting and match inspector.",
+    icon: "🔬",
+  },
+  {
+    href: "/examples",
+    title: "Real-World Examples",
+    description: "Battle-tested regex patterns for emails, passwords, dates, URLs, and phone numbers.",
+    icon: "⚡",
+  },
+  {
+    href: "/python",
+    title: "Python Regex Guide",
+    description: "Complete reference for Python's re module, flags, methods, and practical recipes.",
+    icon: "🐍",
+  },
+  {
+    href: "/javascript",
+    title: "JavaScript Regex Guide",
+    description: "Modern RegExp methods, String matchAll, replace, flags, and Unicode properties.",
+    icon: "💛",
+  },
+];
+---
+
+<Layout
+  title="Download Regex Cheat Sheets (PDF) — Universal, Python, JS, Java & R"
+  description="Download free, printable PDF cheat sheets for Regular Expressions. Clean single-page references for Universal Regex, JavaScript, Python, Java, and R engines."
+>
+  <SiteNav />
+  <Hero
+    badge="Printable References"
+    title="Regex Cheat Sheets (PDF)"
+    subtitle="Download high-resolution, single-page regex cheat sheets designed for fast offline lookups, desk pinning, and quick reference. Optimized for A4 and US Letter printing."
+  />
+
+  <main id="main-content" class="container-wide main">
+    <!-- Format notice callout -->
+    <div class="format-callout" role="note" aria-label="PDF Cheat Sheet Information">
+      <div class="callout-icon" aria-hidden="true">💡</div>
+      <div class="callout-content">
+        <span class="callout-title">Designed for Print & Quick Lookups</span>
+        <p class="callout-text">
+          Each sheet is crafted with high-contrast typography (Inter & JetBrains Mono), compact tables, and zero clutter. Print them out on standard A4 or US Letter, or save them locally for offline reference.
+        </p>
+      </div>
+    </div>
+
+    <!-- PDF Cards Grid -->
+    <section class="pdf-section" aria-label="Downloadable PDF cheat sheets">
+      <div class="section-header">
+        <h2 class="section-heading">Available Cheat Sheets</h2>
+        <p class="section-subtext">Choose your language engine or grab the universal reference card.</p>
+      </div>
+
+      <div class="pdf-grid">
+        {
+          pdfCheatSheets.map((sheet) => (
+            <article class="pdf-card" id={`pdf-card-${sheet.slug}`}>
+              <div class="pdf-card-header">
+                <div class="pdf-card-icon-wrap">
+                  <span class="pdf-card-icon" aria-hidden="true">
+                    {sheet.icon}
+                  </span>
+                </div>
+                <div class="pdf-card-title-group">
+                  <div class="pdf-badge-row">
+                    <span class="pdf-badge">{sheet.badge}</span>
+                    <span class="pdf-page-count">{sheet.pages}</span>
+                  </div>
+                  <h3 class="pdf-card-title">{sheet.title}</h3>
+                </div>
+              </div>
+
+              <p class="pdf-card-desc">{sheet.description}</p>
+
+              <div class="pdf-highlights">
+                <span class="highlights-label">Covers:</span>
+                <div class="highlights-tags">
+                  {sheet.highlights.map((highlight) => (
+                    <span class="highlight-tag">{highlight}</span>
+                  ))}
+                </div>
+              </div>
+
+              <div class="pdf-card-footer">
+                <div class="footer-primary-actions">
+                  <a
+                    href={pdfPath(sheet.slug)}
+                    download={`regex-${sheet.slug}-cheatsheet.pdf`}
+                    class="download-button"
+                    id={`download-${sheet.slug}`}
+                    aria-label={`Download ${sheet.title} PDF`}
+                  >
+                    <svg
+                      class="download-icon"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="7 10 12 15 17 10" />
+                      <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    <span>Download PDF</span>
+                  </a>
+
+                  <a
+                    href={`/print/${sheet.slug}`}
+                    class="print-preview-button"
+                    id={`print-preview-${sheet.slug}`}
+                    aria-label={`Open print preview for ${sheet.title}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                      <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                      <rect x="6" y="14" width="12" height="8"></rect>
+                    </svg>
+                    <span>Print / View</span>
+                  </a>
+                </div>
+
+                <a
+                  href={sheet.targetPage}
+                  class="online-link"
+                  aria-label={`View ${sheet.lang} interactive web guide`}
+                >
+                  <span>Online Guide</span>
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- Explore Other Tools & Guides -->
+    <section class="cards-section" id="explore-heading" aria-labelledby="explore-heading-title">
+      <div class="cards-header">
+        <h2 class="cards-heading" id="explore-heading-title">Explore Interactive Guides & Tools</h2>
+        <p class="cards-subtext">Test expressions in real-time or explore comprehensive online tutorials.</p>
+      </div>
+      <div class="cards-grid">
+        {otherNavCards.map((card) => <NavCard card={card} />)}
+      </div>
+    </section>
+  </main>
+
+  <SiteFooter />
+</Layout>
+
+<style>
+  .main {
+    padding-top: var(--space-section);
+    padding-bottom: var(--space-xl);
+  }
+
+  .format-callout {
+    display: flex;
+    gap: var(--space-md);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-accent);
+    border-radius: var(--radius-md);
+    padding: var(--space-md) var(--space-lg);
+    margin-bottom: var(--space-xl);
+    box-shadow: var(--shadow-card);
+  }
+
+  .callout-icon {
+    font-size: 1.25rem;
+    line-height: 1.4;
+    flex-shrink: 0;
+  }
+
+  .callout-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xxs);
+  }
+
+  .callout-title {
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  .callout-text {
+    font-size: 0.875rem;
+    color: var(--color-muted);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  .pdf-section {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: var(--space-section);
+  }
+
+  .section-header {
+    margin-bottom: var(--space-xl);
+  }
+
+  .section-heading {
+    font-family: var(--font-sans);
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+    margin: 0 0 var(--space-xs) 0;
+  }
+
+  .section-subtext {
+    font-size: 0.9375rem;
+    color: var(--color-muted);
+    margin: 0;
+  }
+
+  .pdf-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--space-lg);
+  }
+
+  .pdf-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    box-shadow: var(--shadow-card);
+    transition:
+      border-color 0.15s ease,
+      box-shadow 0.15s ease,
+      transform 0.15s ease,
+      background 0.15s ease;
+  }
+
+  .pdf-card:hover {
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-2px);
+    background: var(--color-surface-raised);
+  }
+
+  .pdf-card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+  }
+
+  .pdf-card-icon-wrap {
+    width: 2.75rem;
+    height: 2.75rem;
+    background: var(--color-accent-subtle);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .pdf-card-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+  }
+
+  .pdf-card-title-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+  }
+
+  .pdf-badge-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  .pdf-badge {
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    background: var(--color-accent-subtle);
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    width: fit-content;
+  }
+
+  .pdf-page-count {
+    font-size: 0.75rem;
+    color: var(--color-muted);
+    font-weight: 500;
+  }
+
+  .pdf-card-title {
+    font-family: var(--font-sans);
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-ink);
+    letter-spacing: -0.01em;
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .pdf-card-desc {
+    font-size: 0.875rem;
+    color: var(--color-muted);
+    line-height: 1.55;
+    margin: 0 0 var(--space-md) 0;
+    flex-grow: 1;
+  }
+
+  .pdf-highlights {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: var(--space-lg);
+    padding-top: var(--space-sm);
+    border-top: 1px dashed var(--color-border);
+  }
+
+  .highlights-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-muted-soft);
+  }
+
+  .highlights-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .highlight-tag {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-ink-soft);
+    background: var(--color-canvas);
+    border: 1px solid var(--color-border);
+    padding: 2px 8px;
+    border-radius: var(--radius-xs);
+    white-space: nowrap;
+  }
+
+  .pdf-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--color-border);
+    margin-top: auto;
+  }
+
+  .footer-primary-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    flex-wrap: wrap;
+  }
+
+  .download-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    padding: 7px 12px;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    transition:
+      background 0.12s ease,
+      transform 0.12s ease,
+      box-shadow 0.12s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  .download-button:hover {
+    background: var(--color-accent-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(91, 33, 182, 0.2);
+  }
+
+  .download-button:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  .print-preview-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--color-accent-subtle);
+    color: var(--color-accent);
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    padding: 7px 12px;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    transition:
+      background 0.12s ease,
+      color 0.12s ease,
+      transform 0.12s ease;
+  }
+
+  .print-preview-button:hover {
+    background: var(--color-hover);
+    color: var(--color-accent-hover);
+    transform: translateY(-1px);
+  }
+
+  .print-preview-button:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  .download-icon {
+    flex-shrink: 0;
+  }
+
+  .online-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-muted);
+    text-decoration: none;
+    padding: 6px 10px;
+    border-radius: var(--radius-xs);
+    transition:
+      color 0.12s ease,
+      background 0.12s ease;
+  }
+
+  .online-link:hover {
+    color: var(--color-accent);
+    background: var(--color-accent-subtle);
+  }
+
+  .cards-section {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-xxl);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .cards-header {
+    margin-bottom: var(--space-xl);
+  }
+
+  .cards-heading {
+    font-family: var(--font-sans);
+    font-size: 1.375rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+    margin: 0 0 var(--space-xs) 0;
+  }
+
+  .cards-subtext {
+    font-size: 0.9375rem;
+    color: var(--color-muted);
+    margin: 0;
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+  }
+
+  @media (max-width: 640px) {
+    .pdf-grid {
+      grid-template-columns: 1fr;
+    }
+    .cards-grid {
+      grid-template-columns: 1fr;
+    }
+    .pdf-card-footer {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .download-button {
+      justify-content: center;
+    }
+    .online-link {
+      justify-content: center;
+    }
+  }
+</style>

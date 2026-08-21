@@ -34,7 +34,7 @@ const current = activePath.replace(/\/$/, "") || "/";
         </svg>
         Tester
       </a>
-      <a href="/pdf" class="nav-link nav-link--cta" id="nav-pdf">PDF ↓</a>
+      <a href="/pdf" class:list={["nav-link", "nav-link--cta", { "nav-link--active": current === "/pdf" }]} id="nav-pdf" aria-current={current === "/pdf" ? "page" : undefined}>PDF ↓</a>
       <ThemeToggle />
     </div>
   </div>
