@@ -1,0 +1,81 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  url: URL;
+}
+
+const { title, description, url } = Astro.props;
+
+// Determine breadcrumbs based on the URL path
+const path = url.pathname;
+const pathSegments = path.split("/").filter(Boolean);
+
+const siteUrl = url.origin; // e.g., https://regexsheet.com
+
+const breadcrumbItems = [
+  {
+    "@type": "ListItem",
+    position: 1,
+    name: "Home",
+    item: siteUrl + "/",
+  },
+];
+
+if (pathSegments.length > 0) {
+  let currentPath = "";
+  pathSegments.forEach((segment, index) => {
+    currentPath += `/${segment}`;
+    // Basic formatting for breadcrumb name (e.g., 'notepad-plus-plus' -> 'Notepad plus plus')
+    const name =
+      segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, " ");
+    breadcrumbItems.push({
+      "@type": "ListItem",
+      position: index + 2,
+      name: name,
+      item: siteUrl + currentPath,
+    });
+  });
+}
+
+// Construct the JSON-LD graph including WebSite, TechArticle, and BreadcrumbList
+const schemaGraph = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": siteUrl + "/#website",
+      url: siteUrl + "/",
+      name: "Regex Cheat Sheet",
+      description:
+        "A universal reference for regular expressions across all major engines.",
+    },
+    {
+      "@type": "TechArticle",
+      "@id": url.toString() + "#article",
+      isPartOf: { "@id": siteUrl + "/#website" },
+      headline: title,
+      description: description,
+      url: url.toString(),
+      inLanguage: "en-US",
+      author: {
+        "@type": "Person",
+        name: "Pritam Dhara",
+        url: "https://github.com/pritam1813",
+      },
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": url.toString() + "#breadcrumb",
+      itemListElement: breadcrumbItems,
+    },
+  ],
+};
+---
+
+<!-- JSON-LD Structured Data for SEO -->
+<script
+  type="application/ld+json"
+  is:inline
+  set:html={JSON.stringify(schemaGraph)}
+/>

@@ -1,0 +1,195 @@
+---
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+const faqs: FaqItem[] = [
+  {
+    question: "What is a regex example?",
+    answer: "A common regex example is <code>^[a-zA-Z0-9_]+$</code>, which matches a string containing one or more alphanumeric characters or underscores. This specific pattern is frequently used to validate usernames.",
+  },
+  {
+    question: "What does the regex \\s*, \\s* do?",
+    answer: "The pattern <code>\\s*,\\s*</code> matches a comma surrounded by any amount of whitespace (including zero spaces). It is heavily used to cleanly split comma-separated values (CSV strings) where the spacing around the commas might be inconsistent.",
+  },
+  {
+    question: "How can I use regex formulas in Excel?",
+    answer: "Historically, Excel required VBA scripts to evaluate regex. However, modern Excel (Microsoft 365) has introduced native functions: <code>REGEXEXTRACT</code>, <code>REGEXMATCH</code>, and <code>REGEXREPLACE</code>, allowing you to use standard regular expressions directly inside cell formulas.",
+  },
+  {
+    question: "What does '$' mean in regex?",
+    answer: "In regular expressions, the <code>$</code> symbol is an anchor that matches the end of a string or the end of a line. For example, the pattern <code>world$</code> will successfully match \"hello world\" but will fail to match \"world peace\".",
+  },
+  {
+    question: "What is (\\d+) in regex?",
+    answer: "The pattern <code>(\\d+)</code> matches one or more numeric digits and groups them together. <code>\\d</code> matches any digit (0-9), the <code>+</code> quantifier means \"one or more times\", and the parentheses <code>()</code> form a capturing group so the matched number can be extracted.",
+  },
+  {
+    question: "What is .*?) in regex?",
+    answer: "The pattern <code>(.*?)</code> is a lazy (or non-greedy) capturing group. It matches any character zero or more times, but stops matching as early as possible. It is frequently used to extract text located between two specific delimiters, such as <code>&lt;strong&gt;(.*?)&lt;/strong&gt;</code>.",
+  },
+  {
+    question: "What is \\r and \\n in regex?",
+    answer: "Both represent line breaks. <code>\\n</code> matches a newline character (Line Feed, standard on Unix/Linux/macOS), while <code>\\r</code> matches a carriage return. Windows text files typically use both characters together as a sequence: <code>\\r\\n</code>.",
+  },
+  {
+    question: "How to repeat a regex pattern?",
+    answer: "You repeat patterns using quantifiers. Append <code>*</code> for zero-or-more times, <code>+</code> for one-or-more times, or <code>?</code> for zero-or-one time. For exact counts, use curly braces: <code>\\d{3}</code> matches exactly three digits, and <code>[A-Z]{2,4}</code> matches between two and four uppercase letters.",
+  },
+];
+---
+
+<section class="faq-section" aria-labelledby="faq-heading">
+  <div class="faq-header">
+    <h2 class="faq-heading" id="faq-heading">Frequently Asked Questions</h2>
+    <p class="faq-subtext">
+      Quick answers to the most common regular expression queries.
+    </p>
+  </div>
+
+  <div class="faq-list">
+    {
+      faqs.map((faq) => (
+        <details class="faq-item group">
+          <summary class="faq-question">
+            <span class="question-text">{faq.question}</span>
+            <span class="chevron-icon">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="transition-transform duration-200 group-open:rotate-180"
+              >
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </span>
+          </summary>
+          <div class="faq-answer">
+            <p set:html={faq.answer} />
+          </div>
+        </details>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .faq-section {
+    margin-top: var(--space-section);
+    padding-top: var(--space-xxl);
+    border-top: 1px solid var(--color-border);
+    scroll-margin-top: 116px;
+  }
+
+  .faq-header {
+    margin-bottom: var(--space-xl);
+  }
+
+  .faq-heading {
+    font-family: var(--font-sans);
+    font-size: 1.375rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+    margin: 0 0 var(--space-xs) 0;
+  }
+
+  .faq-subtext {
+    font-size: 0.9375rem;
+    color: var(--color-muted);
+    margin: 0;
+  }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .faq-item {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .faq-item:hover {
+    border-color: var(--color-border-hover);
+  }
+
+  /* When details is open, give it a subtle highlight */
+  .faq-item[open] {
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-card);
+  }
+
+  .faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-md) var(--space-lg);
+    cursor: pointer;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-ink);
+    user-select: none;
+    /* Remove default summary marker in WebKit/Blink */
+    list-style: none;
+  }
+
+  /* Remove default summary marker in Firefox */
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-question:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: -2px;
+    border-radius: var(--radius-md);
+  }
+
+  .question-text {
+    padding-right: var(--space-md);
+  }
+
+  .chevron-icon {
+    flex-shrink: 0;
+    color: var(--color-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .faq-item[open] .chevron-icon {
+    color: var(--color-accent);
+  }
+
+  .faq-answer {
+    padding: 0 var(--space-lg) var(--space-lg) var(--space-lg);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--color-muted);
+  }
+
+  .faq-answer p {
+    margin: 0;
+  }
+
+  /* Style code blocks within the answer */
+  .faq-answer :global(code) {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--color-accent);
+    background: var(--color-accent-subtle);
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+  }
+</style>

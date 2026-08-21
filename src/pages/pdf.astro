@@ -5,56 +5,65 @@ import Hero from "../components/Hero.astro";
 import NavCard from "../components/NavCard.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import { pdfCheatSheets, pdfPath } from "../data/pdfs";
-import { navCards } from "../data/regex";
 
 // Filter out PDF from navCards if shown in explore section
 const otherNavCards = [
   {
     href: "/tester",
     title: "Live Regex Tester",
-    description: "Interactive real-time regex playground with instant highlighting and match inspector.",
+    description:
+      "Interactive real-time regex playground with instant highlighting and match inspector.",
     icon: "🔬",
   },
   {
     href: "/examples",
     title: "Real-World Examples",
-    description: "Battle-tested regex patterns for emails, passwords, dates, URLs, and phone numbers.",
+    description:
+      "Battle-tested regex patterns for emails, passwords, dates, URLs, and phone numbers.",
     icon: "⚡",
   },
   {
     href: "/python",
     title: "Python Regex Guide",
-    description: "Complete reference for Python's re module, flags, methods, and practical recipes.",
+    description:
+      "Complete reference for Python's re module, flags, methods, and practical recipes.",
     icon: "🐍",
   },
   {
     href: "/javascript",
     title: "JavaScript Regex Guide",
-    description: "Modern RegExp methods, String matchAll, replace, flags, and Unicode properties.",
+    description:
+      "Modern RegExp methods, String matchAll, replace, flags, and Unicode properties.",
     icon: "💛",
   },
 ];
 ---
 
 <Layout
-  title="Download Regex Cheat Sheets (PDF) — Universal, Grep, Vim, Notepad++, Perl, SQL, C#, Python, JS, Java & R"
+  title="Regex Cheat Sheet PDF — Download for Python, JS, SQL, Grep & More"
   description="Download free, printable PDF cheat sheets for Regular Expressions. Clean single-page references for Universal Regex, Grep (CLI), Vim, Notepad++, Perl, SQL, C# (.NET), JavaScript, Python, Java, and R engines."
 >
   <SiteNav />
   <Hero
     badge="Printable References"
-    title="Regex Cheat Sheets (PDF)"
+    title="Regex Cheat Sheet PDF Downloads"
     subtitle="Download high-resolution, single-page regex cheat sheets designed for fast offline lookups, desk pinning, and quick reference. Optimized for A4 and US Letter printing."
   />
 
   <main id="main-content" class="container-wide main">
     <!-- Format notice callout -->
-    <div class="format-callout" role="note" aria-label="PDF Cheat Sheet Information">
+    <div
+      class="format-callout"
+      role="note"
+      aria-label="PDF Cheat Sheet Information"
+    >
       <div class="callout-icon" aria-hidden="true">💡</div>
       <div class="callout-content">
         <span class="callout-title">Designed for Print & Quick Lookups</span>
         <p class="callout-text">
-          Each sheet is crafted with high-contrast typography (Inter & JetBrains Mono), compact tables, and zero clutter. Print them out on standard A4 or US Letter, or save them locally for offline reference.
+          Each sheet is crafted with high-contrast typography (Inter & JetBrains
+          Mono), compact tables, and zero clutter. Print them out on standard A4
+          or US Letter, or save them locally for offline reference.
         </p>
       </div>
     </div>
@@ -63,7 +72,9 @@ const otherNavCards = [
     <section class="pdf-section" aria-label="Downloadable PDF cheat sheets">
       <div class="section-header">
         <h2 class="section-heading">Available Cheat Sheets</h2>
-        <p class="section-subtext">Choose your language engine or grab the universal reference card.</p>
+        <p class="section-subtext">
+          Choose your language engine or grab the universal reference card.
+        </p>
       </div>
 
       <div class="pdf-grid">
@@ -143,9 +154,9 @@ const otherNavCards = [
                       stroke-linejoin="round"
                       aria-hidden="true"
                     >
-                      <polyline points="6 9 6 2 18 2 18 9"></polyline>
-                      <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
-                      <rect x="6" y="14" width="12" height="8"></rect>
+                      <polyline points="6 9 6 2 18 2 18 9" />
+                      <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+                      <rect x="6" y="14" width="12" height="8" />
                     </svg>
                     <span>Print / View</span>
                   </a>
@@ -179,10 +190,19 @@ const otherNavCards = [
     </section>
 
     <!-- Explore Other Tools & Guides -->
-    <section class="cards-section" id="explore-heading" aria-labelledby="explore-heading-title">
+    <section
+      class="cards-section"
+      id="explore-heading"
+      aria-labelledby="explore-heading-title"
+    >
       <div class="cards-header">
-        <h2 class="cards-heading" id="explore-heading-title">Explore Interactive Guides & Tools</h2>
-        <p class="cards-subtext">Test expressions in real-time or explore comprehensive online tutorials.</p>
+        <h2 class="cards-heading" id="explore-heading-title">
+          Explore Interactive Guides & Tools
+        </h2>
+        <p class="cards-subtext">
+          Test expressions in real-time or explore comprehensive online
+          tutorials.
+        </p>
       </div>
       <div class="cards-grid">
         {otherNavCards.map((card) => <NavCard card={card} />)}

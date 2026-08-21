@@ -5,6 +5,7 @@ import Hero from "../components/Hero.astro";
 import SectionNav from "../components/SectionNav.astro";
 import RegexTable from "../components/RegexTable.astro";
 import NavCard from "../components/NavCard.astro";
+import FaqSection from "../components/FaqSection.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import { universalRegex, navCards } from "../data/regex";
 ---
@@ -41,6 +42,9 @@ import { universalRegex, navCards } from "../data/regex";
         {navCards.map((card) => <NavCard card={card} />)}
       </div>
     </section>
+
+    <!-- FAQ Section for SEO / PAA -->
+    <FaqSection />
   </main>
 
   <SiteFooter />

@@ -1,6 +1,8 @@
 ---
 import "../styles/global.css";
 
+import SeoSchema from "../components/SeoSchema.astro";
+
 interface Props {
   title?: string;
   description?: string;
@@ -41,6 +43,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+
+    <!-- JSON-LD Schema (TechArticle, Breadcrumbs, WebSite) -->
+    <SeoSchema title={title} description={description} url={canonicalURL} />
 
     <!-- Google Fonts: Inter + JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
