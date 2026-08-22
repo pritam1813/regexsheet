@@ -124,10 +124,12 @@ const { category } = Astro.props;
                   <td class="px-4 py-3 sm:px-5 sm:py-3.5 align-middle text-sm">
                     {entry.example ? (
                       <code
+                        itemscope itemtype="https://schema.org/SoftwareSourceCode"
                         class="font-mono text-xs text-muted bg-surface-raised px-2 py-1 rounded-sm block max-w-full overflow-hidden text-ellipsis whitespace-nowrap"
                         title={entry.example}
                       >
-                        {entry.example}
+                        <meta itemprop="programmingLanguage" content="Regex" />
+                        <span itemprop="text">{entry.example}</span>
                       </code>
                     ) : (
                       <span class="text-muted opacity-40">—</span>

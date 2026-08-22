@@ -159,8 +159,10 @@ const testerHref = `/tester?p=${encodeURIComponent(example.pattern)}&t=${encodeU
       id={`panel-js-${example.id}`}
       data-lang="javascript"
       role="tabpanel"
+      itemscope itemtype="https://schema.org/SoftwareSourceCode"
     >
-      <pre class="snippet-pre"><code>{example.snippets.javascript}</code></pre>
+      <meta itemprop="programmingLanguage" content="JavaScript" />
+      <pre class="snippet-pre"><code itemprop="text">{example.snippets.javascript}</code></pre>
     </div>
 
     <!-- Python Snippet -->
@@ -170,8 +172,10 @@ const testerHref = `/tester?p=${encodeURIComponent(example.pattern)}&t=${encodeU
       data-lang="python"
       role="tabpanel"
       hidden
+      itemscope itemtype="https://schema.org/SoftwareSourceCode"
     >
-      <pre class="snippet-pre"><code>{example.snippets.python}</code></pre>
+      <meta itemprop="programmingLanguage" content="Python" />
+      <pre class="snippet-pre"><code itemprop="text">{example.snippets.python}</code></pre>
     </div>
 
     <!-- Java Snippet -->
@@ -181,8 +185,10 @@ const testerHref = `/tester?p=${encodeURIComponent(example.pattern)}&t=${encodeU
       data-lang="java"
       role="tabpanel"
       hidden
+      itemscope itemtype="https://schema.org/SoftwareSourceCode"
     >
-      <pre class="snippet-pre"><code>{example.snippets.java}</code></pre>
+      <meta itemprop="programmingLanguage" content="Java" />
+      <pre class="snippet-pre"><code itemprop="text">{example.snippets.java}</code></pre>
     </div>
   </div>
 </article>
