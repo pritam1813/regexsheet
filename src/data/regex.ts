@@ -9,6 +9,10 @@ export interface RegexEntry {
    *   string     → use this concrete pattern instead of `syntax`
    */
   tryPattern?: string | null;
+  /**
+   * Expected output of the example code, used by test harnesses to assert correctness
+   */
+  expected?: string;
 }
 
 export interface RegexCategory {

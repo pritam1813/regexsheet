@@ -9,7 +9,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "test:all": "tsx scripts/tests/javascript.ts && tsx scripts/tests/python.ts && tsx scripts/tests/java.ts && tsx scripts/tests/csharp.ts && tsx scripts/tests/grep.ts && tsx scripts/tests/perl.ts && tsx scripts/tests/r.ts"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.0",
@@ -17,6 +18,7 @@
     "tailwindcss": "^4.0.0"
   },
   "devDependencies": {
-    "@types/node": "^26.2.0"
+    "@types/node": "^26.2.0",
+    "tsx": "^4.23.12"
   }
 }

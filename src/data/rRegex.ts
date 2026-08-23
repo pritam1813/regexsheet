@@ -125,7 +125,7 @@ export const rRegexCategories: RegexCategory[] = [
       {
         syntax: "str_replace(string, pattern, replacement)",
         description:
-          "Replaces first match with replacement string (supports backreferences \\1 or $1)",
+          "Replaces first match with replacement string (supports backreferences \\1, \\2 — NOT $1)",
         example:
           'str_replace("price: $10", "\\\\$(\\\\d+)", "€\\\\1") → "price: €10"',
         tryPattern: null,
@@ -288,12 +288,12 @@ export const rRegexCategories: RegexCategory[] = [
         tryPattern: "(?<year>\\d{4})",
       },
       {
-        syntax: "\\\\1, \\\\2, $1, $2",
+        syntax: "\\\\1, \\\\2",
         description:
-          "Numbered backreferences in replacement strings (sub, gsub use \\1; stringr supports \\1 and $1)",
-        example:
-          'gsub("(\\\\w+)\\\\s+(\\\\w+)", "\\\\2, \\\\1", "John Doe") → "Doe, John"',
+          "Numbered backreferences in replacement strings (sub, gsub, and stringr all use \\1, \\2 — R engines do not support $1)",
+        example: 'gsub("(\\\\w+)\\\\s+(\\\\w+)", "\\\\2, \\\\1", "John Doe")',
         tryPattern: null,
+        expected: '"Doe, John"',
       },
       {
         syntax: "(?<=prefix), (?<!prefix)",

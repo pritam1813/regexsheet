@@ -1,0 +1,31 @@
+# Start from .NET SDK image since it's the most complex to install manually
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS base
+
+# Update and install all required language runtimes
+RUN apt-get update && apt-get install -y \
+    curl \
+    python3 \
+    perl \
+    r-base \
+    default-jdk \
+    grep \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Node.js (v22.x based on package.json engines requirement)
+RUN curl -fsSL https://deb.nodesource.com/setup_24.x | bash - \
+    && apt-get install -y nodejs
+
+# Create app directory
+WORKDIR /app
+
+# Copy dependency definitions
+COPY package*.json ./
+
+# Install dependencies (including tsx for running the scripts)
+RUN npm install
+
+# Copy application source code
+COPY . .
+
+# Run the unified test script
+CMD ["npm", "run", "test:all"]

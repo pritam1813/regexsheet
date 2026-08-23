@@ -268,51 +268,51 @@ export const javaRegexCategories: RegexCategory[] = [
     title: "Java Pattern Flags",
     entries: [
       {
-        syntax: "Pattern.CASE_INSENSITIVE, (?i)",
+        syntax: "Pattern.CASE_INSENSITIVE",
         description:
-          "Enables case-insensitive matching (ASCII by default; combine with UNICODE_CASE for full Unicode)",
+          "Enables case-insensitive matching (Inline modifier: (?i) - ASCII by default; combine with UNICODE_CASE for full Unicode)",
         example: 'Pattern.compile("cat", Pattern.CASE_INSENSITIVE)',
         tryPattern: null,
       },
       {
-        syntax: "Pattern.MULTILINE, (?m)",
+        syntax: "Pattern.MULTILINE",
         description:
-          "^ and $ match just after / before line terminators, as well as start / end of input",
+          "^ and $ match just after / before line terminators, as well as start / end of input (Inline modifier: (?m))",
         example: 'Pattern.compile("^\\\\w+", Pattern.MULTILINE)',
         tryPattern: null,
       },
       {
-        syntax: "Pattern.DOTALL, (?s)",
+        syntax: "Pattern.DOTALL",
         description:
-          "The dot (.) character matches any character including line terminators (\\n, \\r)",
+          "The dot (.) character matches any character including line terminators (\\n, \\r) (Inline modifier: (?s))",
         example: 'Pattern.compile("<div>.*</div>", Pattern.DOTALL)',
         tryPattern: null,
       },
       {
-        syntax: "Pattern.COMMENTS, (?x)",
+        syntax: "Pattern.COMMENTS",
         description:
-          "Permits whitespace and comments starting with # inside pattern until end of line",
+          "Permits whitespace and comments starting with # inside pattern until end of line (Inline modifier: (?x))",
         example: 'Pattern.compile("\\\\d{3} # area", Pattern.COMMENTS)',
         tryPattern: null,
       },
       {
-        syntax: "Pattern.UNICODE_CHARACTER_CLASS, (?U)",
+        syntax: "Pattern.UNICODE_CHARACTER_CLASS",
         description:
-          "Enables Unicode version of predefined classes (\\w, \\d, \\s) matching Unicode specs (Java 7+)",
+          "Enables Unicode version of predefined classes (\\w, \\d, \\s) matching Unicode specs (Java 7+) (Inline modifier: (?U))",
         example: 'Pattern.compile("\\\\w+", Pattern.UNICODE_CHARACTER_CLASS)',
         tryPattern: null,
       },
       {
-        syntax: "Pattern.UNICODE_CASE, (?u)",
+        syntax: "Pattern.UNICODE_CASE",
         description:
-          "Enables Unicode-aware case folding when used alongside Pattern.CASE_INSENSITIVE",
+          "Enables Unicode-aware case folding when used alongside Pattern.CASE_INSENSITIVE (Inline modifier: (?u))",
         example: "Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE",
         tryPattern: null,
       },
       {
-        syntax: "Pattern.UNIX_LINES, (?d)",
+        syntax: "Pattern.UNIX_LINES",
         description:
-          "Only the \\n character is recognized as a line terminator in ^, $, and . modes",
+          "Only the \\n character is recognized as a line terminator in ^, $, and . modes (Inline modifier: (?d))",
         example: 'Pattern.compile("^line", Pattern.UNIX_LINES)',
         tryPattern: null,
       },
@@ -331,7 +331,7 @@ export const javaRegexCategories: RegexCategory[] = [
         tryPattern: null,
       },
       {
-        syntax: "Bitwise OR: FlagA | FlagB",
+        syntax: "Pattern.CASE_INSENSITIVE | Pattern.MULTILINE",
         description: "Combine multiple flags using the bitwise OR (|) operator",
         example: "Pattern.CASE_INSENSITIVE | Pattern.MULTILINE",
         tryPattern: null,
@@ -378,9 +378,9 @@ export const javaRegexCategories: RegexCategory[] = [
         tryPattern: null,
       },
       {
-        syntax: "X*+, X++, X?+, X{n,m}+",
+        syntax: "*+",
         description:
-          "Possessive quantifiers — eat greedily and never backtrack; prevents ReDoS vulnerabilities",
+          "Possessive quantifier (also ++, ?+, {n,m}+) — eats greedily and never backtracks; prevents ReDoS vulnerabilities",
         example: '"[^\"]*+" → matches quoted string fast',
         tryPattern: null,
       },

@@ -34,7 +34,7 @@ public class TestJavaRegex {
 for (const cat of javaRegexCategories) {
   for (const entry of cat.entries) {
     if (cat.id === "java-syntax" || cat.id === "posix-classes") {
-      javaCode += `        testRegex("${escapeForCode(entry.syntax)}");\n`;
+      javaCode += `        testRegex(${JSON.stringify(entry.syntax)});\n`;
     } else if (cat.id === "flags") {
       // In Java, flags are passed as ints (e.g. Pattern.CASE_INSENSITIVE)
       // Since it's Java code, we just evaluate if it compiles by assigning it
@@ -47,6 +47,20 @@ javaCode += `
     }
     
     static void testRegex(String regexPat) {
+        // Inject required context for dependent regex fragments or generic representations
+        if (regexPat.equals("\\\\k<name>")) {
+            regexPat = "(?<name>.*)\\\\k<name>";
+        } else if (regexPat.equals("$" + "{name} / $1")) {
+            // This is a replacement string format. Test it via Matcher.replaceAll
+            Matcher m = Pattern.compile("(?<name>test)").matcher("test");
+            m.replaceAll("$" + "{name} / $1");
+            passed++;
+            return;
+        } else if (regexPat.equals("*+")) {
+            // Test a single concrete possessive quantifier
+            regexPat = "X*+";
+        }
+
         try {
             Pattern.compile(regexPat);
             passed++;

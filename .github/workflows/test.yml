@@ -1,0 +1,27 @@
+name: Regex Syntax Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v7
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v7
+      with:
+        node-version: '24'
+        cache: 'npm'
+        
+    - name: Install Node Dependencies
+      run: npm install
+
+    - name: Run Multi-Language Test Suite
+      # ubuntu-latest comes pre-installed with Python, Java, .NET, Perl, R, and Grep!
+      run: npm run test:all
