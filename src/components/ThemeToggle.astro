@@ -62,12 +62,12 @@
 </style>
 
 <script>
-  const toggleBtn = document.getElementById('theme-toggle');
+  const toggleBtns = document.querySelectorAll('.theme-toggle');
 
-  if (toggleBtn) {
-    toggleBtn.addEventListener('click', () => {
+  toggleBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
       const currentTheme = document.documentElement.getAttribute('data-theme');
-      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
       
       if (newTheme === 'dark') {
         document.documentElement.classList.add('dark');
@@ -79,5 +79,5 @@
       
       window.localStorage.setItem('theme', newTheme);
     });
-  }
+  });
 </script>

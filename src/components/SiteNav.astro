@@ -1,5 +1,5 @@
 ---
-// Site-wide top navigation bar
+// Site-wide responsive top navigation bar
 import ThemeToggle from "./ThemeToggle.astro";
 
 interface Props {
@@ -8,12 +8,30 @@ interface Props {
 
 const { activePath = Astro.url.pathname } = Astro.props;
 const current = activePath.replace(/\/$/, "") || "/";
+
+const otherLanguages = [
+  { href: "/csharp", label: "C#" },
+  { href: "/java", label: "Java" },
+  { href: "/r", label: "R" },
+  { href: "/sql", label: "SQL" },
+  { href: "/perl", label: "Perl" },
+];
+
+const otherTools = [
+  { href: "/notepad-plus-plus", label: "Notepad++" },
+  { href: "/vim", label: "Vim" },
+  { href: "/grep", label: "Grep" },
+  { href: "/examples", label: "Examples" },
+];
+
+const allOtherItems = [...otherLanguages, ...otherTools];
+const isOtherActive = allOtherItems.some((item) => item.href === current);
 ---
 
-<nav class="site-nav" aria-label="Site navigation">
-  <div class="container-wide nav-inner">
-    <a href="/" class="nav-brand" aria-label="Regex Cheat Sheet home">
-      <svg class="nav-logo" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<header class="site-header" id="site-header">
+  <nav class="container-wide nav-inner" aria-label="Main Navigation">
+    <a href="/" class="nav-brand" aria-label="Regex Cheat Sheet home page">
+      <svg class="nav-logo" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
         <rect width="24" height="24" rx="6" fill="currentColor" opacity="0.12"/>
         <text x="4" y="17" font-family="monospace" font-weight="bold" font-size="14" fill="currentColor">.*</text>
       </svg>
@@ -21,37 +39,226 @@ const current = activePath.replace(/\/$/, "") || "/";
       <span class="nav-brand-tld">.com</span>
     </a>
 
-    <div class="nav-links">
-      <a href="/" class:list={["nav-link", { "nav-link--active": current === "/" }]} id="nav-home" aria-current={current === "/" ? "page" : undefined}>Home</a>
-      <a href="/javascript" class:list={["nav-link", { "nav-link--active": current === "/javascript" }]} id="nav-javascript" aria-current={current === "/javascript" ? "page" : undefined}>JavaScript</a>
-      <a href="/python" class:list={["nav-link", { "nav-link--active": current === "/python" }]} id="nav-python" aria-current={current === "/python" ? "page" : undefined}>Python</a>
-      <a href="/csharp" class:list={["nav-link", { "nav-link--active": current === "/csharp" }]} id="nav-csharp" aria-current={current === "/csharp" ? "page" : undefined}>C#</a>
-      <a href="/java" class:list={["nav-link", { "nav-link--active": current === "/java" }]} id="nav-java" aria-current={current === "/java" ? "page" : undefined}>Java</a>
-      <a href="/r" class:list={["nav-link", { "nav-link--active": current === "/r" }]} id="nav-r" aria-current={current === "/r" ? "page" : undefined}>R</a>
-      <a href="/sql" class:list={["nav-link", { "nav-link--active": current === "/sql" }]} id="nav-sql" aria-current={current === "/sql" ? "page" : undefined}>SQL</a>
-      <a href="/perl" class:list={["nav-link", { "nav-link--active": current === "/perl" }]} id="nav-perl" aria-current={current === "/perl" ? "page" : undefined}>Perl</a>
-      <a href="/notepad-plus-plus" class:list={["nav-link", { "nav-link--active": current === "/notepad-plus-plus" }]} id="nav-notepad-plus-plus" aria-current={current === "/notepad-plus-plus" ? "page" : undefined}>Notepad++</a>
-      <a href="/vim" class:list={["nav-link", { "nav-link--active": current === "/vim" }]} id="nav-vim" aria-current={current === "/vim" ? "page" : undefined}>Vim</a>
-      <a href="/grep" class:list={["nav-link", { "nav-link--active": current === "/grep" }]} id="nav-grep" aria-current={current === "/grep" ? "page" : undefined}>Grep</a>
-      <a href="/examples" class:list={["nav-link", { "nav-link--active": current === "/examples" }]} id="nav-examples" aria-current={current === "/examples" ? "page" : undefined}>Examples</a>
-      <a href="/tester" class:list={["nav-link", "nav-link--tester", { "nav-link--active": current === "/tester" }]} id="nav-tester" aria-current={current === "/tester" ? "page" : undefined}>
-        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true" style="flex-shrink:0">
-          <path d="M2 6.5h9M7 2.5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        Tester
+    <!-- Desktop Navigation -->
+    <div class="nav-desktop">
+      <a
+        href="/javascript"
+        class:list={["nav-link", { "nav-link--active": current === "/javascript" }]}
+        id="nav-javascript"
+        aria-label="JavaScript Regex Cheat Sheet"
+        aria-current={current === "/javascript" ? "page" : undefined}
+      >
+        JavaScript
       </a>
-      <a href="/pdf" class:list={["nav-link", "nav-link--cta", { "nav-link--active": current === "/pdf" }]} id="nav-pdf" aria-current={current === "/pdf" ? "page" : undefined}>PDF ↓</a>
+
+      <a
+        href="/python"
+        class:list={["nav-link", { "nav-link--active": current === "/python" }]}
+        id="nav-python"
+        aria-label="Python Regex Cheat Sheet"
+        aria-current={current === "/python" ? "page" : undefined}
+      >
+        Python
+      </a>
+
+      <!-- Others Dropdown (Accessible Disclosure Pattern) -->
+      <div class="dropdown-wrapper" id="others-dropdown-container">
+        <button
+          type="button"
+          class:list={["nav-link", "dropdown-toggle", { "nav-link--active": isOtherActive }]}
+          id="others-dropdown-btn"
+          aria-expanded="false"
+          aria-haspopup="true"
+          aria-controls="others-dropdown-menu"
+          aria-label="Other programming languages and tools"
+        >
+          <span>Others</span>
+          <svg class="chevron-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false">
+            <path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+
+        <div
+          class="dropdown-menu"
+          id="others-dropdown-menu"
+          aria-label="Other Cheat Sheets"
+        >
+          <div class="dropdown-columns">
+            <div class="dropdown-group">
+              <h3 class="dropdown-heading" id="desktop-heading-languages" aria-label="Languages">Languages</h3>
+              <ul class="dropdown-list" aria-labelledby="desktop-heading-languages">
+                {otherLanguages.map((item) => (
+                  <li class="dropdown-list-item">
+                    <a
+                      href={item.href}
+                      class:list={["dropdown-item", { "dropdown-item--active": current === item.href }]}
+                      aria-label={`${item.label} Regex Cheat Sheet`}
+                      aria-current={current === item.href ? "page" : undefined}
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div class="dropdown-group">
+              <h3 class="dropdown-heading" id="desktop-heading-tools" aria-label="Tools and Guides">Tools &amp; Guides</h3>
+              <ul class="dropdown-list" aria-labelledby="desktop-heading-tools">
+                {otherTools.map((item) => (
+                  <li class="dropdown-list-item">
+                    <a
+                      href={item.href}
+                      class:list={["dropdown-item", { "dropdown-item--active": current === item.href }]}
+                      aria-label={`${item.label} Regex Cheat Sheet`}
+                      aria-current={current === item.href ? "page" : undefined}
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <a
+        href="/pdf"
+        class:list={["nav-link", "nav-link--cta", { "nav-link--active": current === "/pdf" }]}
+        id="nav-pdf"
+        aria-label="Download Regex Cheat Sheet PDF"
+        aria-current={current === "/pdf" ? "page" : undefined}
+      >
+        PDF ↓
+      </a>
+
       <ThemeToggle />
     </div>
+
+    <!-- Mobile Action Bar (Theme toggle + Hamburger button) -->
+    <div class="nav-mobile-actions">
+      <ThemeToggle />
+      <button
+        type="button"
+        class="hamburger-btn"
+        id="hamburger-btn"
+        aria-label="Open main menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <span class="hamburger-bar hamburger-bar--1"></span>
+        <span class="hamburger-bar hamburger-bar--2"></span>
+        <span class="hamburger-bar hamburger-bar--3"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Dropdown Menu -->
+  <div
+    class="mobile-menu"
+    id="mobile-menu"
+    aria-hidden="true"
+  >
+    <div class="mobile-menu-inner container-wide">
+      <div class="mobile-nav-links">
+        <a
+          href="/javascript"
+          class:list={["mobile-nav-link", { "mobile-nav-link--active": current === "/javascript" }]}
+          aria-label="JavaScript Regex Cheat Sheet"
+          aria-current={current === "/javascript" ? "page" : undefined}
+        >
+          JavaScript
+        </a>
+
+        <a
+          href="/python"
+          class:list={["mobile-nav-link", { "mobile-nav-link--active": current === "/python" }]}
+          aria-label="Python Regex Cheat Sheet"
+          aria-current={current === "/python" ? "page" : undefined}
+        >
+          Python
+        </a>
+
+        <!-- Mobile Others Collapsible -->
+        <div class="mobile-accordion">
+          <button
+            type="button"
+            class:list={["mobile-accordion-btn", { "mobile-accordion-btn--active": isOtherActive }]}
+            id="mobile-accordion-btn"
+            aria-expanded="true"
+            aria-controls="mobile-accordion-content"
+            aria-label="Toggle other cheat sheets list"
+          >
+            <span>Other Cheat Sheets</span>
+            <svg class="accordion-chevron" width="14" height="14" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false">
+              <path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+
+          <div class="mobile-accordion-content" id="mobile-accordion-content">
+            <div class="mobile-grid">
+              <div class="mobile-group">
+                <h3 class="mobile-group-title" id="mobile-heading-languages" aria-label="Languages">Languages</h3>
+                <ul class="mobile-sublinks" aria-labelledby="mobile-heading-languages">
+                  {otherLanguages.map((item) => (
+                    <li class="mobile-sublink-item">
+                      <a
+                        href={item.href}
+                        class:list={["mobile-sublink", { "mobile-sublink--active": current === item.href }]}
+                        aria-label={`${item.label} Regex Cheat Sheet`}
+                        aria-current={current === item.href ? "page" : undefined}
+                      >
+                        {item.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div class="mobile-group">
+                <h3 class="mobile-group-title" id="mobile-heading-tools" aria-label="Tools and Guides">Tools &amp; Guides</h3>
+                <ul class="mobile-sublinks" aria-labelledby="mobile-heading-tools">
+                  {otherTools.map((item) => (
+                    <li class="mobile-sublink-item">
+                      <a
+                        href={item.href}
+                        class:list={["mobile-sublink", { "mobile-sublink--active": current === item.href }]}
+                        aria-label={`${item.label} Regex Cheat Sheet`}
+                        aria-current={current === item.href ? "page" : undefined}
+                      >
+                        {item.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mobile-cta-wrapper">
+          <a
+            href="/pdf"
+            class:list={["mobile-cta-btn", { "mobile-cta-btn--active": current === "/pdf" }]}
+            aria-label="Download Regex Cheat Sheet PDF"
+            aria-current={current === "/pdf" ? "page" : undefined}
+          >
+            <span>Download Regex Cheat Sheet PDF</span>
+            <span aria-hidden="true">↓</span>
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
-</nav>
+</header>
 
 <style>
-  .site-nav {
+  .site-header {
     position: sticky;
     top: 0;
     z-index: 100;
-    background: color-mix(in srgb, var(--color-surface) 90%, transparent);
+    background: color-mix(in srgb, var(--color-surface) 92%, transparent);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--color-border);
@@ -64,7 +271,8 @@ const current = activePath.replace(/\/$/, "") || "/";
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--space-lg);
+    gap: var(--space-md);
+    width: 100%;
   }
 
   .nav-brand {
@@ -95,7 +303,8 @@ const current = activePath.replace(/\/$/, "") || "/";
     color: var(--color-muted);
   }
 
-  .nav-links {
+  /* Desktop Nav Links */
+  .nav-desktop {
     display: flex;
     align-items: center;
     gap: var(--space-xs);
@@ -106,9 +315,17 @@ const current = activePath.replace(/\/$/, "") || "/";
     font-weight: 500;
     color: var(--color-muted);
     text-decoration: none;
-    padding: 5px 10px;
+    padding: 6px 12px;
     border-radius: var(--radius-sm);
-    transition: color 0.12s ease, background 0.12s ease;
+    transition: color 0.15s ease, background-color 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    line-height: 1.25;
   }
 
   .nav-link:hover {
@@ -133,21 +350,530 @@ const current = activePath.replace(/\/$/, "") || "/";
     color: var(--color-on-accent);
   }
 
-  .nav-link--tester {
+  /* Dropdown Styles */
+  .dropdown-wrapper {
+    position: relative;
     display: inline-flex;
     align-items: center;
-    gap: 5px;
-    color: var(--color-accent);
   }
 
-  .nav-link--tester:hover {
+  .dropdown-toggle {
+    user-select: none;
+  }
+
+  .chevron-icon {
+    transition: transform 0.2s ease;
+  }
+
+  .dropdown-wrapper.is-open .chevron-icon,
+  .dropdown-wrapper:hover .chevron-icon {
+    transform: rotate(180deg);
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    min-width: 280px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card-hover);
+    padding: var(--space-sm);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px);
+    transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s ease;
+    pointer-events: none;
+    z-index: 110;
+  }
+
+  /* Invisible hover bridge to prevent cursor exiting hover state across gaps */
+  .dropdown-menu::before {
+    content: "";
+    position: absolute;
+    top: -12px;
+    left: 0;
+    right: 0;
+    height: 12px;
+    background: transparent;
+  }
+
+  .dropdown-wrapper:hover .dropdown-menu,
+  .dropdown-wrapper.is-open .dropdown-menu,
+  .dropdown-wrapper:focus-within .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .dropdown-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xs);
+  }
+
+  .dropdown-group {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .dropdown-heading {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-muted-soft);
+    padding: 6px 8px 4px 8px;
+    margin: 0;
+    line-height: 1.2;
+    display: block;
+  }
+
+  .dropdown-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .dropdown-list-item {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .dropdown-item {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-ink-soft);
+    text-decoration: none;
+    padding: 6px 8px;
+    border-radius: var(--radius-xs);
+    transition: color 0.12s ease, background 0.12s ease;
+    display: block;
+  }
+
+  .dropdown-item:hover,
+  .dropdown-item:focus-visible {
+    color: var(--color-accent);
+    background: var(--color-hover);
+    outline: none;
+  }
+
+  .dropdown-item--active {
+    color: var(--color-accent);
     background: var(--color-accent-subtle);
+    font-weight: 600;
+  }
+
+  /* Mobile Actions */
+  .nav-mobile-actions {
+    display: none;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  .hamburger-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    padding: 6px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    color: var(--color-ink);
+    gap: 5px;
+    transition: background 0.15s ease;
+  }
+
+  .hamburger-btn:hover {
+    background: var(--color-hover);
+  }
+
+  .hamburger-bar {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: currentColor;
+    border-radius: 1px;
+    transition: transform 0.25s ease, opacity 0.2s ease;
+  }
+
+  /* Hamburger Active Animation (morph to X) */
+  .hamburger-btn.is-active .hamburger-bar--1 {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .hamburger-btn.is-active .hamburger-bar--2 {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+
+  .hamburger-btn.is-active .hamburger-bar--3 {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* Mobile Slide-down Menu */
+  .mobile-menu {
+    display: none;
+    position: absolute;
+    top: 56px;
+    left: 0;
+    right: 0;
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    box-shadow: var(--shadow-card-hover);
+    max-height: calc(100vh - 56px);
+    overflow-y: auto;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+    z-index: 99;
+  }
+
+  .mobile-menu.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .mobile-menu-inner {
+    padding-top: var(--space-md);
+    padding-bottom: var(--space-lg);
+  }
+
+  .mobile-nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .mobile-nav-link {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-ink);
+    text-decoration: none;
+    padding: 10px 14px;
+    border-radius: var(--radius-sm);
+    transition: color 0.12s ease, background 0.12s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .mobile-nav-link:hover {
+    background: var(--color-hover);
     color: var(--color-accent);
   }
 
-  @media (max-width: 600px) {
-    .nav-links {
+  .mobile-nav-link--active {
+    color: var(--color-accent);
+    background: var(--color-accent-subtle);
+    font-weight: 600;
+  }
+
+  .mobile-accordion {
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    margin: var(--space-xs) 0;
+    padding: var(--space-xs) 0;
+  }
+
+  .mobile-accordion-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-ink-soft);
+    background: transparent;
+    border: none;
+    padding: 10px 14px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-family: inherit;
+  }
+
+  .mobile-accordion-btn:hover {
+    background: var(--color-hover);
+  }
+
+  .mobile-accordion-btn--active {
+    color: var(--color-accent);
+  }
+
+  .accordion-chevron {
+    transition: transform 0.2s ease;
+  }
+
+  .mobile-accordion-btn.is-collapsed .accordion-chevron {
+    transform: rotate(-90deg);
+  }
+
+  .mobile-accordion-content {
+    padding: 0 14px var(--space-xs) 14px;
+    display: block;
+  }
+
+  .mobile-accordion-content.is-hidden {
+    display: none;
+  }
+
+  .mobile-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md);
+    padding-top: var(--space-xs);
+  }
+
+  .mobile-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .mobile-group-title {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-muted-soft);
+    margin: 0 0 2px 0;
+    line-height: 1.2;
+    display: block;
+  }
+
+  .mobile-sublinks {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .mobile-sublink-item {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .mobile-sublink {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-ink-soft);
+    text-decoration: none;
+    padding: 6px 8px;
+    border-radius: var(--radius-xs);
+    transition: color 0.12s ease, background 0.12s ease;
+    display: block;
+  }
+
+  .mobile-sublink:hover {
+    color: var(--color-accent);
+    background: var(--color-hover);
+  }
+
+  .mobile-sublink--active {
+    color: var(--color-accent);
+    background: var(--color-accent-subtle);
+    font-weight: 600;
+  }
+
+  .mobile-cta-wrapper {
+    margin-top: var(--space-xs);
+    padding-top: var(--space-xs);
+  }
+
+  .mobile-cta-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    background: var(--color-accent-subtle);
+    text-decoration: none;
+    padding: 12px 14px;
+    border-radius: var(--radius-sm);
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+
+  .mobile-cta-btn:hover {
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+  }
+
+  .mobile-cta-btn--active {
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+  }
+
+  /* Media Queries */
+  @media (max-width: 768px) {
+    .nav-desktop {
       display: none;
+    }
+
+    .nav-mobile-actions {
+      display: flex;
+    }
+
+    .mobile-menu {
+      display: block;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .mobile-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-sm);
     }
   }
 </style>
+
+<script>
+  function setupNav() {
+    // Desktop "Others" dropdown
+    const dropdownContainer = document.getElementById("others-dropdown-container");
+    const dropdownBtn = document.getElementById("others-dropdown-btn");
+    let closeTimer: ReturnType<typeof setTimeout> | null = null;
+
+    if (dropdownContainer && dropdownBtn) {
+      const openDropdown = () => {
+        if (closeTimer) {
+          clearTimeout(closeTimer);
+          closeTimer = null;
+        }
+        dropdownContainer.classList.add("is-open");
+        dropdownBtn.setAttribute("aria-expanded", "true");
+      };
+
+      const closeDropdown = (delay = 0) => {
+        if (closeTimer) {
+          clearTimeout(closeTimer);
+          closeTimer = null;
+        }
+        if (delay > 0) {
+          closeTimer = setTimeout(() => {
+            dropdownContainer.classList.remove("is-open");
+            dropdownBtn.setAttribute("aria-expanded", "false");
+          }, delay);
+        } else {
+          dropdownContainer.classList.remove("is-open");
+          dropdownBtn.setAttribute("aria-expanded", "false");
+        }
+      };
+
+      dropdownBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        if (dropdownContainer.classList.contains("is-open")) {
+          closeDropdown(0);
+        } else {
+          openDropdown();
+        }
+      });
+
+      // Smooth hover handling with grace period
+      dropdownContainer.addEventListener("mouseenter", () => {
+        if (window.innerWidth > 768) {
+          openDropdown();
+        }
+      });
+
+      dropdownContainer.addEventListener("mouseleave", () => {
+        if (window.innerWidth > 768) {
+          closeDropdown(200); // 200ms grace window prevents accidental closing
+        }
+      });
+
+      document.addEventListener("click", (e) => {
+        if (!dropdownContainer.contains(e.target as Node)) {
+          closeDropdown(0);
+        }
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && dropdownContainer.classList.contains("is-open")) {
+          closeDropdown(0);
+          dropdownBtn.focus();
+        }
+      });
+    }
+
+    // Mobile Hamburger Navigation
+    const hamburgerBtn = document.getElementById("hamburger-btn");
+    const mobileMenu = document.getElementById("mobile-menu");
+
+    if (hamburgerBtn && mobileMenu) {
+      const toggleMobileMenu = (open?: boolean) => {
+        const isOpen = open !== undefined ? open : !mobileMenu.classList.contains("is-open");
+        mobileMenu.classList.toggle("is-open", isOpen);
+        hamburgerBtn.classList.toggle("is-active", isOpen);
+        hamburgerBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        hamburgerBtn.setAttribute("aria-label", isOpen ? "Close main menu" : "Open main menu");
+        mobileMenu.setAttribute("aria-hidden", isOpen ? "false" : "true");
+
+        if (isOpen) {
+          document.body.style.overflow = "hidden";
+        } else {
+          document.body.style.overflow = "";
+        }
+      };
+
+      hamburgerBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        toggleMobileMenu();
+      });
+
+      // Close menu when clicking a link inside mobile nav
+      mobileMenu.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          toggleMobileMenu(false);
+        });
+      });
+
+      // Close mobile menu on Escape key
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && mobileMenu.classList.contains("is-open")) {
+          toggleMobileMenu(false);
+          hamburgerBtn.focus();
+        }
+      });
+
+      // Close mobile menu if resized to desktop
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 768 && mobileMenu.classList.contains("is-open")) {
+          toggleMobileMenu(false);
+        }
+      });
+    }
+
+    // Mobile Accordion Toggle
+    const accordionBtn = document.getElementById("mobile-accordion-btn");
+    const accordionContent = document.getElementById("mobile-accordion-content");
+
+    if (accordionBtn && accordionContent) {
+      accordionBtn.addEventListener("click", () => {
+        const isHidden = accordionContent.classList.toggle("is-hidden");
+        accordionBtn.classList.toggle("is-collapsed", isHidden);
+        accordionBtn.setAttribute("aria-expanded", isHidden ? "false" : "true");
+      });
+    }
+  }
+
+  // Run on initial load and view transitions
+  setupNav();
+  document.addEventListener("astro:page-load", setupNav);
+</script>
