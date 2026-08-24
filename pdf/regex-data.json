@@ -1,0 +1,36 @@
+[
+  {
+    "name": "Anchors",
+    "items": [
+      { "regex": "^", "description": "Start of string, or start of line in multi-line pattern." },
+      { "regex": "\\A", "description": "Start of string." },
+      { "regex": "$", "description": "End of string, or end of line in multi-line pattern." },
+      { "regex": "\\Z", "description": "End of string." },
+      { "regex": "\\b", "description": "Word boundary." },
+      { "regex": "\\B", "description": "Not word boundary." }
+    ]
+  },
+  {
+    "name": "Character Classes",
+    "items": [
+      { "regex": "\\c", "description": "Control character." },
+      { "regex": "\\s", "description": "Whitespace." },
+      { "regex": "\\S", "description": "Not whitespace." },
+      { "regex": "\\d", "description": "Digit." },
+      { "regex": "\\D", "description": "Not digit." },
+      { "regex": "\\w", "description": "Word." },
+      { "regex": "\\W", "description": "Not word." }
+    ]
+  },
+  {
+    "name": "Quantifiers",
+    "items": [
+      { "regex": "*", "description": "0 or more (greedy)." },
+      { "regex": "+", "description": "1 or more (greedy)." },
+      { "regex": "?", "description": "0 or 1 (greedy)." },
+      { "regex": "{3}", "description": "Exactly 3." },
+      { "regex": "{3,}", "description": "3 or more." },
+      { "regex": "{3,5}", "description": "3, 4 or 5." }
+    ]
+  }
+]

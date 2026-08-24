@@ -1,5 +1,4 @@
 ---
-import Layout from "../../layouts/Layout.astro";
 import { pdfCheatSheets, type PdfCheatSheet } from "../../data/pdfs";
 import { universalRegex } from "../../data/regex";
 import { javascriptRegexCategories } from "../../data/javascriptRegex";
@@ -52,12 +51,12 @@ const { sheet, categories } = Astro.props;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{sheet.title} — Printable Cheat Sheet</title>
-    <meta name="description" content={`Printable single-page PDF cheat sheet for ${sheet.title}.`} />
+    <meta name="description" content={`Printable PDF cheat sheet for ${sheet.title}.`} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
   </head>
@@ -75,6 +74,7 @@ const { sheet, categories } = Astro.props;
           <span class="toolbar-divider"></span>
           <span class="toolbar-title">{sheet.title}</span>
           <span class="toolbar-badge">{sheet.badge}</span>
+          <span class="toolbar-page-count">{categories.length} {categories.length === 1 ? 'Page' : 'Pages'}</span>
         </div>
 
         <div class="toolbar-actions">
@@ -91,44 +91,50 @@ const { sheet, categories } = Astro.props;
 
       <!-- Quick instructions bar -->
       <div class="toolbar-tips">
-        <span>💡 <strong>Tip for best PDF output:</strong> In Chrome/Edge Print Dialog, choose Destination: <em>Save as PDF</em>, Margins: <em>None / Minimum</em>, and ensure <em>Background graphics</em> is checked.</span>
+        <span>💡 <strong>Tip for best PDF output:</strong> In Chrome/Edge Print Dialog, set Destination: <em>Save as PDF</em>, Margins: <em>Default</em> or <em>Custom (10mm)</em>, and check <em>Background graphics</em>.</span>
       </div>
     </header>
 
-    <!-- Printable Sheet Document -->
-    <div class="print-document">
-      <!-- Sheet Header -->
-      <div class="sheet-header">
-        <div class="brand-row">
-          <div class="brand-logo">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect width="24" height="24" rx="6" fill="#5b21b6"/>
-              <text x="4" y="17" font-family="monospace" font-weight="bold" font-size="14" fill="#ffffff">.*</text>
-            </svg>
-            <span class="brand-name">regexsheet<strong>.com</strong></span>
-          </div>
-          <div class="sheet-meta-pill">
-            <span>{sheet.badge}</span>
-            <span class="dot">•</span>
-            <span>Quick Reference</span>
-          </div>
-        </div>
+    <!-- Container of printable pages: 1 Category Table per Page -->
+    <div class="print-pages-container">
+      {
+        categories.map((category, index) => (
+          <article class="print-page">
+            <!-- Page Header -->
+            <header class="page-header">
+              <div class="header-top-row">
+                <div class="brand-logo">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="24" height="24" rx="6" fill="#5b21b6"/>
+                    <text x="4" y="17" font-family="monospace" font-weight="bold" font-size="14" fill="#ffffff">.*</text>
+                  </svg>
+                  <span class="brand-name">regexsheet<strong>.com</strong></span>
+                </div>
 
-        <div class="title-row">
-          <h1 class="sheet-title">{sheet.title}</h1>
-          <p class="sheet-desc">{sheet.description}</p>
-        </div>
-      </div>
-
-      <!-- Categories Columns Layout -->
-      <div class="sheet-grid">
-        {
-          categories.map((category) => (
-            <section class="category-block">
-              <div class="category-header">
-                <h2 class="category-title">{category.title}</h2>
+                <div class="header-meta">
+                  <span class="badge-pill">{sheet.badge}</span>
+                  <span class="page-counter">Page {index + 1} of {categories.length}</span>
+                </div>
               </div>
+
+              <div class="header-titles">
+                <div class="sheet-info">
+                  <span class="sheet-supertitle">{sheet.title}</span>
+                  <h1 class="category-heading">{category.title}</h1>
+                </div>
+                <p class="sheet-desc-brief">{sheet.description}</p>
+              </div>
+            </header>
+
+            <!-- Table for This Category -->
+            <main class="page-content">
               <table class="category-table">
+                <thead>
+                  <tr>
+                    <th class="th-syntax">Pattern / Syntax</th>
+                    <th class="th-desc">Description & Example</th>
+                  </tr>
+                </thead>
                 <tbody>
                   {category.entries.map((entry) => (
                     <tr class="entry-row">
@@ -136,48 +142,54 @@ const { sheet, categories } = Astro.props;
                         <code>{entry.syntax}</code>
                       </td>
                       <td class="desc-cell">
-                        <span class="entry-desc">{entry.description}</span>
+                        <div class="entry-desc">{entry.description}</div>
                         {entry.example && (
-                          <span class="entry-example">
+                          <div class="entry-example">
+                            <span class="example-label">Example:</span>
                             <code>{entry.example}</code>
-                          </span>
+                          </div>
                         )}
                       </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
-            </section>
-          ))
-        }
-      </div>
+            </main>
 
-      <!-- Sheet Footer -->
-      <footer class="sheet-footer">
-        <div class="footer-left">
-          <span>Free printable cheat sheet from <strong>regexsheet.com</strong></span>
-        </div>
-        <div class="footer-right">
-          <span>Online interactive guide: <strong>https://regexsheet.com{sheet.targetPage}</strong></span>
-        </div>
-      </footer>
+            <!-- Page Footer -->
+            <footer class="page-footer">
+              <div class="footer-left">
+                <span>Free printable cheat sheet from <strong>regexsheet.com</strong></span>
+              </div>
+              <div class="footer-center">
+                <span>Online interactive guide: <strong>https://regexsheet.com{sheet.targetPage}</strong></span>
+              </div>
+              <div class="footer-right">
+                <span class="footer-page-num">Page {index + 1} / {categories.length}</span>
+              </div>
+            </footer>
+          </article>
+        ))
+      }
     </div>
   </body>
 </html>
 
 <style>
   /* ==========================================================
-     Print Layout & Reset Styles
+     Variables & Resets
      ========================================================== */
   :root {
     --color-primary: #5b21b6;
+    --color-primary-dark: #4c1d95;
     --color-primary-subtle: #f5f3ff;
     --color-primary-border: #ddd6fe;
-    --color-ink: #1a1a2e;
-    --color-ink-muted: #52525b;
-    --color-code: #4c1d95;
-    --color-border: #e4e4e7;
-    --color-row-alt: #fafafa;
+    --color-ink: #0f172a;
+    --color-ink-muted: #64748b;
+    --color-code: #6b21a8;
+    --color-code-bg: #f3f0ff;
+    --color-border: #e2e8f0;
+    --color-row-alt: #f8fafc;
     --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     --font-mono: "JetBrains Mono", "Fira Code", monospace;
   }
@@ -191,19 +203,21 @@ const { sheet, categories } = Astro.props;
   html, body {
     font-family: var(--font-sans);
     color: var(--color-ink);
-    background-color: #e5e7eb;
+    background-color: #f1f5f9;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
 
-  /* Screen toolbar */
+  /* ==========================================================
+     Screen Toolbar (No Print)
+     ========================================================== */
   .print-toolbar {
     position: sticky;
     top: 0;
     z-index: 1000;
     background: #ffffff;
-    border-bottom: 1px solid #d1d5db;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border-bottom: 1px solid #e2e8f0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
   }
 
   .toolbar-inner {
@@ -226,31 +240,32 @@ const { sheet, categories } = Astro.props;
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    color: #4b5563;
+    color: #475569;
     text-decoration: none;
     font-size: 0.875rem;
     font-weight: 500;
     padding: 6px 12px;
     border-radius: 6px;
-    background: #f3f4f6;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
     transition: background 0.15s, color 0.15s;
   }
 
   .toolbar-back:hover {
-    background: #e5e7eb;
-    color: #111827;
+    background: #f1f5f9;
+    color: #0f172a;
   }
 
   .toolbar-divider {
     width: 1px;
     height: 20px;
-    background: #e5e7eb;
+    background: #e2e8f0;
   }
 
   .toolbar-title {
     font-size: 1rem;
     font-weight: 700;
-    color: #111827;
+    color: #0f172a;
   }
 
   .toolbar-badge {
@@ -260,6 +275,15 @@ const { sheet, categories } = Astro.props;
     color: #5b21b6;
     padding: 2px 8px;
     border-radius: 9999px;
+  }
+
+  .toolbar-page-count {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #64748b;
+    background: #f1f5f9;
+    padding: 2px 8px;
+    border-radius: 6px;
   }
 
   .toolbar-actions {
@@ -299,45 +323,66 @@ const { sheet, categories } = Astro.props;
     text-align: center;
   }
 
-  /* Document Container (Rendered on Screen as a Sheet) */
-  .print-document {
+  /* ==========================================================
+     Print Pages Container & Individual Page Layout
+     ========================================================== */
+  .print-pages-container {
+    padding: 24px 0 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+  }
+
+  /* Each page represents exactly 1 A4 sheet with 1 table */
+  .print-page {
     width: 100%;
     max-width: 210mm; /* A4 width */
     min-height: 297mm; /* A4 height */
-    margin: 24px auto;
-    padding: 10mm 12mm 8mm 12mm;
+    padding: 14mm 16mm 12mm 16mm;
     background: #ffffff;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-    border-radius: 2px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    border-radius: 4px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    box-sizing: border-box;
+    page-break-after: always;
+    break-after: page;
   }
 
-  /* Sheet Header */
-  .sheet-header {
+  .print-page:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
+
+  /* ==========================================================
+     Page Header
+     ========================================================== */
+  .page-header {
     border-bottom: 2px solid var(--color-primary);
-    padding-bottom: 8px;
-    margin-bottom: 10px;
+    padding-bottom: 12px;
+    margin-bottom: 16px;
   }
 
-  .brand-row {
+  .header-top-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 4px;
+    margin-bottom: 10px;
   }
 
   .brand-logo {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
   }
 
   .brand-name {
     font-family: var(--font-mono);
-    font-size: 0.9375rem;
-    color: #111827;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #0f172a;
     letter-spacing: -0.02em;
   }
 
@@ -345,147 +390,201 @@ const { sheet, categories } = Astro.props;
     color: #5b21b6;
   }
 
-  .sheet-meta-pill {
+  .header-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .badge-pill {
     font-size: 0.75rem;
     font-weight: 600;
     color: #5b21b6;
     background: #ede9fe;
-    padding: 2px 8px;
+    padding: 3px 10px;
     border-radius: 9999px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
   }
 
-  .title-row {
+  .page-counter {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #64748b;
+    background: #f1f5f9;
+    padding: 3px 10px;
+    border-radius: 9999px;
+    border: 1px solid #e2e8f0;
+  }
+
+  .header-titles {
     display: flex;
-    align-items: baseline;
+    align-items: flex-end;
     justify-content: space-between;
-    gap: 12px;
+    gap: 16px;
   }
 
-  .sheet-title {
-    font-size: 1.25rem;
+  .sheet-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .sheet-supertitle {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-primary);
+  }
+
+  .category-heading {
+    font-size: 1.5rem;
     font-weight: 800;
     letter-spacing: -0.02em;
-    color: #111827;
+    color: #0f172a;
+    line-height: 1.2;
   }
 
-  .sheet-desc {
+  .sheet-desc-brief {
     font-size: 0.75rem;
-    color: #4b5563;
-    max-width: 60%;
+    color: #64748b;
+    max-width: 45%;
     text-align: right;
-    line-height: 1.3;
+    line-height: 1.35;
   }
 
-  /* Categories multi-column masonry */
-  .sheet-grid {
-    column-count: 2;
-    column-gap: 10px;
+  /* ==========================================================
+     Page Content & Table
+     ========================================================== */
+  .page-content {
     flex: 1 0 auto;
-  }
-
-  .category-block {
-    break-inside: avoid;
-    page-break-inside: avoid;
-    margin-bottom: 10px;
-    border: 1px solid var(--color-border);
-    border-radius: 4px;
-    overflow: hidden;
-    background: #ffffff;
-  }
-
-  .category-header {
-    background: var(--color-primary-subtle);
-    border-bottom: 1px solid var(--color-primary-border);
-    padding: 3px 8px;
-  }
-
-  .category-title {
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: var(--color-primary);
+    display: flex;
+    flex-direction: column;
   }
 
   .category-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 0.71875rem; /* ~11.5px */
-    line-height: 1.3;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    overflow: hidden;
+    background: #ffffff;
+  }
+
+  .category-table thead tr {
+    background: #f8fafc;
+    border-bottom: 2px solid var(--color-border);
+  }
+
+  .category-table th {
+    padding: 8px 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #475569;
+    text-align: left;
+  }
+
+  .th-syntax {
+    width: 32%;
+    border-right: 1px solid var(--color-border);
+  }
+
+  .th-desc {
+    width: 68%;
+  }
+
+  .entry-row {
+    border-bottom: 1px solid #f1f5f9;
   }
 
   .entry-row:nth-child(even) {
     background: var(--color-row-alt);
   }
 
-  .entry-row:not(:last-child) {
-    border-bottom: 1px solid #f4f4f5;
+  .entry-row:last-child {
+    border-bottom: none;
   }
 
   .syntax-cell {
-    padding: 3px 6px;
+    padding: 7px 12px;
     vertical-align: top;
-    white-space: nowrap;
-    width: 32%;
-    border-right: 1px solid #f4f4f5;
+    border-right: 1px solid var(--color-border);
+    white-space: pre-wrap;
+    word-break: break-all;
   }
 
   .syntax-cell code {
     font-family: var(--font-mono);
     font-weight: 600;
-    font-size: 0.71875rem;
+    font-size: 0.8125rem;
     color: var(--color-code);
-    background: #f3f0ff;
-    padding: 1px 4px;
-    border-radius: 3px;
+    background: var(--color-code-bg);
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid #ede9fe;
     display: inline-block;
   }
 
   .desc-cell {
-    padding: 3px 6px;
+    padding: 7px 12px;
     vertical-align: top;
-    color: var(--color-ink);
   }
 
   .entry-desc {
-    display: block;
+    font-size: 0.8125rem;
     font-weight: 500;
-    color: #27272a;
+    color: #1e293b;
+    line-height: 1.4;
   }
 
   .entry-example {
-    display: block;
-    margin-top: 1px;
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    margin-top: 4px;
+  }
+
+  .example-label {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #64748b;
   }
 
   .entry-example code {
     font-family: var(--font-mono);
-    font-size: 0.65625rem; /* ~10.5px */
-    color: #059669;
+    font-size: 0.75rem;
+    color: #047857;
     background: #ecfdf5;
-    padding: 0 3px;
-    border-radius: 2px;
+    padding: 1px 6px;
+    border-radius: 3px;
+    border: 1px solid #d1fae5;
+    word-break: break-all;
   }
 
-  /* Sheet Footer */
-  .sheet-footer {
+  /* ==========================================================
+     Page Footer
+     ========================================================== */
+  .page-footer {
     border-top: 1px solid var(--color-border);
-    padding-top: 6px;
-    margin-top: auto;
+    padding-top: 10px;
+    margin-top: 16px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     font-size: 0.6875rem;
-    color: #71717a;
-    break-inside: avoid;
-    page-break-inside: avoid;
+    color: var(--color-ink-muted);
   }
 
-  .sheet-footer strong {
-    color: #5b21b6;
+  .page-footer strong {
+    color: var(--color-primary);
+  }
+
+  .footer-page-num {
+    font-weight: 600;
+    color: #475569;
   }
 
   /* ==========================================================
@@ -494,12 +593,12 @@ const { sheet, categories } = Astro.props;
   @media print {
     @page {
       size: A4 portrait;
-      margin: 8mm;
+      margin: 10mm;
     }
 
     html, body {
-      height: 100%;
-      min-height: 100%;
+      height: auto !important;
+      min-height: 100% !important;
       background: #ffffff !important;
       color: #000000 !important;
     }
@@ -508,55 +607,84 @@ const { sheet, categories } = Astro.props;
       display: none !important;
     }
 
-    .print-document {
-      display: flex !important;
-      flex-direction: column !important;
-      justify-content: space-between !important;
+    .print-pages-container {
+      padding: 0 !important;
+      gap: 0 !important;
+      display: block !important;
+    }
+
+    .print-page {
       width: 100% !important;
       max-width: none !important;
-      min-height: calc(297mm - 16mm) !important;
+      min-height: calc(297mm - 20mm) !important;
+      height: calc(297mm - 20mm) !important;
       margin: 0 !important;
       padding: 0 !important;
       box-shadow: none !important;
       border-radius: 0 !important;
-    }
-
-    .sheet-grid {
-      column-count: 2 !important;
-      column-gap: 8mm !important;
-      flex: 1 0 auto !important;
-    }
-
-    .category-block {
+      border: none !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: space-between !important;
+      page-break-after: always !important;
+      break-after: page !important;
       break-inside: avoid !important;
       page-break-inside: avoid !important;
-      border: 1px solid #d4d4d8 !important;
     }
 
-    .category-header {
-      background: #f5f3ff !important;
+    .print-page:last-child {
+      page-break-after: auto !important;
+      break-after: auto !important;
+    }
+
+    .page-header {
+      border-bottom: 2px solid #5b21b6 !important;
       -webkit-print-color-adjust: exact !important;
       print-color-adjust: exact !important;
     }
 
+    .badge-pill {
+      background: #ede9fe !important;
+      color: #5b21b6 !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    .category-table {
+      border: 1px solid #cbd5e1 !important;
+    }
+
+    .category-table thead tr {
+      background: #f1f5f9 !important;
+      border-bottom: 2px solid #cbd5e1 !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    .category-table th {
+      color: #1e293b !important;
+    }
+
     .syntax-cell code {
       background: #f3f0ff !important;
+      color: #5b21b6 !important;
+      border: 1px solid #ddd6fe !important;
       -webkit-print-color-adjust: exact !important;
       print-color-adjust: exact !important;
     }
 
     .entry-example code {
       background: #ecfdf5 !important;
+      color: #047857 !important;
+      border: 1px solid #a7f3d0 !important;
       -webkit-print-color-adjust: exact !important;
       print-color-adjust: exact !important;
     }
 
-    .sheet-footer {
-      margin-top: auto !important;
-      border-top: 1px solid #d4d4d8 !important;
-      padding-top: 4px !important;
-      break-inside: avoid !important;
-      page-break-inside: avoid !important;
+    .page-footer {
+      border-top: 1px solid #cbd5e1 !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
     }
   }
 </style>
