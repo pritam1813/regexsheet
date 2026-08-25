@@ -1,5 +1,6 @@
 ---
 // Site-wide responsive top navigation bar
+import { Image } from "astro:assets";
 import ThemeToggle from "./ThemeToggle.astro";
 
 interface Props {
@@ -31,12 +32,19 @@ const isOtherActive = allOtherItems.some((item) => item.href === current);
 <header class="site-header" id="site-header">
   <nav class="container-wide nav-inner" aria-label="Main Navigation">
     <a href="/" class="nav-brand" aria-label="RegexSheet home page">
-      <img
+      <Image
         src="/icon.svg"
         alt="RegexSheet logo"
-        class="nav-logo"
-        width="30"
-        height="30"
+        class="nav-logo light-logo"
+        width={30}
+        height={30}
+      />
+      <Image
+        src="/icon-dark.svg"
+        alt="RegexSheet logo"
+        class="nav-logo dark-logo"
+        width={30}
+        height={30}
       />
       <span class="nav-brand-name">RegexSheet</span>
     </a>
@@ -398,6 +406,18 @@ const isOtherActive = allOtherItems.some((item) => item.href === current);
     height: 30px;
     border-radius: 7px;
     flex-shrink: 0;
+  }
+
+  .dark-logo {
+    display: none;
+  }
+
+  :global([data-theme="dark"]) .light-logo {
+    display: none;
+  }
+
+  :global([data-theme="dark"]) .dark-logo {
+    display: block;
   }
 
   .nav-brand-name {
