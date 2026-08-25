@@ -17,7 +17,8 @@ import { vimRecipes } from "../data/vimRegex";
         </div>
         <p class="recipe-desc">{recipe.description}</p>
         
-        <div class="command-block">
+        <div class="command-block" itemscope itemtype="https://schema.org/SoftwareSourceCode">
+          <meta itemprop="programmingLanguage" content="Regex" />
           <div class="code-top-bar">
             <span class="code-lang">vim command</span>
             <button
@@ -33,7 +34,7 @@ import { vimRecipes } from "../data/vimRegex";
               <span class="copy-text">Copy</span>
             </button>
           </div>
-          <pre class="recipe-code"><code>{recipe.command}</code></pre>
+          <pre class="recipe-code"><code itemprop="text">{recipe.command}</code></pre>
         </div>
 
         <p class="recipe-explanation">

@@ -5,29 +5,85 @@ const year = new Date().getFullYear();
 
 <footer class="site-footer">
   <div class="container-wide footer-inner">
-    <div class="footer-brand">
-      <span class="footer-brand-name">regexsheet.com</span>
-      <p class="footer-tagline">A free, fast reference for regular expressions.</p>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="footer-brand-name">regexsheet.com</span>
+        <p class="footer-tagline">
+          A free, fast reference for regular expressions.
+        </p>
+
+        <div class="footer-actions">
+          <a
+            href="https://github.com/pritam1813/regexsheet"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="footer-btn"
+          >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              ><path
+                d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+              ></path></svg
+            >
+            Star on GitHub
+          </a>
+          <a
+            href="https://github.com/sponsors/pritam1813"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="footer-btn footer-btn-sponsor"
+          >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              ><path
+                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+              ></path></svg
+            >
+            Sponsor
+          </a>
+        </div>
+      </div>
+
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="/javascript" class="footer-link">JavaScript</a>
+        <a href="/python" class="footer-link">Python</a>
+        <a href="/csharp" class="footer-link">C#</a>
+        <a href="/java" class="footer-link">Java</a>
+        <a href="/r" class="footer-link">R</a>
+        <a href="/sql" class="footer-link">SQL</a>
+        <a href="/perl" class="footer-link">Perl</a>
+        <a href="/notepad-plus-plus" class="footer-link">Notepad++</a>
+        <a href="/vim" class="footer-link">Vim</a>
+        <a href="/grep" class="footer-link">Grep</a>
+        <a href="/examples" class="footer-link">Examples</a>
+        <a href="/pdf" class="footer-link">Download PDF</a>
+      </nav>
     </div>
 
-    <nav class="footer-nav" aria-label="Footer navigation">
-      <a href="/javascript" class="footer-link">JavaScript</a>
-      <a href="/python" class="footer-link">Python</a>
-      <a href="/csharp" class="footer-link">C#</a>
-      <a href="/java" class="footer-link">Java</a>
-      <a href="/r" class="footer-link">R</a>
-      <a href="/sql" class="footer-link">SQL</a>
-      <a href="/perl" class="footer-link">Perl</a>
-      <a href="/notepad-plus-plus" class="footer-link">Notepad++</a>
-      <a href="/vim" class="footer-link">Vim</a>
-      <a href="/grep" class="footer-link">Grep</a>
-      <a href="/examples" class="footer-link">Examples</a>
-      <a href="/pdf" class="footer-link">Download PDF</a>
-    </nav>
-
     <p class="footer-legal">
-      &copy; {year} regexsheet.com &mdash; Built with
-      <a href="https://astro.build" class="footer-astro-link" target="_blank" rel="noopener noreferrer">Astro</a>
+      &copy; {year} regexsheet.com &mdash; Maintained by{" "}
+      <a
+        class="footer-astro-link"
+        href="https://github.com/pritam1813"
+        target="_blank"
+        rel="noopener noreferrer">Pritam Dhara</a
+      >
     </p>
   </div>
 </footer>
@@ -43,19 +99,34 @@ const year = new Date().getFullYear();
   .footer-inner {
     display: flex;
     flex-direction: column;
-    gap: var(--space-lg);
+    gap: var(--space-xl);
+  }
+
+  .footer-top {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+  }
+
+  @media (min-width: 768px) {
+    .footer-top {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
   }
 
   .footer-brand {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 8px;
+    max-width: 320px;
   }
 
   .footer-brand-name {
     font-family: var(--font-mono);
-    font-size: 0.9375rem;
-    font-weight: 600;
+    font-size: 1rem;
+    font-weight: 700;
     color: var(--color-ink);
     letter-spacing: -0.02em;
   }
@@ -66,10 +137,78 @@ const year = new Date().getFullYear();
     margin: 0;
   }
 
-  .footer-nav {
+  .footer-oss {
+    font-size: 0.875rem;
+    color: var(--color-muted);
+    margin: var(--space-xs) 0 0 0;
+    line-height: 1.5;
+  }
+
+  .footer-link-highlight {
+    color: var(--color-ink);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: var(--color-border-hover);
+    transition: all 0.15s ease;
+  }
+
+  .footer-link-highlight:hover {
+    color: var(--color-accent);
+    text-decoration-color: var(--color-accent);
+  }
+
+  .footer-actions {
     display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-sm);
     flex-wrap: wrap;
-    gap: var(--space-md);
+  }
+
+  .footer-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    font-family: var(--font-sans);
+    color: var(--color-ink-soft);
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border);
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    transition: all 0.15s ease;
+  }
+
+  .footer-btn:hover {
+    background: var(--color-hover);
+    border-color: var(--color-border-hover);
+    color: var(--color-ink);
+  }
+
+  .footer-btn-sponsor {
+    color: var(--color-accent);
+    background: var(--color-accent-subtle);
+    border-color: transparent;
+  }
+
+  .footer-btn-sponsor:hover {
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+  }
+
+  .footer-nav {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-sm) var(--space-xl);
+  }
+
+  @media (min-width: 640px) {
+    .footer-nav {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
 
   .footer-link {
@@ -88,6 +227,8 @@ const year = new Date().getFullYear();
     font-size: 0.8125rem;
     color: var(--color-muted-soft);
     margin: 0;
+    padding-top: var(--space-lg);
+    border-top: 1px dashed var(--color-border-soft);
   }
 
   .footer-astro-link {

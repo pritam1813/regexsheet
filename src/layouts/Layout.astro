@@ -13,7 +13,11 @@ const {
   description = "A universal reference for regular expressions — character classes, anchors, quantifiers, groups, lookarounds, and flags across all major engines.",
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+let path = Astro.url.pathname;
+if (path.length > 1 && path.endsWith("/")) {
+  path = path.slice(0, -1);
+}
+const canonicalURL = new URL(path, Astro.site);
 ---
 
 <!doctype html>

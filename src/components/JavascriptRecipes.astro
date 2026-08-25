@@ -16,7 +16,8 @@ import { javascriptRecipes } from "../data/javascriptRegex";
           <span class="recipe-badge">JavaScript</span>
         </div>
         <p class="recipe-desc">{recipe.description}</p>
-        <div class="recipe-code-wrapper">
+        <div class="recipe-code-wrapper" itemscope itemtype="https://schema.org/SoftwareSourceCode">
+          <meta itemprop="programmingLanguage" content="JavaScript" />
           <div class="code-top-bar">
             <span class="code-lang">javascript</span>
             <button
@@ -32,7 +33,7 @@ import { javascriptRecipes } from "../data/javascriptRegex";
               <span class="copy-text">Copy</span>
             </button>
           </div>
-          <pre class="recipe-code"><code>{recipe.code}</code></pre>
+          <pre class="recipe-code"><code itemprop="text">{recipe.code}</code></pre>
         </div>
       </div>
     ))}

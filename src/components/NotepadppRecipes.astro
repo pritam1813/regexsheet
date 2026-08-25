@@ -17,11 +17,12 @@ import { notepadppRecipes } from "../data/notepadppRegex";
         </div>
         <p class="recipe-desc">{recipe.description}</p>
         
-        <div class="find-replace-block">
+        <div class="find-replace-block" itemscope itemtype="https://schema.org/SoftwareSourceCode">
+          <meta itemprop="programmingLanguage" content="Notepad++" />
           <!-- Find Row -->
           <div class="field-row">
             <span class="field-tag">Find</span>
-            <code class="field-code">{recipe.find}</code>
+            <code class="field-code" itemprop="text">{recipe.find}</code>
             <button
               type="button"
               class="copy-btn"
