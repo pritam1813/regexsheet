@@ -20,7 +20,7 @@ export const pdfCheatSheets: PdfCheatSheet[] = [
     badge: "All Engines",
     description:
       "Core syntax, character classes, anchors, quantifiers, groups, lookarounds, and flags compatible across major engines.",
-    highlights: ["Character Classes", "Anchors & Boundaries", "Quantifiers & Lookarounds", "Common Flags"],
+    highlights: ["Character Classes", "Anchors", "Quantifiers", "Flags"],
     pages: "1 Page",
     fileSizeEstimate: "A4 / Letter",
     targetPage: "/",
@@ -33,7 +33,7 @@ export const pdfCheatSheets: PdfCheatSheet[] = [
     badge: "ECMAScript 2024",
     description:
       "RegExp methods (test, exec), String methods (match, matchAll, replace, replaceAll, split), v flag, and named capture groups.",
-    highlights: ["RegExp & String Methods", "Flags (g, i, m, s, u, v, y)", "Named Groups & Indices", "Code Snippets"],
+    highlights: ["RString Methods", "Flags", "Named Groups"],
     pages: "1 Page",
     fileSizeEstimate: "A4 / Letter",
     targetPage: "/javascript",
@@ -46,7 +46,7 @@ export const pdfCheatSheets: PdfCheatSheet[] = [
     badge: "Python 3 re",
     description:
       "re module functions (search, match, findall, sub), Match object methods, verbose mode (re.X), and raw string notation.",
-    highlights: ["re Module Functions", "Match Object API", "re Flags (I, M, S, X, A)", "Regex Recipes"],
+    highlights: ["re Module Functions", "Match Object", "re Flags"],
     pages: "1 Page",
     fileSizeEstimate: "A4 / Letter",
     targetPage: "/python",
@@ -59,7 +59,12 @@ export const pdfCheatSheets: PdfCheatSheet[] = [
     badge: "Java 8+",
     description:
       "Pattern and Matcher classes, double escaping (\\\\d), embedded flag expressions, and regex stream operations.",
-    highlights: ["Pattern & Matcher", "Double Escape Rules", "Embedded Flags (?i)", "MatchResult & Streams"],
+    highlights: [
+      "Matcher",
+      "Double Escape Rules",
+      "Embedded Flags (?i)",
+      "MatchResult & Streams",
+    ],
     pages: "1 Page",
     fileSizeEstimate: "A4 / Letter",
     targetPage: "/java",
@@ -72,7 +77,12 @@ export const pdfCheatSheets: PdfCheatSheet[] = [
     badge: "Base R & stringr",
     description:
       "Base R functions (grep, grepl, regexpr, sub) and Tidyverse stringr functions (str_detect, str_extract, str_replace).",
-    highlights: ["Base R Functions", "stringr / tidyverse", "PCRE vs TRE engines", "Vectorized Operations"],
+    highlights: [
+      "Base R Functions",
+      "stringr",
+      "PCRE vs TRE engines",
+      "Vectorized Operations",
+    ],
     pages: "1 Page",
     fileSizeEstimate: "A4 / Letter",
     targetPage: "/r",
@@ -85,7 +95,12 @@ export const pdfCheatSheets: PdfCheatSheet[] = [
     badge: ".NET 7 / 8 / 9",
     description:
       "System.Text.RegularExpressions, [GeneratedRegex] source generators, Match/Group/Capture model, balancing groups, and timeouts.",
-    highlights: ["Regex Class API", "[GeneratedRegex] Source Gen", "RegexOptions Flags", "Balancing Groups & Recipes"],
+    highlights: [
+      "Regex Class",
+      "[GeneratedRegex]",
+      "Flags",
+      "Balancing Groups",
+    ],
     pages: "1 Page",
     fileSizeEstimate: "A4 / Letter",
     targetPage: "/csharp",
@@ -98,7 +113,12 @@ export const pdfCheatSheets: PdfCheatSheet[] = [
     badge: "Cross-RDBMS",
     description:
       "PostgreSQL POSIX operators (~, ~*), MySQL REGEXP/RLIKE, Oracle/Snowflake REGEXP_LIKE, and BigQuery functions.",
-    highlights: ["REGEXP_LIKE / SUBSTR", "PostgreSQL ~ & ~*", "Cloud DW Functions", "Data Masking & Parsing"],
+    highlights: [
+      "REGEXP_LIKE / SUBSTR",
+      "PostgreSQL ~ & ~*",
+      "Cloud DW Functions",
+      "Parsing",
+    ],
     pages: "1 Page",
     fileSizeEstimate: "A4 / Letter",
     targetPage: "/sql",
@@ -111,7 +131,12 @@ export const pdfCheatSheets: PdfCheatSheet[] = [
     badge: "Perl 5.14+ & PCRE",
     description:
       "Pattern binding (=~, !~), s/// substitutions, special variables ($1, %+, \\K), recursive regex (?R), and modifiers.",
-    highlights: ["Pattern Binding (=~, !~)", "Modifiers (/g, /i, /e, /r)", "Special Vars ($&, %+, \\K)", "Recursive Patterns"],
+    highlights: [
+      "Pattern Binding",
+      "Modifiers",
+      "Special Vars",
+      "Recursive Patterns",
+    ],
     pages: "1 Page",
     fileSizeEstimate: "A4 / Letter",
     targetPage: "/perl",
@@ -124,7 +149,12 @@ export const pdfCheatSheets: PdfCheatSheet[] = [
     badge: "Find & Replace",
     description:
       "PCRE regex search mode, universal newlines (\\R), case modifications (\\U, \\L, \\u), keep-out (\\K), and batch text recipes.",
-    highlights: ["Universal Newlines (\\R)", "Case Modifiers (\\U, \\L)", "Capture Groups ($1, $2)", "Find & Replace Recipes"],
+    highlights: [
+      "Universal Newlines",
+      "Case Modifiers",
+      "Capture Groups",
+      "Find & Replace",
+    ],
     pages: "1 Page",
     fileSizeEstimate: "A4 / Letter",
     targetPage: "/notepad-plus-plus",
@@ -137,7 +167,12 @@ export const pdfCheatSheets: PdfCheatSheet[] = [
     badge: "Vim & Neovim",
     description:
       "Very magic mode (\\v), search & replace (:%s), :g and :v global commands, \\zs & \\ze boundaries, and expression replacements.",
-    highlights: ["Very Magic Mode (\\v)", "Substitute (:%s) & :g/:v", "Match Bounds (\\zs, \\ze)", "Expression Register (\\=)"],
+    highlights: [
+      "Very Magic Mode",
+      "Substitute",
+      "Match Bounds",
+      "Expression Register",
+    ],
     pages: "1 Page",
     fileSizeEstimate: "A4 / Letter",
     targetPage: "/vim",
@@ -150,7 +185,12 @@ export const pdfCheatSheets: PdfCheatSheet[] = [
     badge: "CLI & POSIX",
     description:
       "Extended regex (-E), PCRE (-P), recursive search, output control (-o, -v, -n), context lines (-C), and POSIX character classes.",
-    highlights: ["Extended (-E) & PCRE (-P)", "Output Flags (-o, -v, -n)", "Context Lines (-A, -B, -C)", "POSIX Classes & Shell Recipes"],
+    highlights: [
+      "Extended (-E) & PCRE (-P)",
+      "Flags",
+      "Context Lines",
+      "POSIX Classes",
+    ],
     pages: "1 Page",
     fileSizeEstimate: "A4 / Letter",
     targetPage: "/grep",

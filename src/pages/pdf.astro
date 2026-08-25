@@ -37,6 +37,7 @@ const otherNavCards = [
     icon: "💛",
   },
 ];
+const totalPages = Math.ceil(pdfCheatSheets.length / 6);
 ---
 
 <Layout
@@ -50,17 +51,19 @@ const otherNavCards = [
     subtitle="Download high-resolution, single-page regex cheat sheets designed for fast offline lookups, desk pinning, and quick reference. Optimized for A4 and US Letter printing."
   />
 
-  <main id="main-content" class="container-wide main">
+  <main id="main-content" class="container-wide pt-16 pb-8">
     <!-- Format notice callout -->
     <div
-      class="format-callout"
+      class="flex gap-3 sm:gap-4 bg-surface border border-border border-l-4 border-l-accent rounded-md p-4 sm:px-6 sm:py-4 mb-8 shadow-card"
       role="note"
       aria-label="PDF Cheat Sheet Information"
     >
-      <div class="callout-icon" aria-hidden="true">💡</div>
-      <div class="callout-content">
-        <span class="callout-title">Designed for Print & Quick Lookups</span>
-        <p class="callout-text">
+      <div class="text-xl leading-snug shrink-0" aria-hidden="true">💡</div>
+      <div class="flex flex-col gap-0.5">
+        <span class="font-sans text-[15px] font-semibold text-ink">
+          Designed for Print & Quick Lookups
+        </span>
+        <p class="text-sm text-muted leading-relaxed m-0">
           Each sheet is crafted with high-contrast typography (Inter & JetBrains
           Mono), compact tables, and zero clutter. Print them out on standard A4
           or US Letter, or save them locally for offline reference.
@@ -69,56 +72,72 @@ const otherNavCards = [
     </div>
 
     <!-- PDF Cards Grid -->
-    <section class="pdf-section" id="available-sheets" aria-label="Downloadable PDF cheat sheets">
-      <div class="section-header">
-        <div class="section-header-row">
+    <section
+      class="flex flex-col mb-16"
+      id="available-sheets"
+      aria-label="Downloadable PDF cheat sheets"
+    >
+      <div class="mb-8">
+        <div
+          class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 sm:gap-4"
+        >
           <div>
-            <h2 class="section-heading">Available Cheat Sheets</h2>
-            <p class="section-subtext">
+            <h2
+              class="font-sans text-2xl font-bold tracking-tight text-ink m-0 mb-1"
+            >
+              Available Cheat Sheets
+            </h2>
+            <p class="text-[15px] text-muted m-0">
               Choose your language engine or grab the universal reference card.
             </p>
           </div>
-          <div class="pagination-info-badge" id="pagination-status" aria-live="polite">
-            Showing <span id="visible-range">1 – 6</span> of {pdfCheatSheets.length} guides
+          <div
+            class="font-sans text-[13px] font-medium text-muted bg-surface-raised border border-border px-3.5 py-1 rounded-full whitespace-nowrap self-start sm:self-auto"
+            id="pagination-status"
+            aria-live="polite"
+          >
+            Showing <span id="visible-range" class="font-bold text-ink"
+              >1 – 6</span
+            > of{" "}
+            <span class="font-bold text-ink">{pdfCheatSheets.length}</span> guides
           </div>
         </div>
       </div>
 
-      <div class="pdf-grid" id="pdf-grid">
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+        id="pdf-grid"
+      >
         {
           pdfCheatSheets.map((sheet, index) => (
             <article
-              class="pdf-card"
+              class="pdf-card flex flex-col bg-surface border border-border rounded-md p-4 shadow-card hover:border-accent hover:shadow-card-hover hover:-translate-y-0.5 hover:bg-surface-raised transition-all duration-150"
               id={`pdf-card-${sheet.slug}`}
               data-index={index}
               style={index >= 6 ? "display: none;" : ""}
             >
-              <div class="pdf-card-header">
-                <div class="pdf-card-header-left">
-                  <div class="pdf-card-icon-wrap">
-                    <span class="pdf-card-icon" aria-hidden="true">
+              <div class="flex items-start justify-between gap-2 mb-2">
+                <div class="flex items-start gap-2.5 min-w-0">
+                  <div class="size-9 bg-accent-subtle rounded-sm flex items-center justify-center shrink-0">
+                    <span class="text-xl leading-none" aria-hidden="true">
                       {sheet.icon}
                     </span>
                   </div>
-                  <div class="pdf-card-title-group">
-                    <div class="pdf-badge-row">
-                      <span class="pdf-badge">{sheet.badge}</span>
-                      <span class="pdf-page-count">{sheet.pages}</span>
-                    </div>
-                    <h3 class="pdf-card-title">{sheet.title}</h3>
+                  <div class="flex flex-col gap-0.5 min-w-0">
+                    <h3 class="font-sans text-base font-bold text-ink tracking-tight m-0 leading-snug">
+                      {sheet.title}
+                    </h3>
                   </div>
                 </div>
 
                 <a
                   href={sheet.targetPage}
-                  class="guide-arrow-btn"
+                  class="inline-flex items-center justify-center size-7 rounded-sm text-muted hover:text-accent hover:bg-accent-subtle hover:translate-x-px hover:-translate-y-px focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2 shrink-0 no-underline transition-all duration-120"
                   aria-label={`Open ${sheet.lang} online guide`}
                   title={`Open ${sheet.lang} online guide`}
                 >
                   <svg
-                    class="arrow-icon"
-                    width="14"
-                    height="14"
+                    class="size-3.5"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -127,35 +146,40 @@ const otherNavCards = [
                     stroke-linejoin="round"
                     aria-hidden="true"
                   >
-                    <path d="M7 17L17 7"></path>
-                    <path d="M7 7h10v10"></path>
+                    <path d="M7 17L17 7" />
+                    <path d="M7 7h10v10" />
                   </svg>
                 </a>
               </div>
 
-              <p class="pdf-card-desc">{sheet.description}</p>
+              <p class="text-[13px] text-muted leading-relaxed m-0 mb-16">
+                {sheet.description}
+              </p>
 
-              <div class="pdf-highlights">
-                <span class="highlights-label">Covers:</span>
-                <div class="highlights-tags">
+              <div class="flex items-center gap-1.5 mb-3 pt-1.5 border-t border-dashed border-border flex-wrap">
+                <span class="text-[11px] font-bold uppercase tracking-wider text-muted-soft shrink-0">
+                  Covers:
+                </span>
+                <div class="flex flex-wrap gap-1">
                   {sheet.highlights.map((highlight) => (
-                    <span class="highlight-tag">{highlight}</span>
+                    <span class="font-mono text-[11px] text-ink-soft bg-canvas border border-border px-1.5 py-px rounded-xs whitespace-nowrap">
+                      {highlight}
+                    </span>
                   ))}
                 </div>
               </div>
 
-              <div class="pdf-card-footer">
+              <div class="flex items-center justify-between gap-2 pt-2.5 border-t border-border mt-auto">
                 <a
                   href={`/print/${sheet.slug}`}
-                  class="print-preview-button"
+                  class="inline-flex items-center gap-1.5 bg-accent-subtle text-accent font-sans text-xs font-semibold h-8 px-2.5 rounded-sm no-underline hover:bg-hover hover:text-accent-hover hover:-translate-y-px focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2 transition-all duration-120"
                   id={`print-preview-${sheet.slug}`}
                   aria-label={`Open print preview for ${sheet.title}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   <svg
-                    width="13"
-                    height="13"
+                    class="size-3.5"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -174,15 +198,13 @@ const otherNavCards = [
                 <a
                   href={pdfPath(sheet.slug)}
                   download={`regex-${sheet.slug}-cheatsheet.pdf`}
-                  class="download-icon-btn"
+                  class="inline-flex items-center justify-center size-8 bg-accent text-on-accent rounded-sm no-underline shadow-card hover:bg-accent-hover hover:-translate-y-px hover:shadow-card-hover focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2 shrink-0 transition-all duration-120"
                   id={`download-${sheet.slug}`}
                   aria-label={`Download ${sheet.title} PDF`}
                   title={`Download ${sheet.title} PDF`}
                 >
                   <svg
-                    class="download-icon"
-                    width="15"
-                    height="15"
+                    class="size-4 shrink-0"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -203,18 +225,20 @@ const otherNavCards = [
       </div>
 
       <!-- Pagination Navigation -->
-      <nav class="pagination-container" id="pagination-nav" aria-label="Cheat sheets pagination">
+      <nav
+        class="flex items-center justify-center gap-2 mt-8 pt-6 border-t border-border flex-wrap"
+        id="pagination-nav"
+        aria-label="Cheat sheets pagination"
+      >
         <button
           type="button"
-          class="pagination-nav-btn pagination-prev"
+          class="pagination-nav-btn inline-flex items-center gap-1.5 h-9.5 px-3.5 bg-surface text-ink border border-border rounded-sm font-sans text-[13px] font-semibold cursor-pointer shadow-card hover:not-disabled:bg-hover hover:not-disabled:text-accent-hover hover:not-disabled:border-accent hover:not-disabled:-translate-y-px hover:not-disabled:shadow-card-hover focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2 disabled:opacity-45 disabled:cursor-not-allowed disabled:shadow-none disabled:text-muted transition-all duration-120"
           id="pagination-prev"
           aria-label="Go to previous page"
           disabled
         >
           <svg
-            class="pagination-icon"
-            width="16"
-            height="16"
+            class="size-4"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -223,17 +247,22 @@ const otherNavCards = [
             stroke-linejoin="round"
             aria-hidden="true"
           >
-            <polyline points="15 18 9 12 15 6" />
+            <polyline points="15 18 9 12 15 6"></polyline>
           </svg>
           <span>Previous</span>
         </button>
 
-        <div class="pagination-page-list" id="pagination-pages" role="group" aria-label="Pagination pages">
+        <div
+          class="flex items-center gap-1.5"
+          id="pagination-pages"
+          role="group"
+          aria-label="Pagination pages"
+        >
           {
-            Array.from({ length: Math.ceil(pdfCheatSheets.length / 6) }, (_, i) => (
+            Array.from({ length: totalPages }, (_, i) => (
               <button
                 type="button"
-                class={`pagination-page-btn ${i === 0 ? "active" : ""}`}
+                class={`pagination-page-btn inline-flex items-center justify-center min-w-10 h-10 px-3.5 bg-surface text-ink border border-border rounded-sm font-sans text-sm font-semibold cursor-pointer shadow-card hover:not-[.active]:bg-hover hover:not-[.active]:text-accent hover:not-[.active]:border-accent hover:not-[.active]:-translate-y-px hover:not-[.active]:shadow-card-hover focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2 transition-all duration-120 [&.active]:bg-accent [&.active]:text-on-accent [&.active]:border-accent [&.active]:shadow-card-hover ${i === 0 ? "active" : ""}`}
                 aria-label={`Go to page ${i + 1}`}
                 aria-current={i === 0 ? "page" : undefined}
                 data-page={i + 1}
@@ -246,15 +275,13 @@ const otherNavCards = [
 
         <button
           type="button"
-          class="pagination-nav-btn pagination-next"
+          class="pagination-nav-btn inline-flex items-center gap-1.5 h-9.5 px-3.5 bg-surface text-ink border border-border rounded-sm font-sans text-[13px] font-semibold cursor-pointer shadow-card hover:not-disabled:bg-hover hover:not-disabled:text-accent-hover hover:not-disabled:border-accent hover:not-disabled:-translate-y-px hover:not-disabled:shadow-card-hover focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2 disabled:opacity-45 disabled:cursor-not-allowed disabled:shadow-none disabled:text-muted transition-all duration-120"
           id="pagination-next"
           aria-label="Go to next page"
         >
           <span>Next</span>
           <svg
-            class="pagination-icon"
-            width="16"
-            height="16"
+            class="size-4"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -263,7 +290,7 @@ const otherNavCards = [
             stroke-linejoin="round"
             aria-hidden="true"
           >
-            <polyline points="9 18 15 12 9 6" />
+            <polyline points="9 18 15 12 9 6"></polyline>
           </svg>
         </button>
       </nav>
@@ -271,20 +298,23 @@ const otherNavCards = [
 
     <!-- Explore Other Tools & Guides -->
     <section
-      class="cards-section"
+      class="mt-8 pt-12 border-t border-border"
       id="explore-heading"
       aria-labelledby="explore-heading-title"
     >
-      <div class="cards-header">
-        <h2 class="cards-heading" id="explore-heading-title">
+      <div class="mb-8">
+        <h2
+          class="font-sans text-[22px] font-bold tracking-tight text-ink m-0 mb-1"
+          id="explore-heading-title"
+        >
           Explore Interactive Guides & Tools
         </h2>
-        <p class="cards-subtext">
+        <p class="text-[15px] text-muted m-0">
           Test expressions in real-time or explore comprehensive online
           tutorials.
         </p>
       </div>
-      <div class="cards-grid">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {otherNavCards.map((card) => <NavCard card={card} />)}
       </div>
     </section>
@@ -293,540 +323,44 @@ const otherNavCards = [
   <SiteFooter />
 </Layout>
 
-<style>
-  .main {
-    padding-top: var(--space-section);
-    padding-bottom: var(--space-xl);
-  }
-
-  .format-callout {
-    display: flex;
-    gap: var(--space-md);
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-left: 4px solid var(--color-accent);
-    border-radius: var(--radius-md);
-    padding: var(--space-md) var(--space-lg);
-    margin-bottom: var(--space-xl);
-    box-shadow: var(--shadow-card);
-  }
-
-  .callout-icon {
-    font-size: 1.25rem;
-    line-height: 1.4;
-    flex-shrink: 0;
-  }
-
-  .callout-content {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-xxs);
-  }
-
-  .callout-title {
-    font-family: var(--font-sans);
-    font-size: 0.9375rem;
-    font-weight: 600;
-    color: var(--color-ink);
-  }
-
-  .callout-text {
-    font-size: 0.875rem;
-    color: var(--color-muted);
-    line-height: 1.55;
-    margin: 0;
-  }
-
-  .pdf-section {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: var(--space-section);
-  }
-
-  .section-header {
-    margin-bottom: var(--space-xl);
-  }
-
-  .section-header-row {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: var(--space-md);
-    flex-wrap: wrap;
-  }
-
-  .pagination-info-badge {
-    font-family: var(--font-sans);
-    font-size: 0.8125rem;
-    font-weight: 500;
-    color: var(--color-muted);
-    background: var(--color-surface-raised);
-    border: 1px solid var(--color-border);
-    padding: 5px 14px;
-    border-radius: var(--radius-full);
-    white-space: nowrap;
-  }
-
-  .pagination-info-badge span {
-    font-weight: 700;
-    color: var(--color-ink);
-  }
-
-  .section-heading {
-    font-family: var(--font-sans);
-    font-size: 1.5rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    color: var(--color-ink);
-    margin: 0 0 var(--space-xs) 0;
-  }
-
-  .section-subtext {
-    font-size: 0.9375rem;
-    color: var(--color-muted);
-    margin: 0;
-  }
-
-  .pdf-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: var(--space-md);
-  }
-
-  .pdf-card {
-    display: flex;
-    flex-direction: column;
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    padding: 16px;
-    box-shadow: var(--shadow-card);
-    transition:
-      border-color 0.15s ease,
-      box-shadow 0.15s ease,
-      transform 0.15s ease,
-      background 0.15s ease;
-  }
-
-  .pdf-card:hover {
-    border-color: var(--color-accent);
-    box-shadow: var(--shadow-card-hover);
-    transform: translateY(-2px);
-    background: var(--color-surface-raised);
-  }
-
-  .pdf-card-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: var(--space-sm);
-    margin-bottom: 8px;
-  }
-
-  .pdf-card-header-left {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    min-width: 0;
-  }
-
-  .pdf-card-icon-wrap {
-    width: 2.25rem;
-    height: 2.25rem;
-    background: var(--color-accent-subtle);
-    border-radius: var(--radius-sm);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
-  .pdf-card-icon {
-    font-size: 1.25rem;
-    line-height: 1;
-  }
-
-  .pdf-card-title-group {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    min-width: 0;
-  }
-
-  .pdf-badge-row {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .pdf-badge {
-    font-family: var(--font-sans);
-    font-size: 0.625rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: var(--color-accent);
-    background: var(--color-accent-subtle);
-    padding: 1px 6px;
-    border-radius: var(--radius-full);
-    width: fit-content;
-  }
-
-  .pdf-page-count {
-    font-size: 0.6875rem;
-    color: var(--color-muted-soft);
-    font-weight: 500;
-  }
-
-  .pdf-card-title {
-    font-family: var(--font-sans);
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--color-ink);
-    letter-spacing: -0.01em;
-    margin: 0;
-    line-height: 1.25;
-  }
-
-  .guide-arrow-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
-    border-radius: var(--radius-sm);
-    color: var(--color-muted);
-    background: transparent;
-    border: 1px solid transparent;
-    flex-shrink: 0;
-    text-decoration: none;
-    transition:
-      color 0.12s ease,
-      background 0.12s ease,
-      border-color 0.12s ease,
-      transform 0.12s ease;
-  }
-
-  .guide-arrow-btn:hover {
-    color: var(--color-accent);
-    background: var(--color-accent-subtle);
-    border-color: var(--color-accent-subtle);
-    transform: translate(1px, -1px);
-  }
-
-  .guide-arrow-btn:focus-visible {
-    outline: 2px solid var(--color-accent);
-    outline-offset: 2px;
-  }
-
-  .pdf-card-desc {
-    font-size: 0.8125rem;
-    color: var(--color-muted);
-    line-height: 1.45;
-    margin: 0 0 10px 0;
-    flex-grow: 1;
-  }
-
-  .pdf-highlights {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-bottom: 12px;
-    padding-top: 6px;
-    border-top: 1px dashed var(--color-border);
-    flex-wrap: wrap;
-  }
-
-  .highlights-label {
-    font-size: 0.6875rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--color-muted-soft);
-    flex-shrink: 0;
-  }
-
-  .highlights-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
-  }
-
-  .highlight-tag {
-    font-family: var(--font-mono);
-    font-size: 0.6875rem;
-    color: var(--color-ink-soft);
-    background: var(--color-canvas);
-    border: 1px solid var(--color-border);
-    padding: 1px 6px;
-    border-radius: var(--radius-xs);
-    white-space: nowrap;
-  }
-
-  .pdf-card-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-sm);
-    padding-top: 10px;
-    border-top: 1px solid var(--color-border);
-    margin-top: auto;
-  }
-
-  .print-preview-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    background: var(--color-accent-subtle);
-    color: var(--color-accent);
-    font-family: var(--font-sans);
-    font-size: 0.75rem;
-    font-weight: 600;
-    height: 32px;
-    padding: 0 10px;
-    border-radius: var(--radius-sm);
-    text-decoration: none;
-    transition:
-      background 0.12s ease,
-      color 0.12s ease,
-      transform 0.12s ease;
-  }
-
-  .print-preview-button:hover {
-    background: var(--color-hover);
-    color: var(--color-accent-hover);
-    transform: translateY(-1px);
-  }
-
-  .print-preview-button:focus-visible {
-    outline: 2px solid var(--color-accent);
-    outline-offset: 2px;
-  }
-
-  .download-icon-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    background: var(--color-accent);
-    color: var(--color-on-accent);
-    border-radius: var(--radius-sm);
-    text-decoration: none;
-    box-shadow: var(--shadow-card);
-    transition:
-      background 0.12s ease,
-      transform 0.12s ease,
-      box-shadow 0.12s ease;
-  }
-
-  .download-icon-btn:hover {
-    background: var(--color-accent-hover);
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-card-hover);
-  }
-
-  .download-icon-btn:focus-visible {
-    outline: 2px solid var(--color-accent);
-    outline-offset: 2px;
-  }
-
-  .download-icon {
-    flex-shrink: 0;
-  }
-
-  .cards-section {
-    margin-top: var(--space-xl);
-    padding-top: var(--space-xxl);
-    border-top: 1px solid var(--color-border);
-  }
-
-  .cards-header {
-    margin-bottom: var(--space-xl);
-  }
-
-  .cards-heading {
-    font-family: var(--font-sans);
-    font-size: 1.375rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    color: var(--color-ink);
-    margin: 0 0 var(--space-xs) 0;
-  }
-
-  .cards-subtext {
-    font-size: 0.9375rem;
-    color: var(--color-muted);
-    margin: 0;
-  }
-
-  .cards-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-md);
-  }
-
-  .pagination-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-sm);
-    margin-top: var(--space-xl);
-    padding-top: var(--space-lg);
-    border-top: 1px solid var(--color-border);
-    flex-wrap: wrap;
-  }
-
-  .pagination-nav-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    height: 38px;
-    padding: 0 14px;
-    background: var(--color-surface);
-    color: var(--color-ink);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    font-family: var(--font-sans);
-    font-size: 0.8125rem;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: var(--shadow-card);
-    transition:
-      background 0.12s ease,
-      color 0.12s ease,
-      border-color 0.12s ease,
-      box-shadow 0.12s ease,
-      transform 0.12s ease;
-  }
-
-  .pagination-nav-btn:hover:not(:disabled) {
-    background: var(--color-hover);
-    color: var(--color-accent-hover);
-    border-color: var(--color-accent);
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-card-hover);
-  }
-
-  .pagination-nav-btn:focus-visible {
-    outline: 2px solid var(--color-accent);
-    outline-offset: 2px;
-  }
-
-  .pagination-nav-btn:disabled {
-    opacity: 0.45;
-    cursor: not-allowed;
-    box-shadow: none;
-    background: var(--color-surface);
-    color: var(--color-muted);
-  }
-
-  .pagination-page-list {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .pagination-page-list :global(.pagination-page-btn),
-  .pagination-page-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 40px;
-    height: 40px;
-    padding: 0 14px;
-    background: var(--color-surface);
-    color: var(--color-ink);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    font-family: var(--font-sans);
-    font-size: 0.875rem;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: var(--shadow-card);
-    transition:
-      background 0.12s ease,
-      color 0.12s ease,
-      border-color 0.12s ease,
-      box-shadow 0.12s ease,
-      transform 0.12s ease;
-  }
-
-  .pagination-page-list :global(.pagination-page-btn:hover:not(.active)),
-  .pagination-page-btn:hover:not(.active) {
-    background: var(--color-hover);
-    color: var(--color-accent);
-    border-color: var(--color-accent);
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-card-hover);
-  }
-
-  .pagination-page-list :global(.pagination-page-btn.active),
-  .pagination-page-btn.active {
-    background: var(--color-accent);
-    color: var(--color-on-accent);
-    border-color: var(--color-accent);
-    box-shadow: var(--shadow-card-hover);
-  }
-
-  .pagination-page-list :global(.pagination-page-btn:focus-visible),
-  .pagination-page-btn:focus-visible {
-    outline: 2px solid var(--color-accent);
-    outline-offset: 2px;
-  }
-
-  @media (max-width: 640px) {
-    .section-header-row {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: var(--space-sm);
-    }
-    .pdf-grid {
-      grid-template-columns: 1fr;
-    }
-    .cards-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>
-
 <script is:inline>
   function initPdfPagination() {
-    const grid = document.getElementById('pdf-grid');
+    const grid = document.getElementById("pdf-grid");
     if (!grid) return;
-    const cards = Array.from(grid.querySelectorAll('.pdf-card'));
+    const cards = Array.from(grid.querySelectorAll(".pdf-card"));
     const totalCards = cards.length;
     const pageSize = 6;
     const totalPages = Math.ceil(totalCards / pageSize);
     if (totalPages <= 1) return;
 
-    const prevBtn = document.getElementById('pagination-prev');
-    const nextBtn = document.getElementById('pagination-next');
-    const pagesContainer = document.getElementById('pagination-pages');
-    const visibleRange = document.getElementById('visible-range');
+    const prevBtn = document.getElementById("pagination-prev");
+    const nextBtn = document.getElementById("pagination-next");
+    const pagesContainer = document.getElementById("pagination-pages");
+    const visibleRange = document.getElementById("visible-range");
 
     let currentPage = 1;
     const urlParams = new URLSearchParams(window.location.search);
-    const initialPage = parseInt(urlParams.get('page') || '1', 10);
+    const initialPage = parseInt(urlParams.get("page") || "1", 10);
     if (!isNaN(initialPage) && initialPage >= 1 && initialPage <= totalPages) {
       currentPage = initialPage;
     }
 
-    function renderPages() {
+    function updateButtonsState() {
       if (!pagesContainer) return;
-      pagesContainer.innerHTML = '';
-      for (let i = 1; i <= totalPages; i++) {
-        const pageBtn = document.createElement('button');
-        pageBtn.type = 'button';
-        pageBtn.className = `pagination-page-btn ${i === currentPage ? 'active' : ''}`;
-        pageBtn.textContent = i.toString();
-        pageBtn.setAttribute('aria-label', `Go to page ${i}`);
-        if (i === currentPage) {
-          pageBtn.setAttribute('aria-current', 'page');
+      const pageBtns = pagesContainer.querySelectorAll(".pagination-page-btn");
+      pageBtns.forEach((btn) => {
+        const pageNum = parseInt(
+          btn.getAttribute("data-page") || btn.textContent || "1",
+          10,
+        );
+        const isActive = pageNum === currentPage;
+        btn.classList.toggle("active", isActive);
+        if (isActive) {
+          btn.setAttribute("aria-current", "page");
+        } else {
+          btn.removeAttribute("aria-current");
         }
-        pageBtn.addEventListener('click', () => setPage(i, true));
-        pagesContainer.appendChild(pageBtn);
-      }
+      });
     }
 
     function setPage(page, shouldScroll = false) {
@@ -836,9 +370,9 @@ const otherNavCards = [
 
       cards.forEach((card, idx) => {
         if (idx >= startIdx && idx < endIdx) {
-          card.style.display = 'flex';
+          card.style.display = "flex";
         } else {
-          card.style.display = 'none';
+          card.style.display = "none";
         }
       });
 
@@ -853,22 +387,35 @@ const otherNavCards = [
         nextBtn.disabled = currentPage === totalPages;
       }
 
-      renderPages();
+      updateButtonsState();
 
       const url = new URL(window.location.href);
       if (currentPage === 1) {
-        url.searchParams.delete('page');
+        url.searchParams.delete("page");
       } else {
-        url.searchParams.set('page', currentPage.toString());
+        url.searchParams.set("page", currentPage.toString());
       }
-      window.history.replaceState({}, '', url.toString());
+      window.history.replaceState({}, "", url.toString());
 
       if (shouldScroll) {
-        const section = document.getElementById('available-sheets');
+        const section = document.getElementById("available-sheets");
         if (section) {
-          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          section.scrollIntoView({ behavior: "smooth", block: "start" });
         }
       }
+    }
+
+    if (pagesContainer) {
+      const pageBtns = pagesContainer.querySelectorAll(".pagination-page-btn");
+      pageBtns.forEach((btn) => {
+        btn.onclick = () => {
+          const pageNum = parseInt(
+            btn.getAttribute("data-page") || btn.textContent || "1",
+            10,
+          );
+          setPage(pageNum, true);
+        };
+      });
     }
 
     if (prevBtn) {
@@ -891,5 +438,5 @@ const otherNavCards = [
   }
 
   initPdfPagination();
-  document.addEventListener('astro:page-load', initPdfPagination);
+  document.addEventListener("astro:page-load", initPdfPagination);
 </script>
