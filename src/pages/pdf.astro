@@ -171,10 +171,10 @@ const totalPages = Math.ceil(pdfCheatSheets.length / 6);
 
               <div class="flex items-center justify-between gap-2 pt-2.5 border-t border-border mt-auto">
                 <a
-                  href={`/print/${sheet.slug}`}
+                  href={pdfPath(sheet.slug)}
                   class="inline-flex items-center gap-1.5 bg-accent-subtle text-accent font-sans text-xs font-semibold h-8 px-2.5 rounded-sm no-underline hover:bg-hover hover:text-accent-hover hover:-translate-y-px focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2 transition-all duration-120"
                   id={`print-preview-${sheet.slug}`}
-                  aria-label={`Open print preview for ${sheet.title}`}
+                  aria-label={`Preview PDF for ${sheet.title}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -192,7 +192,7 @@ const totalPages = Math.ceil(pdfCheatSheets.length / 6);
                     <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
                     <rect x="6" y="14" width="12" height="8" />
                   </svg>
-                  <span>Print / View</span>
+                  <span>Preview PDF</span>
                 </a>
 
                 <a
