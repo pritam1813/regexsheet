@@ -1,19 +1,103 @@
 ---
+import { pdfPath } from "../data/pdfs";
+
 interface Props {
   badge?: string;
   title?: string;
   subtitle?: string;
+  pdfSlug?: string;
+  pdfHref?: string;
+  pdfDownloadName?: string;
+  pdfLabel?: string;
+  backLinkHref?: string;
+  backLinkLabel?: string;
+  hideCta?: boolean;
 }
 
 const {
   badge = "Universal Reference",
   title = "Regex Cheat Sheet",
   subtitle = "The baseline syntax shared across all major regex engines — JavaScript, Python, Java, Ruby, Go, and more. Bookmark it, search it, reference it.",
+  pdfSlug,
+  pdfHref,
+  pdfDownloadName,
+  pdfLabel,
+  backLinkHref,
+  backLinkLabel,
+  hideCta = false,
 } = Astro.props;
+
+// Determine slug and language from props or current pathname
+const pathname = Astro.url.pathname.replace(/\/$/, "");
+
+const routeInfoMap: Record<string, { slug: string; lang: string }> = {
+  "": { slug: "universal", lang: "Universal" },
+  "/javascript": { slug: "javascript", lang: "JavaScript" },
+  "/python": { slug: "python", lang: "Python" },
+  "/java": { slug: "java", lang: "Java" },
+  "/csharp": { slug: "csharp", lang: "C#" },
+  "/r": { slug: "r", lang: "R" },
+  "/sql": { slug: "sql", lang: "SQL" },
+  "/perl": { slug: "perl", lang: "Perl" },
+  "/notepad-plus-plus": { slug: "notepad-plus-plus", lang: "Notepad++" },
+  "/vim": { slug: "vim", lang: "Vim" },
+  "/grep": { slug: "grep", lang: "Grep" },
+  "/examples": { slug: "universal", lang: "Universal" },
+  "/pdf": { slug: "universal", lang: "Universal" },
+  "/tester": { slug: "universal", lang: "Universal" },
+};
+
+const routeInfo = routeInfoMap[pathname] || { slug: "universal", lang: "Universal" };
+const effectiveSlug = pdfSlug || routeInfo.slug;
+const effectiveLang = routeInfo.lang;
+
+// Effective URLs and labels
+const downloadUrl = pdfHref || pdfPath(effectiveSlug);
+const downloadFilename = pdfDownloadName || `regex-${effectiveSlug}-cheatsheet.pdf`;
+
+const defaultLabel =
+  pathname === ""
+    ? "Download Universal PDF"
+    : pathname === "/examples" || pathname === "/tester"
+      ? "Download Universal PDF"
+      : pathname === "/pdf"
+        ? "Download Universal PDF"
+        : `Download ${effectiveLang} PDF`;
+
+const finalPdfLabel = pdfLabel || defaultLabel;
+
+const isExcludedPath =
+  pathname === "/tester" || pathname === "/pdf" || pathname === "/examples";
+const shouldHideCta = hideCta || isExcludedPath;
 ---
 
 <header class="hero">
   <div class="container-wide hero-inner">
+    {
+      backLinkHref && (
+        <div class="back-link-wrap">
+          <a href={backLinkHref} class="back-link" aria-label={backLinkLabel || "Back"}>
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 14 14"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M9 2L4 7l5 5"
+                stroke="currentColor"
+                stroke-width="1.75"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span>{backLinkLabel || "Back"}</span>
+          </a>
+        </div>
+      )
+    }
+
     <div class="hero-badge">
       <span class="hero-badge-dot" aria-hidden="true"></span>
       {badge}
@@ -26,6 +110,40 @@ const {
     <p class="hero-subtitle">
       {subtitle}
     </p>
+
+    {
+      !shouldHideCta && (
+        <div class="hero-actions">
+          <a
+            href={downloadUrl}
+            download={downloadFilename}
+            class="hero-cta-btn hero-cta-primary"
+            id={`hero-download-${effectiveSlug}`}
+            aria-label={finalPdfLabel}
+          >
+            <svg
+              class="cta-icon"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+            <span class="cta-label">{finalPdfLabel}</span>
+          </a>
+        </div>
+      )
+    }
+
+    <slot />
   </div>
 </header>
 
@@ -75,6 +193,35 @@ const {
     display: flex;
     flex-direction: column;
     gap: var(--space-lg);
+  }
+
+  .back-link-wrap {
+    display: flex;
+    margin-bottom: calc(var(--space-xs) * -1);
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-muted);
+    text-decoration: none;
+    padding: 4px 10px 4px 8px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    transition:
+      color 0.12s ease,
+      border-color 0.12s ease,
+      background 0.12s ease;
+  }
+
+  .back-link:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+    background: var(--color-hover);
   }
 
   .hero-badge {
@@ -129,12 +276,73 @@ const {
     line-height: 1.65;
     color: var(--color-muted);
     margin: 0;
-    max-width: 55ch;
+    max-width: 58ch;
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding-top: var(--space-xs);
+  }
+
+  .hero-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+    min-height: 42px;
+    padding: 8px 18px;
+    border-radius: var(--radius-sm);
+    transition:
+      background 0.15s ease,
+      color 0.15s ease,
+      border-color 0.15s ease,
+      box-shadow 0.15s ease,
+      transform 0.15s ease;
+    white-space: nowrap;
+  }
+
+  .hero-cta-primary {
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    box-shadow: var(--shadow-card);
+    border: 1px solid transparent;
+  }
+
+  .hero-cta-primary:hover {
+    background: var(--color-accent-hover);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  .hero-cta-primary:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  .cta-icon {
+    flex-shrink: 0;
+  }
+
+  .cta-label {
+    line-height: 1.2;
   }
 
   @media (max-width: 640px) {
     .hero {
       padding-top: var(--space-xxl);
+    }
+    .hero-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .hero-cta-btn {
+      justify-content: center;
+      width: 100%;
     }
   }
 </style>
