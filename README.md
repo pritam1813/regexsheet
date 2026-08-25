@@ -1,46 +1,57 @@
-# Astro Starter Kit: Basics
+# RegexSheet
 
-```sh
-bun create astro@latest -- --template basics
-```
+> A free, fast reference for regular expressions.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+RegexSheet is a comprehensive and lightning-fast cheat sheet for regular expressions across various programming languages and tools, including JavaScript, Python, Java, C#, R, SQL, Perl, Notepad++, Vim, and Grep.
 
-## 🚀 Project Structure
+## Features
 
-Inside of your Astro project, you'll see the following folders and files:
+- **Multi-language Support:** Specific regex guides for major programming languages and tools.
+- **Fast & Responsive:** Built with [Astro](https://astro.build/) for optimal performance.
+- **Dark Mode Support:** Seamless dark/light theme switching.
+- **Downloadable PDFs:** Easily export cheat sheets as PDFs for offline use.
+
+## Project Structure
+
+Inside this Astro project, you'll see the following key folders and files:
 
 ```text
 /
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
+├── public/           # Static assets like icons and images
+├── src/
+│   ├── components/   # Reusable Astro components (e.g., SiteNav, SiteFooter)
+│   ├── data/         # Regex data definitions (TypeScript)
+│   ├── layouts/      # Astro layouts
+│   ├── pages/        # Astro pages for different languages/tools
+│   └── styles/       # Global CSS and Tailwind styles
+├── AGENTS.md         # Developer guidelines
+├── CONTRIBUTING.md   # Guidelines for contributing
 └── package.json
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## Local Development
 
-## 🧞 Commands
+RegexSheet uses **npm** as its package manager.
 
-All commands are run from the root of the project, from a terminal:
+1. **Install dependencies:**
+   ```sh
+   npm install
+   ```
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `bun install`             | Installs dependencies                            |
-| `bun dev`             | Starts local dev server at `localhost:4321`      |
-| `bun build`           | Build your production site to `./dist/`          |
-| `bun preview`         | Preview your build locally, before deploying     |
-| `bun astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `bun astro -- --help` | Get help using the Astro CLI                     |
+2. **Start the local dev server:**
+   ```sh
+   npm run dev
+   ```
 
-## 👀 Want to learn more?
+3. **Build for production:**
+   ```sh
+   npm run build
+   ```
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## Contributing
+
+We welcome contributions! Please see our [CONTRIBUTING.md](CONTRIBUTING.md) file for details on how to get started, and the process for submitting pull requests.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
