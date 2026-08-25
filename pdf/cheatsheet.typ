@@ -8,18 +8,22 @@
 
 #set page(
   paper: "a4",
-  margin: (x: 1.6cm, top: 1.4cm, bottom: 1.4cm),
-  footer: [
+  margin: (x: 1.6cm, top: 1.4cm, bottom: 1.6cm),
+  footer: context [
     #line(length: 100%, stroke: 0.5pt + rgb("#e2e8f0"))
-    #v(3pt)
+    #v(4pt)
     #grid(
-      columns: (1fr, 1fr),
-      align: (left + horizon, right + horizon),
-      text(size: 7.5pt, fill: rgb("#64748b"))[Free printable cheat sheet from *regexsheet.com*],
+      columns: (1fr, 1.2fr, 1fr),
+      align: (left + horizon, center + horizon, right + horizon),
+      text(size: 7.5pt, fill: rgb("#64748b"))[*regexsheet.com*],
       text(size: 7.5pt, fill: rgb("#64748b"))[
         Interactive guide: #text(weight: "bold")[https:\/\/regexsheet.com#data.targetPage]
+      ],
+      text(size: 7.5pt, fill: rgb("#64748b"), weight: "bold")[
+        Page #counter(page).display() of #data.categories.len()
       ]
     )
+    #v(4pt)
   ]
 )
 
@@ -28,14 +32,6 @@
   font: ("Segoe UI", "Arial", "Roboto", "Liberation Sans", "sans-serif"),
   size: 9.5pt,
   fill: rgb("#0f172a") // slate-900
-)
-
-// Inline code styling (JetBrains Mono / Consolas with purple background)
-#show raw: it => box(
-  fill: rgb("#f3f0ff"),
-  inset: (x: 4pt, y: 2pt),
-  radius: 3pt,
-  text(fill: rgb("#5b21b6"), size: 8.5pt, font: ("JetBrains Mono", "Consolas", "Courier New"), it.text)
 )
 
 // Render each category on its own page (1 table per page)
@@ -54,23 +50,11 @@
       #text(size: 17pt, weight: 800, fill: rgb("#0f172a"))[#category.title]
     ],
     [
-      #grid(
-        columns: (auto, auto),
-        gutter: 6pt,
-        align: horizon,
-        box(
-          fill: rgb("#ede9fe"),
-          inset: (x: 8pt, y: 3.5pt),
-          radius: 99pt,
-          text(size: 7.5pt, weight: "bold", fill: rgb("#5b21b6"))[#data.badge]
-        ),
-        box(
-          fill: rgb("#f1f5f9"),
-          stroke: 0.5pt + rgb("#e2e8f0"),
-          inset: (x: 7pt, y: 3.5pt),
-          radius: 99pt,
-          text(size: 7.5pt, weight: "bold", fill: rgb("#64748b"))[Page #(index + 1) of #data.categories.len()]
-        )
+      #box(
+        fill: rgb("#ede9fe"),
+        inset: (x: 8pt, y: 3.5pt),
+        radius: 99pt,
+        text(size: 7.5pt, weight: "bold", fill: rgb("#5b21b6"))[#data.badge]
       )
     ]
   )
@@ -81,11 +65,11 @@
 
   // --- Category Table (1 per page) ---
   table(
-    columns: (1.3fr, 2.7fr),
+    columns: (1.45fr, 2.55fr),
     stroke: (x, y) => if y == 0 { (bottom: 1.5pt + rgb("#cbd5e1")) } else { (bottom: 0.5pt + rgb("#f1f5f9")) },
     fill: (col, row) => if row == 0 { rgb("#f8fafc") } else if calc.even(row) { rgb("#fafafa") } else { none },
     align: (left, top),
-    inset: (x: 8pt, y: 6.5pt),
+    inset: (x: 8pt, y: 6pt),
     
     // Header Row
     table.header(
@@ -95,17 +79,26 @@
     
     // Map entries
     ..category.entries.map(entry => (
-      raw(entry.syntax),
       [
-        #text(weight: 500, fill: rgb("#1e293b"), size: 9pt)[#entry.description]
+        #set text(fill: rgb("#5b21b6"), size: 8pt, font: ("JetBrains Mono", "Consolas", "Courier New"))
+        #highlight(
+          fill: rgb("#f3f0ff"),
+          radius: 2.5pt,
+          top-edge: "ascender",
+          bottom-edge: "descender",
+          entry.syntax
+        )
+      ],
+      [
+        #text(weight: 500, fill: rgb("#1e293b"), size: 8.8pt)[#entry.description]
         #if "example" in entry and entry.example != none and entry.example != "" [
-          #v(2.5pt)
+          #v(2pt)
           #text(size: 7pt, weight: "bold", fill: rgb("#64748b"))[EXAMPLE: ]
-          #box(
+          #highlight(
             fill: rgb("#ecfdf5"),
-            stroke: 0.5pt + rgb("#d1fae5"),
-            inset: (x: 4pt, y: 1.5pt),
             radius: 2.5pt,
+            top-edge: "ascender",
+            bottom-edge: "descender",
             text(fill: rgb("#047857"), size: 7.5pt, font: ("JetBrains Mono", "Consolas", "Courier New"))[#entry.example]
           )
         ]

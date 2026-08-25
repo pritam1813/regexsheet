@@ -110,16 +110,12 @@ const { sheet, categories } = Astro.props;
             <header class="page-header">
               <div class="header-top-row">
                 <div class="brand-logo">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="24" height="24" rx="6" fill="#5b21b6"/>
-                    <text x="4" y="17" font-family="monospace" font-weight="bold" font-size="14" fill="#ffffff">.*</text>
-                  </svg>
-                  <span class="brand-name">regexsheet<strong>.com</strong></span>
+                  <img src="/icon.svg" alt="RegexSheet logo" class="brand-icon" width="36" height="36" />
+                  <span class="brand-name">RegexSheet</span>
                 </div>
 
                 <div class="header-meta">
                   <span class="badge-pill">{sheet.badge}</span>
-                  <span class="page-counter">Page {index + 1} of {categories.length}</span>
                 </div>
               </div>
 
@@ -384,16 +380,20 @@ const { sheet, categories } = Astro.props;
     gap: 8px;
   }
 
+  .brand-icon {
+    display: block;
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+
   .brand-name {
     font-family: var(--font-mono);
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 700;
     color: #0f172a;
     letter-spacing: -0.02em;
-  }
-
-  .brand-name strong {
-    color: #5b21b6;
   }
 
   .header-meta {
@@ -409,16 +409,6 @@ const { sheet, categories } = Astro.props;
     background: #ede9fe;
     padding: 3px 10px;
     border-radius: 9999px;
-  }
-
-  .page-counter {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: #64748b;
-    background: #f1f5f9;
-    padding: 3px 10px;
-    border-radius: 9999px;
-    border: 1px solid #e2e8f0;
   }
 
   .header-titles {
@@ -492,12 +482,12 @@ const { sheet, categories } = Astro.props;
   }
 
   .th-syntax {
-    width: 32%;
+    width: 38%;
     border-right: 1px solid var(--color-border);
   }
 
   .th-desc {
-    width: 68%;
+    width: 62%;
   }
 
   .entry-row {
@@ -516,8 +506,8 @@ const { sheet, categories } = Astro.props;
     padding: 7px 12px;
     vertical-align: top;
     border-right: 1px solid var(--color-border);
-    white-space: pre-wrap;
-    word-break: break-all;
+    word-break: break-word;
+    overflow-wrap: anywhere;
   }
 
   .syntax-cell code {
@@ -529,7 +519,9 @@ const { sheet, categories } = Astro.props;
     padding: 2px 6px;
     border-radius: 4px;
     border: 1px solid #ede9fe;
-    display: inline-block;
+    display: inline;
+    word-break: break-word;
+    overflow-wrap: anywhere;
   }
 
   .desc-cell {
