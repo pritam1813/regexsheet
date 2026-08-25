@@ -48,6 +48,12 @@ RegexSheet uses **npm** as its package manager.
    npm run build
    ```
 
+4. **Run tests:**
+   ```sh
+   npm run test:all
+   ```
+   *Note: Tests evaluate regex patterns against native runtimes (Python, Java, .NET, etc.). You can also use Docker to test with all runtimes pre-installed (`docker compose -f docker-compose.test.yml up --build`). See [CONTRIBUTING.md](CONTRIBUTING.md) for full testing requirements.*
+
 ## Contributing
 
 We welcome contributions! Please see our [CONTRIBUTING.md](CONTRIBUTING.md) file for details on how to get started, and the process for submitting pull requests.
