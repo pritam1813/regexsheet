@@ -79,15 +79,23 @@ const year = new Date().getFullYear();
       </nav>
     </div>
 
-    <p class="footer-legal">
-      &copy; {year} regexsheet.com &mdash; Maintained by{" "}
-      <a
-        class="footer-astro-link"
-        href="https://github.com/pritam1813"
-        target="_blank"
-        rel="noopener noreferrer">Pritam Dhara</a
-      >
-    </p>
+    <div class="footer-legal-wrapper">
+      <p class="footer-legal">
+        &copy; {year} regexsheet.com &mdash; Maintained by{" "}
+        <a
+          class="footer-astro-link"
+          href="https://github.com/pritam1813"
+          target="_blank"
+          rel="noopener noreferrer">Pritam Dhara</a
+        >
+      </p>
+      <div class="footer-legal-links">
+        <a href="/contact" class="footer-link">Contact</a>
+        <a href="/about" class="footer-link">About</a>
+        <a href="/privacy" class="footer-link">Privacy Policy</a>
+        <a href="/terms" class="footer-link">Terms</a>
+      </div>
+    </div>
   </div>
 </footer>
 
@@ -242,12 +250,31 @@ const year = new Date().getFullYear();
     color: var(--color-accent);
   }
 
+  .footer-legal-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    padding-top: var(--space-lg);
+    border-top: 1px dashed var(--color-border-soft);
+  }
+
+  @media (min-width: 640px) {
+    .footer-legal-wrapper {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
   .footer-legal {
     font-size: 0.8125rem;
     color: var(--color-muted-soft);
     margin: 0;
-    padding-top: var(--space-lg);
-    border-top: 1px dashed var(--color-border-soft);
+  }
+  
+  .footer-legal-links {
+    display: flex;
+    gap: var(--space-md);
   }
 
   .footer-astro-link {

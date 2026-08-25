@@ -1,0 +1,129 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SiteNav from "../components/SiteNav.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+---
+
+<Layout
+  title="Terms of Service | Regex Cheat Sheet"
+  description="Terms of Service and terms of use for regexsheet. Please read these terms carefully before using our regular expression reference."
+>
+  <SiteNav />
+
+  <main id="main-content" class="container-wide main-prose">
+    <div class="prose-wrapper">
+      <h1 class="page-title">Terms of Service</h1>
+      <p class="last-updated">Last Updated: August 2026</p>
+
+      <div class="content-block">
+        <h2>1. Terms</h2>
+        <p>
+          By accessing the website at <strong>https://regexsheet.com</strong>, you are agreeing to be bound by these terms of service, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws. If you do not agree with any of these terms, you are prohibited from using or accessing this site.
+        </p>
+
+        <h2>2. Use License and Open Source</h2>
+        <p>
+          Regex Cheat Sheet is an open-source project. The source code and content are made available under an open-source license (typically MIT, unless otherwise specified in the repository). You are free to use, modify, and distribute the regular expression patterns found on this site for both personal and commercial projects without attribution, though linking back is always appreciated.
+        </p>
+
+        <h2>3. Disclaimer of Liability (Please Read)</h2>
+        <p>
+          Regular expressions are incredibly powerful, and a poorly constructed pattern can lead to performance degradation (such as ReDoS attacks) or unintended data manipulation. 
+        </p>
+        <p>
+          The materials on regexsheet’s website are provided on an <strong>'as is'</strong> basis. regexsheet makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.
+        </p>
+        <p>
+          We strongly advise that you thoroughly test any regular expression snippet from this site in a safe, non-production environment before deploying it to production systems.
+        </p>
+
+        <h2>4. Limitations</h2>
+        <p>
+          In no event shall regexsheet, its maintainers, or its contributors be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on regexsheet’s website, even if regexsheet or a regexsheet authorized representative has been notified orally or in writing of the possibility of such damage.
+        </p>
+
+        <h2>5. Accuracy of Materials</h2>
+        <p>
+          The materials appearing on regexsheet’s website could include technical, typographical, or logical errors. While we strive to maintain a high-quality reference, regexsheet does not warrant that any of the materials on its website are accurate, complete, or current. We may make changes to the materials contained on its website at any time without notice.
+        </p>
+
+        <h2>6. Links</h2>
+        <p>
+          regexsheet has not reviewed all of the sites linked to its website and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by regexsheet of the site. Use of any such linked website is at the user's own risk.
+        </p>
+
+        <h2>7. Modifications</h2>
+        <p>
+          regexsheet may revise these terms of service for its website at any time without notice. By using this website you are agreeing to be bound by the then current version of these terms of service.
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <SiteFooter />
+</Layout>
+
+<style>
+  .main-prose {
+    padding-top: var(--space-xl);
+    padding-bottom: var(--space-xxl);
+  }
+
+  .prose-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    padding: var(--space-xl);
+  }
+
+  .page-title {
+    font-family: var(--font-sans);
+    font-size: clamp(2rem, 4vw, 2.5rem);
+    font-weight: 700;
+    color: var(--color-ink);
+    margin: 0 0 var(--space-xs) 0;
+    letter-spacing: -0.02em;
+  }
+
+  .last-updated {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--color-muted);
+    margin: 0 0 var(--space-xl) 0;
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .content-block {
+    color: var(--color-ink-soft);
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  .content-block h2 {
+    font-family: var(--font-sans);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-ink);
+    margin: var(--space-xl) 0 var(--space-sm) 0;
+  }
+
+  .content-block p {
+    margin: 0 0 var(--space-md) 0;
+  }
+
+  .content-block strong {
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+  
+  @media (max-width: 640px) {
+    .prose-wrapper {
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
+    }
+  }
+</style>
