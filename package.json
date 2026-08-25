@@ -11,7 +11,8 @@
     "build:pdfs": "tsx scripts/build-pdf.ts",
     "preview": "astro preview",
     "astro": "astro",
-    "test:all": "tsx scripts/tests/javascript.ts && tsx scripts/tests/python.ts && tsx scripts/tests/java.ts && tsx scripts/tests/csharp.ts && tsx scripts/tests/grep.ts && tsx scripts/tests/perl.ts && tsx scripts/tests/r.ts"
+    "test:all": "tsx scripts/tests/javascript.ts && tsx scripts/tests/python.ts && tsx scripts/tests/java.ts && tsx scripts/tests/csharp.ts && tsx scripts/tests/grep.ts && tsx scripts/tests/perl.ts && tsx scripts/tests/r.ts",
+    "deploy": "astro build && wrangler deploy"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.0",
@@ -20,6 +21,7 @@
   },
   "devDependencies": {
     "@types/node": "^26.2.0",
-    "tsx": "^4.23.12"
+    "tsx": "^4.23.12",
+    "wrangler": "^4.125.0"
   }
 }
