@@ -7,7 +7,10 @@ const year = new Date().getFullYear();
   <div class="container-wide footer-inner">
     <div class="footer-top">
       <div class="footer-brand">
-        <span class="footer-brand-name">regexsheet.com</span>
+        <a href="/" class="footer-brand-link" aria-label="RegexSheet home page">
+          <img src="/icon.svg" alt="RegexSheet logo" class="footer-logo" width="30" height="30" />
+          <span class="footer-brand-name">RegexSheet</span>
+        </a>
         <p class="footer-tagline">
           A free, fast reference for regular expressions.
         </p>
@@ -123,9 +126,25 @@ const year = new Date().getFullYear();
     max-width: 320px;
   }
 
+  .footer-brand-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--color-ink);
+  }
+
+  .footer-logo {
+    display: block;
+    width: 30px;
+    height: 30px;
+    border-radius: 7px;
+    flex-shrink: 0;
+  }
+
   .footer-brand-name {
     font-family: var(--font-mono);
-    font-size: 1rem;
+    font-size: 1.0625rem;
     font-weight: 700;
     color: var(--color-ink);
     letter-spacing: -0.02em;
