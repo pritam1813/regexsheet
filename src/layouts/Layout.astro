@@ -6,11 +6,13 @@ import SeoSchema from "../components/SeoSchema.astro";
 interface Props {
   title?: string;
   description?: string;
+  image?: string;
 }
 
 const {
   title = "Regex Cheat Sheet",
   description = "A universal reference for regular expressions — character classes, anchors, quantifiers, groups, lookarounds, and flags across all major engines.",
+  image = "/og-image.jpg",
 } = Astro.props;
 
 let path = Astro.url.pathname;
@@ -46,11 +48,13 @@ const canonicalURL = new URL(path, Astro.site);
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:site_name" content="Regex Cheat Sheet" />
+    <meta property="og:image" content={new URL(image, Astro.site)} />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(image, Astro.site)} />
 
     <!-- JSON-LD Schema (TechArticle, Breadcrumbs, WebSite) -->
     <SeoSchema title={title} description={description} url={canonicalURL} />
