@@ -1,0 +1,31 @@
+name: Add a New Language/Tool
+description: Suggest or volunteer to add regex data for a new programming language or tool
+title: "[New Language]: <Language/Tool Name>"
+labels: ["enhancement", "regex-data", "good first issue"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping expand RegexSheet! Before requesting or working on a new language/tool, please search existing issues to see if it's already being tracked.
+  - type: input
+    id: language
+    attributes:
+      label: Language or Tool Name
+      description: e.g., Rust, Go, PHP, Ruby
+      placeholder: Rust
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Why should this language/tool be added? Does it have a unique regex engine (like PCRE, RE2, etc.)?
+    validations:
+      required: true
+  - type: checkboxes
+    id: volunteer
+    attributes:
+      label: Are you willing to submit a PR for this?
+      description: This is a perfect first issue! See `CONTRIBUTING.md` for a guide on how to add a language and test it.
+      options:
+        - label: "Yes, I would like to submit a PR!"
