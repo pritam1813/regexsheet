@@ -159,6 +159,14 @@ const { category } = Astro.props;
       try {
         await navigator.clipboard.writeText(syntax);
 
+        // Push event to GTM Data Layer
+        const win = window as any;
+        win.dataLayer = win.dataLayer || [];
+        win.dataLayer.push({
+          event: "copy_regex",
+          regex_syntax: syntax
+        });
+
         const tooltip = target.parentElement?.querySelector(".tooltip-text");
 
         if (tooltip) {
