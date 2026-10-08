@@ -1,0 +1,32 @@
+# Regex Cheat Sheet
+
+> A fast, free, open-source reference for regular expressions: character classes, anchors, quantifiers, groups, lookarounds, and flags across all major engines, plus engine-specific guides, real-world examples, and printable PDF cheat sheets.
+
+## Core Reference
+
+- [Universal Regex Cheat Sheet](https://regexsheet.com/): Baseline syntax shared across all major regex engines — character classes, anchors, quantifiers, groups, lookarounds, and flags.
+- [Real-World Regex Examples](https://regexsheet.com/examples): Ready-to-use patterns for email, URL, date, IPv4/IPv6, phone numbers, and more, with code snippets.
+- [Regex Cheat Sheet PDFs](https://regexsheet.com/pdf): Free printable single-page PDF cheat sheets for offline reference.
+
+## Language & Tool Guides
+
+- [Python Regex Guide](https://regexsheet.com/python): Python `re` module functions, Match objects, flags, named groups, and code recipes.
+- [JavaScript Regex Guide](https://regexsheet.com/javascript): RegExp object, `matchAll`, String methods, and JS flags (g, i, m, y, u, v).
+- [Java Regex Guide](https://regexsheet.com/java): `java.util.regex` Pattern, Matcher, and group handling.
+- [C# Regex Guide](https://regexsheet.com/csharp): .NET `System.Text.RegularExpressions`, Match/Group APIs, and RegexOptions.
+- [SQL Regex Guide](https://regexsheet.com/sql): REGEXP_LIKE, REGEXP_SUBSTR, REGEXP_REPLACE, PostgreSQL POSIX operators, MySQL RLIKE, BigQuery, Snowflake, and T-SQL.
+- [R Regex Guide](https://regexsheet.com/r): Base R and stringr pattern matching.
+- [Perl Regex Guide](https://regexsheet.com/perl): Pattern binding operators, modifiers, and PCRE features.
+- [Grep Regex Guide](https://regexsheet.com/grep): CLI options, flags, ERE/PCRE modes, and shell recipes.
+- [Vim Regex Guide](https://regexsheet.com/vim): Vim search, substitute, and magic modes.
+- [Notepad++ Regex Guide](https://regexsheet.com/notepad-plus-plus): Find and replace with regex in Notepad++.
+
+## About
+
+- [About RegexSheet](https://regexsheet.com/about): Mission, open-source contribution info, and maintainer details.
+
+## Notes for AI Consumers
+
+- The interactive tester at https://regexsheet.com/tester is a client-side tool (noindex); prefer linking readers to the static guides above.
+- PDF downloads for each engine are hosted under https://regexsheet.com/pdfs/.
+- All guide pages are static content suitable for citation and summarization.
