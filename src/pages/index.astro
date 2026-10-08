@@ -7,7 +7,7 @@ import RegexTable from "../components/RegexTable.astro";
 import NavCard from "../components/NavCard.astro";
 import FaqSection from "../components/FaqSection.astro";
 import SiteFooter from "../components/SiteFooter.astro";
-import { universalRegex, navCards } from "../data/regex";
+import { universalRegex, navCards, allGuides } from "../data/regex";
 ---
 
 <Layout
@@ -40,6 +40,19 @@ import { universalRegex, navCards } from "../data/regex";
       </div>
       <div class="cards-grid">
         {navCards.map((card) => <NavCard card={card} />)}
+      </div>
+      <h3 class="guides-heading" id="all-guides-title">All guides</h3>
+      <div
+        class="guides-grid"
+        role="list"
+        aria-labelledby="all-guides-title"
+      >
+        {allGuides.map((guide) => (
+          <a href={guide.href} class="guide-chip" role="listitem" aria-label={guide.label}>
+            <span class="guide-chip-icon" aria-hidden="true">{guide.icon}</span>
+            <span class="guide-chip-title">{guide.title}</span>
+          </a>
+        ))}
       </div>
     </section>
 
@@ -93,9 +106,76 @@ import { universalRegex, navCards } from "../data/regex";
     gap: var(--space-md);
   }
 
+  .guides-heading {
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-muted);
+    margin: var(--space-xl) 0 var(--space-md) 0;
+  }
+
+  .guides-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: var(--space-sm);
+  }
+
+  .guide-chip {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    color: inherit;
+    box-shadow: var(--shadow-card);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease, background 0.15s ease;
+  }
+
+  .guide-chip:hover {
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-2px);
+    background: var(--color-surface-raised);
+  }
+
+  .guide-chip:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  .guide-chip-icon {
+    font-size: 1.125rem;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .guide-chip-title {
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  @media (max-width: 1024px) {
+    .guides-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
   @media (max-width: 640px) {
     .cards-grid {
       grid-template-columns: 1fr;
+    }
+    .guides-grid {
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 </style>

@@ -385,10 +385,10 @@ export const pythonNavCards: NavCard[] = [
     icon: "⚡",
   },
   {
-    href: "/pdf",
-    title: "Download PDF",
+    href: "/vim",
+    title: "Vim / Neovim",
     description:
-      "Printable one-page regex reference card for offline desktop use.",
-    icon: "📄",
+      "Edit Python code with :%s substitutions and very-magic (\\v) patterns.",
+    icon: "🟢",
   },
 ];

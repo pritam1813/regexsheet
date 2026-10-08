@@ -231,10 +231,11 @@ export const javascriptNavCards: NavCard[] = [
     icon: "☕",
   },
   {
-    href: "/pdf",
-    title: "Download PDF",
-    description: "Printable one-page regex reference card for offline use.",
-    icon: "📄",
+    href: "/perl",
+    title: "Perl",
+    description:
+      "The PCRE roots of JavaScript regex — binding operators, modifiers, and s///.",
+    icon: "🐪",
   },
   {
     href: "/examples",

@@ -617,11 +617,11 @@ export const examplesNavCards: NavCard[] = [
     icon: "🐍",
   },
   {
-    href: "/java",
-    title: "Java",
+    href: "/grep",
+    title: "Grep",
     description:
-      "java.util.regex — Pattern, Matcher, and Java engine specifics.",
-    icon: "☕",
+      "Run these patterns from the terminal — recursive search, -P (PCRE), and output flags.",
+    icon: "🔍",
   },
   {
     href: "/r",

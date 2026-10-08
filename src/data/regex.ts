@@ -310,3 +310,27 @@ export const navCards: NavCard[] = [
     icon: "⚡",
   },
 ];
+
+export interface GuideLink {
+  href: string;
+  title: string;
+  label: string;
+  icon: string;
+}
+
+// Every engine/tool guide, for the compact homepage directory.
+// Keeps all guides one click from the highest-authority page.
+export const allGuides: GuideLink[] = [
+  { href: "/javascript", title: "JavaScript", label: "JavaScript regex cheat sheet", icon: "💛" },
+  { href: "/python", title: "Python", label: "Python regex cheat sheet", icon: "🐍" },
+  { href: "/csharp", title: "C#", label: "C# regex cheat sheet", icon: "🔷" },
+  { href: "/java", title: "Java", label: "Java regex cheat sheet", icon: "☕" },
+  { href: "/r", title: "R", label: "R regex cheat sheet", icon: "📊" },
+  { href: "/sql", title: "SQL", label: "SQL regex cheat sheet", icon: "🗄️" },
+  { href: "/perl", title: "Perl", label: "Perl regex cheat sheet", icon: "🐪" },
+  { href: "/grep", title: "Grep", label: "Grep regex cheat sheet", icon: "🔍" },
+  { href: "/vim", title: "Vim", label: "Vim regex cheat sheet", icon: "🟢" },
+  { href: "/notepad-plus-plus", title: "Notepad++", label: "Notepad++ regex cheat sheet", icon: "📝" },
+  { href: "/examples", title: "Examples", label: "Real-world regex examples", icon: "⚡" },
+  { href: "/pdf", title: "PDF", label: "Printable regex cheat sheet PDFs", icon: "📄" },
+];
