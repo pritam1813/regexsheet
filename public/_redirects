@@ -1,0 +1,33 @@
+# Permanent redirects for legacy .html URLs (pre directory-format deployment)
+# and trailing-slash variants. Keeps all link equity on the canonical
+# clean URLs (trailingSlash: 'never') with 301 instead of the
+# platform-default temporary 307.
+/index.html / 301
+/about.html /about 301
+/csharp.html /csharp 301
+/examples.html /examples 301
+/grep.html /grep 301
+/java.html /java 301
+/javascript.html /javascript 301
+/notepad-plus-plus.html /notepad-plus-plus 301
+/pdf.html /pdf 301
+/perl.html /perl 301
+/python.html /python 301
+/r.html /r 301
+/sql.html /sql 301
+/vim.html /vim 301
+/tester.html /tester 301
+/about/ /about 301
+/csharp/ /csharp 301
+/examples/ /examples 301
+/grep/ /grep 301
+/java/ /java 301
+/javascript/ /javascript 301
+/notepad-plus-plus/ /notepad-plus-plus 301
+/pdf/ /pdf 301
+/perl/ /perl 301
+/python/ /python 301
+/r/ /r 301
+/sql/ /sql 301
+/tester/ /tester 301
+/vim/ /vim 301
