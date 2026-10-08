@@ -8,7 +8,7 @@ export default defineConfig({
   site: 'https://regexsheet.com',
   trailingSlash: 'never',
   build: {
-    format: 'file',
+    format: 'directory',
   },
   integrations: [
     sitemap({
@@ -16,7 +16,8 @@ export default defineConfig({
         !page.includes('/404') &&
         !page.includes('/privacy') &&
         !page.includes('/terms') &&
-        !page.includes('/contact'),
+        !page.includes('/contact') &&
+        !page.includes('/tester'),
     }),
   ],
   vite: {

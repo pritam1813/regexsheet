@@ -7,19 +7,28 @@ interface Props {
   title?: string;
   description?: string;
   image?: string;
+  noindex?: boolean;
 }
 
 const {
   title = "Regex Cheat Sheet",
   description = "A universal reference for regular expressions — character classes, anchors, quantifiers, groups, lookarounds, and flags across all major engines.",
   image = "/og-image.jpg",
+  noindex = false,
 } = Astro.props;
 
 let path = Astro.url.pathname;
+// Normalize to clean canonical URL regardless of build.format:
+// /index.html -> /, /python.html -> /python, /python/ -> /python
+if (path.endsWith("/index.html")) {
+  path = path.slice(0, -"/index.html".length) || "/";
+} else if (path.endsWith(".html")) {
+  path = path.slice(0, -".html".length) || "/";
+}
 if (path.length > 1 && path.endsWith("/")) {
   path = path.slice(0, -1);
 }
-const canonicalURL = new URL(path, Astro.site);
+const canonicalURL = new URL(path === "/" ? "/" : path, Astro.site);
 ---
 
 <!doctype html>
@@ -56,6 +65,7 @@ const canonicalURL = new URL(path, Astro.site);
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
