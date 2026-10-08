@@ -1,0 +1,15 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "astro-docs": {
+      "type": "remote",
+      "url": "https://mcp.docs.astro.build/mcp",
+      "enabled": true
+    },
+    "cloudflare": {
+      "type": "remote",
+      "url": "https://mcp.cloudflare.com/mcp",
+      "enabled": true
+    }
+  }
+}

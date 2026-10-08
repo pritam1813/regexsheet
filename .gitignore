@@ -24,7 +24,6 @@ pnpm-debug.log*
 .idea/
 
 # Agent skills references
-.agents/skills/*/references/docs/
-.agents/skills/*/references/docs-index.tsx
+.agents/
 .claude/skills/*/references/docs/
 .claude/skills/*/references/docs-index.tsx
